@@ -529,14 +529,20 @@ p {
   font-size: 16px;
 }
 
-.check-circle {
+.idea-icon {
   flex: none;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--basil);
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+
+.kicker {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tomato);
 }
 
 /* ---------- Sections ---------- */
@@ -667,6 +673,156 @@ p {
 .chip.past {
   color: var(--stone);
   background: #efebe4;
+}
+
+/* Recommendations: tonight's recipe and the next list */
+.ideas-section {
+  background: var(--white);
+  border-top: 1px solid var(--crust);
+  border-bottom: 1px solid var(--crust);
+}
+
+.center-head .lead {
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: balance;
+}
+
+.soon-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--crust);
+  color: var(--stone);
+  font-size: 13px;
+  vertical-align: 1px;
+}
+
+.ideas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 72px;
+}
+
+.idea {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 40px 44px 48px;
+  border-radius: 36px;
+}
+
+.idea-label {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: -0.025em;
+}
+
+.idea-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px;
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: 0 1px 2px rgba(34, 32, 28, 0.06), 0 16px 36px rgba(34, 32, 28, 0.1);
+}
+
+.idea-card h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.items {
+  list-style: none;
+  margin: 10px 0 8px;
+  padding: 0;
+}
+
+.items li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-top: 1px solid var(--crust);
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.items .chip {
+  margin-left: auto;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.tick {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--basil);
+}
+
+.ring {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--crust);
+}
+
+.items .need {
+  color: var(--stone);
+}
+
+.add {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tomato);
+}
+
+.ask {
+  align-self: flex-start;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--paper);
+  border: 1px solid var(--crust);
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.left-out {
+  margin-top: auto;
+  font-size: 15px;
+  color: var(--stone);
+}
+
+/* A picture of a button, not a real one. */
+.idea-card .btn {
+  align-self: flex-start;
+  margin-top: 8px;
+  pointer-events: none;
+}
+
+.fits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--basil-deep);
 }
 
 /* Statement: the brand's dark color */
@@ -1044,6 +1200,7 @@ p {
 
   .steps,
   .spotlight,
+  .ideas,
   .essence,
   .say,
   .rules {
@@ -1137,6 +1294,19 @@ p {
   .panel {
     padding: 28px 20px;
     border-radius: 28px;
+  }
+
+  .idea {
+    padding: 28px 20px 32px;
+    border-radius: 28px;
+  }
+
+  .idea-label {
+    font-size: 28px;
+  }
+
+  .idea-card {
+    padding: 22px;
   }
 
   .big-row {
