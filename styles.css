@@ -1061,7 +1061,7 @@ p {
 
 .type-row {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 280px 1fr;
   gap: 32px;
   align-items: center;
   padding: 44px 0;
@@ -1183,6 +1183,172 @@ p {
   font-size: 18px;
 }
 
+/* Brand page: the reason behind each choice */
+.why {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  max-width: 46em;
+  margin-top: 40px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.why span {
+  flex: none;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--sprout-tint);
+  color: var(--basil);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.journey,
+.themes,
+.tool-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.journey {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  counter-reset: step;
+}
+
+.journey li {
+  counter-increment: step;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px;
+  border-radius: 24px;
+  background: var(--white);
+  border: 1px solid var(--crust);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.journey li::before,
+.themes li::before {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--basil);
+}
+
+.journey li::before {
+  content: counter(step, decimal-leading-zero);
+}
+
+.journey .when {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+
+.brand-exp,
+.sub-eyebrow {
+  margin-top: 64px;
+}
+
+.big-quote,
+.b-section .tagline {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+.big-quote {
+  max-width: 20em;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.12;
+}
+
+.b-section .tagline {
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 1.05;
+}
+
+.b-section .tagline span {
+  color: var(--basil);
+}
+
+.themes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  counter-reset: theme;
+}
+
+.themes li {
+  counter-increment: theme;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 18px;
+  border-top: 3px solid var(--sprout);
+  font-size: 16px;
+  color: var(--stone);
+}
+
+.themes li::before {
+  content: counter(theme, decimal-leading-zero);
+}
+
+.themes strong {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.tool-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--crust);
+}
+
+.tool-list strong {
+  font-size: 20px;
+}
+
+.pick {
+  align-self: start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--stone-tint);
+  color: var(--stone);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.pick.yes {
+  background: var(--sprout-tint);
+  color: var(--basil);
+}
+
+.reason {
+  grid-column: 1 / -1;
+  font-size: 17px;
+  color: var(--stone);
+}
+
 /* ---------- Smaller screens ---------- */
 
 @media (max-width: 960px) {
@@ -1203,8 +1369,14 @@ p {
   .ideas,
   .essence,
   .say,
-  .rules {
+  .rules,
+  .tools {
     grid-template-columns: 1fr;
+  }
+
+  .journey,
+  .themes {
+    grid-template-columns: 1fr 1fr;
   }
 
   .steps {
@@ -1363,8 +1535,15 @@ p {
   }
 
   .logo-row,
-  .swatches.core {
+  .swatches.core,
+  .journey,
+  .themes {
     grid-template-columns: 1fr;
+  }
+
+  .why {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .swatches.support {
