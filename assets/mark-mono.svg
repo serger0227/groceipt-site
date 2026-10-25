@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Groceipt">
+  <rect width="512" height="512" rx="116" fill="#22201C"/>
+  <g transform="translate(0 6)">
+    <!-- The receipt: rounded top corners, torn zigzag bottom -->
+    <path d="M152 124a24 24 0 0 1 24-24h160a24 24 0 0 1 24 24v276l-26-20-26 20-26-20-26 20-26-20-26 20-26-20-26 20z" fill="#FFFFFF"/>
+    <!-- A basil sprout, printed where a store's logo would be -->
+    <path d="M256 216V184" stroke="#22201C" stroke-width="10" stroke-linecap="round"/>
+    <path transform="translate(256 188) rotate(48)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#22201C"/>
+    <path transform="translate(256 192) rotate(-54) scale(0.72)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#22201C"/>
+    <!-- Two item lines with prices, then the total -->
+    <rect x="184" y="250" width="88" height="14" rx="7" fill="#22201C"/>
+    <rect x="290" y="250" width="38" height="14" rx="7" fill="#22201C"/>
+    <rect x="184" y="282" width="64" height="14" rx="7" fill="#22201C"/>
+    <rect x="290" y="282" width="38" height="14" rx="7" fill="#22201C"/>
+    <rect x="184" y="324" width="52" height="16" rx="8" fill="#22201C"/>
+    <rect x="276" y="324" width="52" height="16" rx="8" fill="#22201C"/>
+  </g>
+</svg>
