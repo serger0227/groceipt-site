@@ -1,24 +1,24 @@
 /* Groceipt website (beta). Colors, fonts and shapes follow brand/brand-standards.md. */
 
 :root {
-  --tomato: #c8402b;
-  --tomato-deep: #a3321f;
+  /* Primary: bright Sprout green (fills, buttons, the logo) with Ink text on it. */
+  --sprout: #3cb54a;
+  --sprout-hover: #4dc45b;
+  --sprout-tint: #e4f4e6;
+  /* Basil: the same green, deep enough for words and icons ("Fresh", links, labels). */
+  --basil: #1f7a3f;
   --ink: #22201c;
   --paper: #faf7f2;
   --white: #ffffff;
-  --basil: #3f7d4e;
-  --basil-deep: #2f6b3f;
   --saffron: #94650a;
   --saffron-deep: #7a5308;
-  --stone: #6b655c;
-  --crust: #e8e2d8;
-  --tomato-tint: #f8e1dc;
-  --basil-tint: #e3efe4;
   --saffron-tint: #f6e7c4;
+  --stone: #6b655c;
+  --stone-tint: #efebe4;
+  --crust: #e8e2d8;
   --espresso: #1a1714;
   --cream: #f3eee6;
   --cream-muted: #b3ab9f;
-  --tomato-light: #f0705a;
 
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -123,7 +123,7 @@ p {
 .eyebrow {
   font-weight: 600;
   font-size: 16px;
-  color: var(--tomato);
+  color: var(--basil);
   margin-bottom: 18px;
 }
 
@@ -192,7 +192,7 @@ p {
 
 .nav a:hover,
 .footer-links a:hover {
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 /* ---------- Buttons ---------- */
@@ -204,8 +204,8 @@ p {
   height: 42px;
   padding: 0 20px;
   border-radius: 999px;
-  background: var(--tomato);
-  color: var(--white);
+  background: var(--sprout);
+  color: var(--ink);
   font-weight: 600;
   font-size: 15px;
   white-space: nowrap;
@@ -213,7 +213,7 @@ p {
 }
 
 .btn:hover {
-  background: var(--tomato-deep);
+  background: var(--sprout-hover);
 }
 
 .btn-lg {
@@ -246,7 +246,7 @@ p {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--tomato);
+  background: var(--sprout);
 }
 
 .hero .display {
@@ -259,7 +259,7 @@ p {
   font-weight: 500;
   font-size: clamp(26px, 3.4vw, 44px);
   letter-spacing: -0.02em;
-  color: var(--tomato);
+  color: var(--basil);
   text-wrap: balance;
 }
 
@@ -291,7 +291,7 @@ p {
   height: 640px;
   margin-left: -320px;
   border-radius: 50%;
-  background: var(--tomato-tint);
+  background: var(--sprout-tint);
 }
 
 .phone {
@@ -355,7 +355,7 @@ p {
 }
 
 .screen .camera {
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 .screen .banner {
@@ -446,7 +446,7 @@ p {
 }
 
 .screen .tab.on {
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 /* A paper receipt */
@@ -497,7 +497,7 @@ p {
 
 .receipt .total {
   font-weight: 500;
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 .stage-receipt {
@@ -542,7 +542,7 @@ p {
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 /* ---------- Sections ---------- */
@@ -591,12 +591,12 @@ p {
   color: var(--stone);
 }
 
-.tint-tomato {
-  background: var(--tomato-tint);
+.tint-sprout {
+  background: var(--sprout-tint);
 }
 
-.tint-basil {
-  background: var(--basil-tint);
+.tint-stone {
+  background: var(--stone-tint);
 }
 
 .tint-saffron {
@@ -617,7 +617,7 @@ p {
 
 .panel {
   border-radius: 36px;
-  background: var(--basil-tint);
+  background: var(--sprout-tint);
   padding: 56px 44px;
   display: flex;
   flex-direction: column;
@@ -659,10 +659,10 @@ p {
   background: currentColor;
 }
 
-/* Deeper text colors on the tints, so the words pass contrast (5.38 and 5.59). */
+/* Deep text colors on the tints, so the words pass contrast (4.70 and 5.59). */
 .chip.fresh {
-  color: var(--basil-deep);
-  background: var(--basil-tint);
+  color: var(--basil);
+  background: var(--sprout-tint);
 }
 
 .chip.soon {
@@ -672,7 +672,7 @@ p {
 
 .chip.past {
   color: var(--stone);
-  background: #efebe4;
+  background: var(--stone-tint);
 }
 
 /* Recommendations: tonight's recipe and the next list */
@@ -788,7 +788,7 @@ p {
   margin-left: auto;
   font-size: 14px;
   font-weight: 600;
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 .ask {
@@ -822,7 +822,7 @@ p {
   margin-top: 40px;
   font-weight: 600;
   font-size: 18px;
-  color: var(--basil-deep);
+  color: var(--basil);
 }
 
 /* Statement: the brand's dark color */
@@ -834,7 +834,7 @@ p {
 }
 
 .statement .accent {
-  color: var(--tomato-light);
+  color: var(--sprout);
 }
 
 .statement p {
@@ -843,11 +843,11 @@ p {
   color: var(--cream-muted);
 }
 
-/* Join the beta: a tomato receipt, torn at the bottom */
+/* Join the beta: a Sprout-green receipt, torn at the bottom */
 .cta {
   --tooth: 26px;
-  background: var(--tomato);
-  color: var(--white);
+  background: var(--sprout);
+  color: var(--ink);
   padding: 140px 0 calc(140px + var(--tooth));
   text-align: center;
 }
@@ -861,7 +861,7 @@ p {
   display: inline-block;
   margin-top: 44px;
   padding: 14px 28px;
-  border: 2px dashed rgba(255, 255, 255, 0.85);
+  border: 2px dashed rgba(34, 32, 28, 0.6);
   border-radius: 999px;
   font-weight: 600;
   font-size: 18px;
@@ -924,7 +924,7 @@ p {
   font-family: var(--mono);
   font-weight: 500;
   font-size: 15px;
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 .essence {
@@ -1120,7 +1120,7 @@ p {
 }
 
 .traits span {
-  color: var(--tomato);
+  color: var(--basil);
 }
 
 .say {
@@ -1140,7 +1140,7 @@ p {
 }
 
 .say-card.yes {
-  background: var(--basil-tint);
+  background: var(--sprout-tint);
 }
 
 .say-card.no {
@@ -1160,7 +1160,7 @@ p {
 }
 
 .say-card.yes .eyebrow {
-  color: var(--basil-deep);
+  color: var(--basil);
 }
 
 .say-card.no .eyebrow {

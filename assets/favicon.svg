@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Groceipt">
   <!-- For 16 to 48 px: no item lines, a bigger sprout -->
-  <rect width="512" height="512" rx="116" fill="#C8402B"/>
+  <rect width="512" height="512" rx="116" fill="#3CB54A"/>
   <path d="M136 120a24 24 0 0 1 24-24h192a24 24 0 0 1 24 24v292l-30-24-30 24-30-24-30 24-30-24-30 24-30-24-30 24z" fill="#FAF7F2"/>
-  <path d="M256 330V250" stroke="#3F7D4E" stroke-width="22" stroke-linecap="round"/>
-  <path transform="translate(256 258) rotate(48) scale(1.9)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#3F7D4E"/>
-  <path transform="translate(256 266) rotate(-54) scale(1.4)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#3F7D4E"/>
+  <path d="M256 330V250" stroke="#1F7A3F" stroke-width="22" stroke-linecap="round"/>
+  <path transform="translate(256 258) rotate(48) scale(1.9)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#1F7A3F"/>
+  <path transform="translate(256 266) rotate(-54) scale(1.4)" d="M0 0C-21 -14 -21 -54 0 -70C21 -54 21 -14 0 0Z" fill="#1F7A3F"/>
 </svg>
