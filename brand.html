@@ -3,338 +3,166 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Groceipt brand standards</title>
-    <meta name="description" content="How Groceipt looks and sounds: purpose, voice, logo, colors and type." />
+    <title>Groceipt · Brand guidelines</title>
+    <meta name="description" content="The Groceipt brand: logo, colors, type and voice." />
     <meta name="theme-color" content="#FAF7F2" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400;600;700&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="brand-page">
+  <body>
     <a class="skip" href="#main">Skip to the main content</a>
 
     <header class="site-header">
-      <div class="wrap">
+      <div class="wrap bar">
         <a class="lockup" href="index.html" aria-label="Groceipt home">
-          <img src="assets/mark.svg" alt="" width="38" height="38" />
+          <img src="assets/mark.svg" alt="" width="34" height="34" />
           Groceipt
         </a>
-        <nav class="nav" aria-label="Brand standards">
-          <a href="#who">Who we are</a>
-          <a href="#voice">Voice</a>
+        <nav class="nav" aria-label="Brand guidelines">
           <a href="#logo">Logo</a>
           <a href="#color">Color</a>
           <a href="#type">Type</a>
+          <a href="#voice">Voice</a>
         </nav>
-        <a class="btn btn-small btn-quiet" href="index.html">Back to the site</a>
+        <a class="btn" href="index.html#beta">Join the beta</a>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero brand-hero">
+      <section class="brand-hero">
         <div class="wrap">
-          <p class="label">Brand standards · Version 1 · October 2026</p>
-          <h1>How Groceipt looks and sounds.</h1>
-          <p class="lede">The app and this website follow these rules. Each one comes from our purpose, our customer and our promise.</p>
+          <p class="eyebrow">Brand guidelines</p>
+          <h1 class="display">The Groceipt brand.</h1>
+          <p class="lead">Warm, practical and as simple as a receipt.</p>
         </div>
       </section>
 
-      <!-- 1. Who we are -->
-      <section id="who" class="section band">
+      <!-- 01 Who we are -->
+      <section class="b-section" aria-labelledby="who-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">01 · Who we are</p>
-            <h2>Purpose, customer and promise.</h2>
+          <div class="b-head">
+            <span class="b-num">01</span>
+            <h2 id="who-title" class="display-2">Who we are.</h2>
           </div>
-          <div class="grid-3">
-            <article class="card">
-              <p class="label muted-label">Purpose</p>
-              <h3>Help a household get the most out of the food it buys.</h3>
-            </article>
-            <article class="card">
-              <p class="label muted-label">Target customer</p>
-              <h3>People who cook most meals at home and shop about once a week.</h3>
-              <p class="muted">Singles, couples, roommates and families. They mean well at the store, then find wilted spinach on Friday. They want to spend less without tracking every meal.</p>
-            </article>
-            <article class="card">
-              <p class="label muted-label">Value proposition</p>
-              <h3>One receipt scan a week does the work.</h3>
-              <p class="muted">Groceipt turns it into a Kitchen that knows what you have and what to use first. It shows what you spend and waste. No daily logging.</p>
-            </article>
-          </div>
-          <blockquote class="positioning">
-            <p>For weekly home cooks who hate wasting food and money, Groceipt is the grocery app that starts with your receipt.</p>
-            <p>Unlike calorie trackers and pantry apps, it takes about 30 seconds a week and never asks you to log meals.</p>
-            <footer class="label muted-label">Positioning statement</footer>
-          </blockquote>
-        </div>
-      </section>
-
-      <!-- 2. Voice and messaging -->
-      <section id="voice" class="section">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="label">02 · Voice and messaging</p>
-            <h2>A friend who’s good in the kitchen.</h2>
-            <p class="lede">Someone who helps and never judges.</p>
-          </div>
-
-          <h3 class="sub">Personality</h3>
-          <div class="grid-4">
-            <article class="card trait">
-              <h3>Warm</h3>
-              <p>Kind, calm, on your side.</p>
-              <p class="not">Not cutesy or full of exclamation marks.</p>
-            </article>
-            <article class="card trait">
-              <h3>Practical</h3>
-              <p>Short, clear, useful right now.</p>
-              <p class="not">Not clinical or full of jargon.</p>
-            </article>
-            <article class="card trait">
-              <h3>Encouraging</h3>
-              <p>We celebrate small wins.</p>
-              <p class="not">Not preachy, pushy or guilt-tripping.</p>
-            </article>
-            <article class="card trait">
-              <h3>Honest</h3>
-              <p>We say “about” when we’re guessing.</p>
-              <p class="not">Not alarmist, or more certain than we are.</p>
-            </article>
-          </div>
-
-          <h3 class="sub">Tagline</h3>
-          <div class="tagline-card receipt-wrap">
-            <div class="torn tagline-inner">
-              <p class="label">Main tagline</p>
-              <p class="tagline">Snap your receipt. <span class="accent">Eat better, waste less, spend less.</span></p>
-              <div class="tagline-more">
-                <div>
-                  <p class="label muted-label">Short version</p>
-                  <p>Eat better. Waste less. Spend less.</p>
-                </div>
-                <div>
-                  <p class="label muted-label">Descriptor</p>
-                  <p>The grocery app that starts with your receipt.</p>
-                </div>
-              </div>
+          <div class="essence">
+            <div>
+              <p class="eyebrow">Purpose</p>
+              <p>Help households get the most out of their food.</p>
             </div>
-          </div>
-
-          <h3 class="sub">Core marketing themes</h3>
-          <div class="grid-4">
-            <article class="card theme">
-              <span class="step-number">01</span>
-              <h3>30 seconds, once a week</h3>
-              <p class="muted">Scan the receipt and you’re done. No daily logging, no calorie counting.</p>
-            </article>
-            <article class="card theme">
-              <span class="step-number">02</span>
-              <h3>Use it before you lose it</h3>
-              <p class="muted">The Kitchen knows what you bought and what to use first.</p>
-            </article>
-            <article class="card theme">
-              <span class="step-number">03</span>
-              <h3>See where the money goes</h3>
-              <p class="muted">Spending and waste in dollars, with no guilt attached.</p>
-            </article>
-            <article class="card theme">
-              <span class="step-number">04</span>
-              <h3>Better, your way</h3>
-              <p class="muted">A score for what you bought, not what you ate. Diets and allergies come first.</p>
-            </article>
-          </div>
-
-          <h3 class="sub">How we write</h3>
-          <div class="say-grid">
-            <table class="say">
-              <thead>
-                <tr><th scope="col">Say this</th><th scope="col">Not this</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Spinach and chicken should be used by Thursday.</td><td>WARNING: 2 items expiring!</td></tr>
-                <tr><td>About $8 of food went unused this month.</td><td>You wasted $8!</td></tr>
-                <tr><td>Add a few more vegetables next trip.</td><td>Stop buying junk food.</td></tr>
-                <tr><td>Probably past it</td><td>Expired / Rotten</td></tr>
-              </tbody>
-            </table>
-            <div class="card rules">
-              <ul>
-                <li>Plain words. No sentence over 20 words.</li>
-                <li>Estimates say “about.”</li>
-                <li>Food status is always in words, never color alone.</li>
-                <li>Say what to do next, not what went wrong.</li>
-                <li>Nutrition scores carry “Not medical advice.”</li>
-              </ul>
-              <p class="label muted-label">Words we never use</p>
-              <p class="never">
-                <span>bad foods</span><span>junk</span><span>cheat day</span><span>guilt-free</span><span>detox</span><span>cleanse</span><span>clean eating</span><span>skinny</span>
-              </p>
+            <div>
+              <p class="eyebrow">Customer</p>
+              <p>Home cooks who shop about once a week.</p>
+            </div>
+            <div>
+              <p class="eyebrow">Promise</p>
+              <p>One receipt scan a week does the work.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 3. Logo -->
-      <section id="logo" class="section band">
+      <!-- 02 Logo -->
+      <section id="logo" class="b-section" aria-labelledby="logo-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">03 · Logo</p>
-            <h2>A receipt that grows food.</h2>
-            <p class="lede">A grocery receipt with a basil sprout where the store’s logo would be. Every receipt holds fresh food, and money worth saving.</p>
+          <div class="b-head">
+            <span class="b-num">02</span>
+            <h2 id="logo-title" class="display-2">A receipt that grows food.</h2>
           </div>
-          <div class="logo-tiles">
+          <div class="logo-hero">
+            <span class="lockup"><img src="assets/mark.svg" alt="" width="116" height="116" />Groceipt</span>
+          </div>
+          <div class="logo-row">
             <figure class="logo-tile">
-              <img src="assets/mark.svg" alt="The Groceipt mark: a white receipt with a green sprout, on a tomato-red square." width="160" height="160" />
+              <img src="assets/mark.svg" alt="The Groceipt app icon" width="120" height="120" />
               <figcaption>App icon</figcaption>
             </figure>
-            <figure class="logo-tile white">
-              <span class="lockup big"><img src="assets/mark.svg" alt="" width="64" height="64" />Groceipt</span>
-              <figcaption>Horizontal lockup</figcaption>
-            </figure>
             <figure class="logo-tile dark">
-              <span class="lockup big on-dark"><img src="assets/mark.svg" alt="" width="64" height="64" />Groceipt</span>
+              <span class="lockup"><img src="assets/mark.svg" alt="" width="34" height="34" />Groceipt</span>
               <figcaption>On dark</figcaption>
             </figure>
-            <figure class="logo-tile white">
-              <img src="assets/mark-mono.svg" alt="The one-color Groceipt mark in Ink." width="120" height="120" />
+            <figure class="logo-tile">
+              <img src="assets/mark-mono.svg" alt="The one-color Groceipt mark" width="110" height="110" />
               <figcaption>One color</figcaption>
             </figure>
           </div>
-          <div class="grid-2 logo-rules">
-            <div class="card">
-              <h3>Do</h3>
-              <ul>
-                <li>Leave the sprout’s height empty on every side.</li>
-                <li>Keep the mark at least 24 px tall, the lockup 120 px wide.</li>
-                <li>Use the one-color version when only one ink is possible.</li>
-              </ul>
-            </div>
-            <div class="card">
-              <h3>Don’t</h3>
-              <ul>
-                <li>Put the green sprout straight onto Tomato red. They have the same brightness, so it vanishes for color-blind people.</li>
-                <li>Stretch, rotate, outline or add shadows.</li>
-                <li>Place it on busy photos.</li>
-              </ul>
-            </div>
-          </div>
+          <p class="note">A basil sprout sits where a store’s logo would be. Never put the sprout straight on Tomato.</p>
         </div>
       </section>
 
-      <!-- 4. Color -->
-      <section id="color" class="section">
+      <!-- 03 Color -->
+      <section id="color" class="b-section" aria-labelledby="color-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">04 · Color palette</p>
-            <h2>Warm and papery, like a clean receipt.</h2>
-            <p class="lede">Mostly Paper and white. Ink for words. Tomato for the one main action. The app uses the same colors.</p>
+          <div class="b-head">
+            <span class="b-num">03</span>
+            <h2 id="color-title" class="display-2">Paper, ink and tomato.</h2>
           </div>
-
-          <h3 class="sub">Core</h3>
           <div class="swatches core">
-            <div class="swatch"><div class="chip" style="background: #c8402b"><span style="color: #fff">Aa 4.97</span></div><div class="info"><strong>Tomato</strong><span>#C8402B</span><span>RGB 200, 64, 43</span><span class="use">Main buttons, links, the logo</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #22201c"><span style="color: #faf7f2">Aa 15.22</span></div><div class="info"><strong>Ink</strong><span>#22201C</span><span>RGB 34, 32, 28</span><span class="use">Headlines and body text</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #faf7f2"><span style="color: #22201c">Aa 15.22</span></div><div class="info"><strong>Paper</strong><span>#FAF7F2</span><span>RGB 250, 247, 242</span><span class="use">Page background</span></div></div>
+            <div class="swatch" style="background: #c8402b"><strong>Tomato</strong><span>#C8402B</span><span>RGB 200 64 43</span></div>
+            <div class="swatch" style="background: #22201c"><strong>Ink</strong><span>#22201C</span><span>RGB 34 32 28</span></div>
+            <div class="swatch light" style="background: #faf7f2"><strong>Paper</strong><span>#FAF7F2</span><span>RGB 250 247 242</span></div>
           </div>
-
-          <h3 class="sub">Supporting</h3>
-          <div class="swatches">
-            <div class="swatch"><div class="chip" style="background: #3f7d4e"><span style="color: #fff">Aa 4.94</span></div><div class="info"><strong>Basil</strong><span>#3F7D4E</span><span>RGB 63, 125, 78</span><span class="use">“Fresh”, the sprout</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #94650a"><span style="color: #fff">Aa 5.09</span></div><div class="info"><strong>Saffron</strong><span>#94650A</span><span>RGB 148, 101, 10</span><span class="use">“Use soon”, highlights</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #6b655c"><span style="color: #fff">Aa 5.77</span></div><div class="info"><strong>Stone</strong><span>#6B655C</span><span>RGB 107, 101, 92</span><span class="use">Secondary text</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #e8e2d8"></div><div class="info"><strong>Crust</strong><span>#E8E2D8</span><span>RGB 232, 226, 216</span><span class="use">Borders, never text</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #ffffff"></div><div class="info"><strong>Receipt white</strong><span>#FFFFFF</span><span>RGB 255, 255, 255</span><span class="use">Cards</span></div></div>
+          <div class="swatches support">
+            <div class="swatch" style="background: #3f7d4e"><strong>Basil</strong><span>#3F7D4E</span></div>
+            <div class="swatch" style="background: #94650a"><strong>Saffron</strong><span>#94650A</span></div>
+            <div class="swatch" style="background: #6b655c"><strong>Stone</strong><span>#6B655C</span></div>
+            <div class="swatch light" style="background: #e8e2d8"><strong>Crust</strong><span>#E8E2D8</span></div>
+            <div class="swatch" style="background: #1a1714"><strong>Espresso</strong><span>#1A1714</span></div>
           </div>
-
-          <h3 class="sub">Tints and dark mode</h3>
-          <div class="swatches">
-            <div class="swatch"><div class="chip" style="background: #f8e1dc"><span style="color: #22201c">Aa 13.01</span></div><div class="info"><strong>Tomato tint</strong><span>#F8E1DC</span><span>RGB 248, 225, 220</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #e3efe4"><span style="color: #22201c">Aa 13.73</span></div><div class="info"><strong>Basil tint</strong><span>#E3EFE4</span><span>RGB 227, 239, 228</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #f6e7c4"><span style="color: #22201c">Aa 13.28</span></div><div class="info"><strong>Saffron tint</strong><span>#F6E7C4</span><span>RGB 246, 231, 196</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #1a1714"><span style="color: #f3eee6">Aa 15.45</span></div><div class="info"><strong>Espresso</strong><span>#1A1714</span><span>RGB 26, 23, 20</span><span class="use">Dark mode background</span></div></div>
-            <div class="swatch"><div class="chip" style="background: #f0705a"><span style="color: #1a1714">Aa 6.09</span></div><div class="info"><strong>Light tomato</strong><span>#F0705A</span><span>RGB 240, 112, 90</span><span class="use">Dark mode buttons</span></div></div>
-          </div>
-          <p class="note">“Aa” shows the contrast ratio of that text color on the swatch. 4.5 or more passes the WCAG AA test for normal text.</p>
+          <p class="note">Mostly paper and white. Tomato for the main action. Every text color passes WCAG AA.</p>
         </div>
       </section>
 
-      <!-- 5. Typography -->
-      <section id="type" class="section band">
+      <!-- 04 Type -->
+      <section id="type" class="b-section" aria-labelledby="type-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">05 · Typography</p>
-            <h2>Three free Google Fonts.</h2>
-            <p class="lede">In the app, we use the iPhone’s own font, so text grows with the phone’s text size setting.</p>
+          <div class="b-head">
+            <span class="b-num">04</span>
+            <h2 id="type-title" class="display-2">Three typefaces.</h2>
           </div>
-          <div class="specimens">
-            <div class="specimen card">
-              <p class="label muted-label">Headlines · Fraunces SemiBold 600</p>
-              <p class="spec-serif">Use it before you lose it.</p>
-              <p class="muted">A soft, warm serif, like a well-loved recipe card.</p>
-            </div>
-            <div class="specimen card">
-              <p class="label muted-label">Body and buttons · Inter 400 and 600</p>
-              <p class="spec-sans">Your Kitchen fills up and shows what to use soon, so less food goes to waste.</p>
-              <p class="muted">Very clear at small sizes, close to the iPhone’s own font.</p>
-            </div>
-            <div class="specimen card">
-              <p class="label muted-label">Receipt details · DM Mono 500</p>
-              <div class="receipt spec-mono">
-                <div class="row"><span class="item">Baby spinach</span><span class="dots"></span><span class="price">3.49</span></div>
-                <div class="row total"><span class="item">TOTAL</span><span class="dots"></span><span class="price">28.24</span></div>
-              </div>
-              <p class="muted">Prices, totals and small labels. Numbers line up, like a printed receipt.</p>
-            </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Fraunces</strong><span>Headlines · SemiBold</span></div>
+            <p class="spec-serif">Snap your receipt.</p>
           </div>
-          <table class="scale">
-            <caption class="label muted-label">Sizes on the website</caption>
-            <tbody>
-              <tr><th scope="row">Headline</th><td>56 px · Fraunces 600</td></tr>
-              <tr><th scope="row">Section title</th><td>36–40 px · Fraunces 600</td></tr>
-              <tr><th scope="row">Card title</th><td>22 px · Fraunces 600</td></tr>
-              <tr><th scope="row">Body</th><td>18 px · Inter 400</td></tr>
-              <tr><th scope="row">Small</th><td>15 px · Inter 400</td></tr>
-              <tr><th scope="row">Receipt label</th><td>13 px · DM Mono 500, capitals, wide spacing</td></tr>
-            </tbody>
-          </table>
+          <div class="type-row">
+            <div class="type-meta"><strong>Inter</strong><span>Body and buttons</span></div>
+            <p class="spec-sans">Eat better, waste less, spend less.</p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>DM Mono</strong><span>Receipt details</span></div>
+            <p class="spec-mono"><span>TOTAL</span><span class="dots" aria-hidden="true"></span><span>28.24</span></p>
+          </div>
         </div>
       </section>
 
-      <!-- 6. In use -->
-      <section class="section" aria-labelledby="use-title">
+      <!-- 05 Voice -->
+      <section id="voice" class="b-section" aria-labelledby="voice-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">06 · In use</p>
-            <h2 id="use-title">Buttons, status and shapes.</h2>
+          <div class="b-head">
+            <span class="b-num">05</span>
+            <h2 id="voice-title" class="display-2">How we sound.</h2>
           </div>
-          <div class="grid-3">
-            <div class="card">
-              <p class="label muted-label">Buttons</p>
-              <div class="actions">
-                <span class="btn">Add to kitchen</span>
-                <span class="btn btn-quiet">Not now</span>
-              </div>
-              <p class="muted">One main Tomato button per screen.</p>
+          <p class="traits">Warm<span>.</span> Practical<span>.</span> Encouraging<span>.</span> Honest<span>.</span></p>
+          <div class="say">
+            <div class="say-card yes">
+              <p class="eyebrow">Say</p>
+              <p>Spinach should be used by Thursday.</p>
+              <p>About $8 of food went unused.</p>
             </div>
-            <div class="card">
-              <p class="label muted-label">Food status, always in words</p>
-              <p class="status-list">
-                <span class="status fresh">Fresh</span>
-                <span class="status soon">Use soon</span>
-                <span class="status past">Probably past it</span>
-              </p>
-              <p class="muted">The dot only helps. The word does the work.</p>
+            <div class="say-card no">
+              <p class="eyebrow">Not</p>
+              <p>WARNING: 2 items expiring!</p>
+              <p>You wasted $8!</p>
             </div>
-            <div class="card">
-              <p class="label muted-label">Signature shape</p>
-              <div class="torn-demo receipt-wrap"><div class="torn"></div></div>
-              <p class="muted">The torn receipt edge ends sections and cards. Use it sparingly.</p>
-            </div>
+          </div>
+          <div class="rules">
+            <p>One idea per section.</p>
+            <p>Headlines under six words.</p>
+            <p>Estimates say “about.”</p>
           </div>
         </div>
       </section>
@@ -342,20 +170,18 @@
 
     <footer class="site-footer">
       <div class="wrap">
-        <div>
+        <div class="footer-top">
           <a class="lockup" href="index.html" aria-label="Groceipt home">
-            <img src="assets/mark.svg" alt="" width="38" height="38" />
+            <img src="assets/mark.svg" alt="" width="34" height="34" />
             Groceipt
           </a>
-          <p class="muted" style="margin-top: 10px">Brand standards, version 1. A draft for the team to review.</p>
+          <nav class="footer-links" aria-label="Footer">
+            <a href="index.html#how">How it works</a>
+            <a href="brand.html">Brand</a>
+          </nav>
         </div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#color">Colors</a></li>
-          <li><a href="#type">Type</a></li>
-        </ul>
         <div class="fine">
-          <span>Fonts: Fraunces, Inter and DM Mono, free under the SIL Open Font License.</span>
+          <span>Fonts: Fraunces, Inter and DM Mono (Google Fonts, free).</span>
           <span>© 2026 Groceipt</span>
         </div>
       </div>
