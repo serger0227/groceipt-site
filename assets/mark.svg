@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Groceipt">
-  <rect width="512" height="512" rx="116" fill="#3CB54A"/>
+  <rect width="512" height="512" rx="116" fill="#80E85D"/>
   <g transform="translate(0 6)">
     <!-- The receipt: rounded top corners, torn zigzag bottom -->
     <path d="M152 124a24 24 0 0 1 24-24h160a24 24 0 0 1 24 24v276l-26-20-26 20-26-20-26 20-26-20-26 20-26-20-26 20z" fill="#FAF7F2"/>
@@ -12,7 +12,7 @@
     <rect x="290" y="250" width="38" height="14" rx="7" fill="#D9CFC0"/>
     <rect x="184" y="282" width="64" height="14" rx="7" fill="#D9CFC0"/>
     <rect x="290" y="282" width="38" height="14" rx="7" fill="#D9CFC0"/>
-    <rect x="184" y="324" width="52" height="16" rx="8" fill="#3CB54A"/>
-    <rect x="276" y="324" width="52" height="16" rx="8" fill="#3CB54A"/>
+    <rect x="184" y="324" width="52" height="16" rx="8" fill="#80E85D"/>
+    <rect x="276" y="324" width="52" height="16" rx="8" fill="#80E85D"/>
   </g>
 </svg>

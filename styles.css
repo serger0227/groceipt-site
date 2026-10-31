@@ -2,9 +2,9 @@
 
 :root {
   /* Primary: bright Sprout green (fills, buttons, the logo) with Ink text on it. */
-  --sprout: #3cb54a;
-  --sprout-hover: #4dc45b;
-  --sprout-tint: #e4f4e6;
+  --sprout: #80e85d;
+  --sprout-hover: #72dc4f;
+  --sprout-tint: #e8f9e2;
   /* Basil: the same green, deep enough for words and icons ("Fresh", links, labels). */
   --basil: #1f7a3f;
   --ink: #22201c;
