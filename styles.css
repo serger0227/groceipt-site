@@ -222,6 +222,26 @@ p {
   font-size: 18px;
 }
 
+/* Next to the main button: the same shape, quieter. */
+.btn-ghost {
+  background: transparent;
+  border: 2px solid var(--crust);
+}
+
+.btn-ghost:hover {
+  background: var(--white);
+}
+
+/* On the green closing section. */
+.btn-dark {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn-dark:hover {
+  background: #3a3731;
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
@@ -270,9 +290,16 @@ p {
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-top: 40px;
+}
+
+.actions-note {
+  margin-top: 16px;
+  color: var(--stone);
+  font-size: 15px;
 }
 
 /* The product shot: receipt, phone, and a confirmation card */
