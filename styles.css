@@ -245,68 +245,63 @@ p {
 /* ---------- Hero ---------- */
 
 .hero {
-  padding-top: 88px;
-  text-align: center;
+  padding: 72px 0 40px;
   overflow: hidden;
 }
 
-.badge {
-  display: inline-flex;
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: var(--white);
-  border: 1px solid var(--crust);
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--sprout);
+  gap: 40px;
 }
 
 .hero .display {
-  margin-top: 28px;
+  font-size: clamp(56px, 7.4vw, 108px);
 }
 
 .hero-sub {
-  margin-top: 18px;
+  margin-top: 20px;
   font-family: var(--serif);
   font-weight: 500;
-  font-size: clamp(26px, 3.4vw, 44px);
-  letter-spacing: -0.02em;
+  font-size: clamp(24px, 2.5vw, 32px);
+  letter-spacing: -0.015em;
   color: var(--basil);
   text-wrap: balance;
 }
 
-/* Lines break between the short sentences, never inside one. */
-.hero-sub span {
-  white-space: nowrap;
-}
-
-/* Everything the one receipt fills in. */
 .hero-lead {
-  max-width: 36em;
-  margin: 22px auto 0;
-  font-size: 20px;
+  max-width: 30em;
+  margin-top: 24px;
+  font-size: 19px;
   color: var(--stone);
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
+  align-items: center;
+  gap: 14px 28px;
+  margin-top: 36px;
+}
+
+/* A plain link next to the main button. */
+.text-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--sprout);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+.text-link:hover {
+  color: var(--basil);
 }
 
 .actions-note {
-  margin-top: 16px;
+  max-width: 30em;
+  margin-top: 20px;
   color: var(--stone);
   font-size: 15px;
 }
@@ -314,9 +309,7 @@ p {
 /* The product shot: receipt, phone, and a confirmation card */
 .stage {
   position: relative;
-  max-width: 1040px;
   height: 720px;
-  margin: 72px auto 0;
 }
 
 .stage-disc {
@@ -538,16 +531,16 @@ p {
 
 .stage-receipt {
   position: absolute;
-  left: 40px;
+  left: -30px;
   top: 150px;
-  width: 260px;
+  width: 250px;
   transform: rotate(-8deg);
 }
 
 .stage-card {
   position: absolute;
-  right: 30px;
-  top: 300px;
+  right: -30px;
+  top: 430px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -587,8 +580,27 @@ p {
   padding: 150px 0;
 }
 
-.center-head {
-  text-align: center;
+.headline {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  font-size: clamp(38px, 4.6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.split-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 72px;
+}
+
+.split-head .lead {
+  max-width: none;
+  margin-top: 0;
+  font-size: 20px;
 }
 
 /* How it works: the receipt on the left, a green line to a rail, a branch to each card. */
@@ -628,10 +640,10 @@ p {
 .flow-item {
   position: relative;
   display: grid;
-  grid-template-columns: 56px 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
-  padding: 18px 22px;
+  padding: 20px 24px;
   border-radius: 20px;
   background: var(--white);
   box-shadow: 0 1px 2px rgba(34, 32, 28, 0.06), 0 12px 28px rgba(34, 32, 28, 0.08);
@@ -664,14 +676,6 @@ p {
 
 .flow-item:last-child::after {
   bottom: 50%;
-}
-
-.flow-icon {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
 }
 
 .flow-text h3 {
@@ -719,13 +723,15 @@ p {
 }
 
 .one-app {
-  margin-top: 56px;
-  text-wrap: balance;
+  max-width: 30em;
+  margin: 64px auto 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
   text-align: center;
-}
-
-.one-app img {
-  flex: none;
+  text-wrap: balance;
 }
 
 /* Made for you: three stops, joined by a line that gets greener. */
@@ -777,15 +783,6 @@ p {
 
 .grow-stop:nth-child(3) .grow-dot {
   background: var(--sprout);
-}
-
-.when {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--basil);
 }
 
 .grow-stop h3 {
@@ -915,12 +912,6 @@ p {
   border-bottom: 1px solid var(--crust);
 }
 
-.center-head .lead {
-  margin-left: auto;
-  margin-right: auto;
-  text-wrap: balance;
-}
-
 .ideas {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1041,7 +1032,9 @@ p {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 40px;
+  max-width: 40em;
+  margin: 48px auto 0;
+  text-wrap: balance;
   font-weight: 600;
   font-size: 18px;
   color: var(--basil);
@@ -1051,18 +1044,15 @@ p {
 .statement {
   background: var(--espresso);
   color: var(--cream);
-  padding: 160px 0;
-  text-align: center;
-}
-
-.statement .accent {
-  color: var(--sprout);
+  padding: 150px 0;
 }
 
 .statement p {
-  margin-top: 32px;
+  max-width: 30em;
+  margin-top: 28px;
   font-size: 22px;
   color: var(--cream-muted);
+  text-wrap: pretty;
 }
 
 /* Join the beta: a Sprout-green receipt, torn at the bottom */
@@ -1070,23 +1060,24 @@ p {
   --tooth: 26px;
   background: var(--sprout);
   color: var(--ink);
-  padding: 140px 0 calc(140px + var(--tooth));
-  text-align: center;
+  padding: 130px 0 calc(130px + var(--tooth));
 }
 
-.cta .display-2 {
-  max-width: 13em;
-  margin: 0 auto;
+.cta .headline {
+  max-width: 14em;
 }
 
-.soon-pill {
-  display: inline-block;
-  margin-top: 44px;
-  padding: 14px 28px;
-  border: 2px dashed rgba(34, 32, 28, 0.6);
-  border-radius: 999px;
+.cta-text {
+  max-width: 32em;
+  margin-top: 24px;
+  font-size: 20px;
+  text-wrap: pretty;
+}
+
+.cta-note {
+  margin-top: 20px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* ---------- Footer ---------- */
@@ -1587,6 +1578,8 @@ p {
   }
 
   .ideas,
+  .hero-grid,
+  .split-head,
   .essence,
   .say,
   .rules,
@@ -1656,6 +1649,12 @@ p {
     border-left-style: dashed;
   }
 
+  .stage {
+    width: 100%;
+    max-width: 640px;
+    margin: 40px auto 0;
+  }
+
   .stage-receipt {
     left: -20px;
     width: 230px;
@@ -1693,13 +1692,12 @@ p {
   }
 
   .hero {
-    padding-top: 56px;
+    padding-top: 48px;
   }
 
   /* Just the phone, with the confirmation card over its bottom. */
   .stage {
     height: 640px;
-    margin-top: 56px;
   }
 
   .stage-receipt {
@@ -1746,15 +1744,9 @@ p {
 
   /* The example goes under the words. */
   .flow-item {
-    grid-template-columns: 48px 1fr;
-    gap: 6px 16px;
-    padding: 18px;
-  }
-
-  .flow-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 18px 20px;
   }
 
   .flow-text h3 {
@@ -1766,7 +1758,6 @@ p {
   }
 
   .flow-eg {
-    grid-column: 2;
     justify-self: start;
     margin-top: 6px;
     white-space: normal;
