@@ -206,16 +206,17 @@ p {
 
 /* ---------- Buttons ---------- */
 
+/* The app's button shape (src/components/ui/Button.tsx): rounded corners, not a pill. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 42px;
   padding: 0 20px;
-  border-radius: 999px;
+  border-radius: 12px;
   background: var(--sprout);
   color: var(--print);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
   white-space: nowrap;
   transition: background 0.15s;
@@ -227,18 +228,20 @@ p {
 
 .btn-lg {
   height: 56px;
-  padding: 0 32px;
+  padding: 0 30px;
+  border-radius: 14px;
   font-size: 18px;
 }
 
-/* Next to the main button: the same shape, quieter. */
+/* Next to the main button: the app's quieter button, white with a border. */
 .btn-ghost {
-  background: transparent;
-  border: 2px solid var(--roll);
+  background: var(--white);
+  border: 1.5px solid var(--roll);
+  font-weight: 600;
 }
 
 .btn-ghost:hover {
-  background: var(--white);
+  background: var(--thermal);
 }
 
 /* On the green closing section. */
@@ -254,23 +257,23 @@ p {
 /* ---------- Hero ---------- */
 
 .hero {
-  padding: 72px 0 40px;
-  overflow: hidden;
+  padding: 64px 0 40px;
+}
+
+/* One line across the page, like the bold top line of a receipt. */
+.hero .display {
+  font-size: clamp(52px, 8vw, 104px);
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 40px;
-}
-
-.hero .display {
-  font-size: clamp(52px, 6.6vw, 96px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 56px;
+  margin-top: 40px;
 }
 
 .hero-sub {
-  margin-top: 22px;
   font-weight: 600;
   font-size: clamp(22px, 2.2vw, 28px);
   letter-spacing: -0.015em;
@@ -314,18 +317,36 @@ p {
   font-size: 15px;
 }
 
-/* The product shot: receipt, phone, and a confirmation card */
+/* The product shot: the receipt, then the Kitchen it fills in, side by side and straight. */
 .stage {
-  position: relative;
-  height: 720px;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.stage-receipt {
+  flex: none;
+  width: 260px;
+  margin-top: 56px;
+}
+
+.stage-phone {
+  flex: none;
+  width: 300px;
+}
+
+.stage-cap {
+  margin-top: 18px;
+  color: var(--faded);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stage-receipt .stage-cap {
+  margin-top: 30px;
 }
 
 .phone {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 310px;
-  margin-left: -155px;
   padding: 10px;
   border-radius: 50px;
   background: var(--print);
@@ -340,7 +361,7 @@ p {
   --roll: #e8e2d8;
   --thermal: #faf7f2;
   position: relative;
-  height: 640px;
+  height: 580px;
   border-radius: 40px;
   background: var(--thermal);
   color: var(--print);
@@ -364,8 +385,15 @@ p {
 .screen .statusbar {
   display: flex;
   justify-content: space-between;
-  padding: 15px 30px 0;
+  align-items: center;
+  padding: 15px 28px 0 30px;
   font-weight: 600;
+}
+
+.screen .sys {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .screen .content {
@@ -545,45 +573,6 @@ p {
   border-color: rgba(38, 40, 42, 0.25);
 }
 
-.stage-receipt {
-  position: absolute;
-  left: -30px;
-  top: 150px;
-  width: 250px;
-  transform: rotate(-8deg);
-}
-
-.stage-card {
-  position: absolute;
-  right: -30px;
-  top: 430px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 22px 18px 18px;
-  border-radius: 10px;
-  background: var(--white);
-  /* It sits on top of the phone, so like the receipt and the phone it casts a shadow. */
-  box-shadow: 0 0 0 1px rgba(38, 40, 42, 0.08), 0 20px 40px rgba(38, 40, 42, 0.16);
-  text-align: left;
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.stage-card strong {
-  display: block;
-  font-size: 16px;
-}
-
-.idea-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-}
-
 .kicker {
   display: block;
   font-size: 13px;
@@ -607,6 +596,13 @@ p {
   text-wrap: balance;
 }
 
+/* How it works: the title over its paragraph. */
+.stack-head .lead {
+  max-width: 34em;
+  font-size: 20px;
+}
+
+/* Recommendations: the title beside its paragraph. */
 .split-head {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -622,7 +618,7 @@ p {
 
 /* How it works: the receipt on the left, a green line to a rail, a branch to each card. */
 .flow {
-  --line: 3px;
+  --line: 2px;
   --gap: 14px;
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -642,7 +638,7 @@ p {
   top: 50%;
   left: 100%;
   width: 56px;
-  border-top: var(--line) solid var(--sprout);
+  border-top: var(--line) solid var(--faded);
 }
 
 .flow-list {
@@ -673,7 +669,7 @@ p {
   top: 50%;
   right: 100%;
   width: 40px;
-  border-top: var(--line) solid var(--sprout);
+  border-top: var(--line) solid var(--faded);
 }
 
 /* The rail, one piece per card: from the first card's middle to the last one's. */
@@ -683,7 +679,7 @@ p {
   left: -40px;
   top: calc(var(--gap) / -2);
   bottom: calc(var(--gap) / -2);
-  border-left: var(--line) solid var(--sprout);
+  border-left: var(--line) solid var(--faded);
   transform: translateX(calc(var(--line) / -2));
 }
 
@@ -736,18 +732,30 @@ p {
   color: var(--basil);
 }
 
-.one-app {
-  max-width: 30em;
-  margin: 64px auto 0;
-  font-weight: 500;
-  font-size: clamp(21px, 2vw, 26px);
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  text-align: center;
-  text-wrap: balance;
+/* Under the five cards, like the total under a receipt's lines. */
+.flow-total {
+  margin: 32px 0 0 40px;
+  padding-top: 24px;
+  background: var(--dash) left top / 100% 2px no-repeat;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.45;
+  text-wrap: pretty;
 }
 
-/* Made for you: three stops, joined by a line that gets greener. */
+/* Made for you: the title alone, three stops whose dots fill up, then the paragraph as the ending. */
+.grow-title {
+  max-width: 12em;
+}
+
+.grow-after {
+  max-width: 36em;
+  margin-top: 80px;
+  font-size: 20px;
+  color: var(--faded);
+  text-wrap: pretty;
+}
+
 .grow {
   list-style: none;
   display: grid;
@@ -772,7 +780,7 @@ p {
   top: 12px;
   left: 12px;
   width: calc(100% + 28px);
-  border-top: 3px solid var(--sprout);
+  border-top: 2px solid var(--faded);
 }
 
 .grow-stop:first-child::before {
@@ -786,12 +794,12 @@ p {
   width: 27px;
   height: 27px;
   border-radius: 50%;
-  border: 3px solid var(--sprout);
-  background: var(--sprout-tint);
+  border: 2px solid var(--print);
+  background: var(--white);
 }
 
 .grow-stop:nth-child(2) .grow-dot {
-  background: linear-gradient(to top, var(--sprout) 50%, var(--sprout-tint) 50%);
+  background: linear-gradient(to top, var(--sprout) 50%, var(--white) 50%);
 }
 
 .grow-stop:nth-child(3) .grow-dot {
@@ -857,6 +865,7 @@ p {
 .mini-btns .btn {
   height: 34px;
   padding: 0 16px;
+  border-radius: 10px;
   font-size: 14px;
   pointer-events: none;
 }
@@ -1020,19 +1029,6 @@ p {
   align-self: flex-start;
   margin-top: 8px;
   pointer-events: none;
-}
-
-.fits {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  max-width: 40em;
-  margin: 48px auto 0;
-  text-wrap: balance;
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--basil);
 }
 
 /* Statement: printed like the closing lines of a receipt, centered between two rows of dashes. */
@@ -1597,12 +1593,16 @@ p {
     width: 0;
     height: 48px;
     border-top: 0;
-    border-left: var(--line) solid var(--sprout);
+    border-left: var(--line) solid var(--faded);
     transform: translateX(-50%);
   }
 
   .flow-list {
     padding: 0;
+  }
+
+  .flow-total {
+    margin-left: 0;
   }
 
   .flow-item::before,
@@ -1628,26 +1628,19 @@ p {
     width: 0;
     height: calc(100% + 56px);
     border-top: 0;
-    border-left: 3px solid var(--sprout);
+    border-left: 2px solid var(--faded);
   }
 
   .grow-stop:first-child::before {
     border-left-style: dashed;
   }
 
+  .hero-grid {
+    gap: 48px;
+  }
+
   .stage {
-    width: 100%;
-    max-width: 640px;
-    margin: 40px auto 0;
-  }
-
-  .stage-receipt {
-    left: -20px;
-    width: 230px;
-  }
-
-  .stage-card {
-    right: -10px;
+    justify-content: center;
   }
 
   .type-row {
@@ -1681,31 +1674,15 @@ p {
     padding-top: 48px;
   }
 
-  /* Just the phone, with the confirmation card over its bottom. */
+  /* The same picture, smaller, so the receipt and the Kitchen still sit side by side.
+     The captions grow to make up for it, so they stay readable. */
   .stage {
-    height: 640px;
+    zoom: 0.55;
+    gap: 32px;
   }
 
-  .stage-receipt {
-    display: none;
-  }
-
-  .phone {
-    width: 290px;
-    margin-left: -145px;
-  }
-
-  .screen {
-    height: 600px;
-  }
-
-  .stage-card {
-    right: auto;
-    left: 50%;
-    top: auto;
-    bottom: 56px;
-    transform: translateX(-50%);
-    white-space: nowrap;
+  .stage-cap {
+    font-size: 24px;
   }
 
   .idea {
