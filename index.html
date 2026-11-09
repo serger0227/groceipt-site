@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Groceipt · Snap your receipt.</title>
     <meta name="description" content="Snap your grocery receipt. Groceipt fills in your Kitchen, recipes, shopping list and budget, and gets more personal with every trip. In beta on iPhone." />
-    <meta name="theme-color" content="#FAF7F2" />
+    <meta name="theme-color" content="#F6F7F4" />
     <meta property="og:title" content="Groceipt · Snap your receipt." />
     <meta property="og:description" content="Eat better. Waste less. Spend less." />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -13,7 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400;500;600;700&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=DM+Mono:wght@400;500&display=swap" />
+    <!-- Fraunces only for the 8 letters of the logo's wordmark. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&text=Groceipt&display=swap" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -51,13 +53,11 @@
         </div>
 
         <div class="stage" role="img" aria-label="A grocery receipt, a phone showing the Kitchen, and a dinner idea: spinach and chicken skillet.">
-          <div class="stage-disc" aria-hidden="true"></div>
-
           <div class="stage-receipt receipt-wrap" aria-hidden="true">
             <div class="receipt torn">
               <div class="store">FRESH MARKET</div>
               <div class="meta">10/24/26 · 6:42 PM</div>
-              <div class="row"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
+              <div class="row hl"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
               <div class="row"><span>Strawberries</span><span class="dots"></span><span>4.99</span></div>
               <div class="row"><span>Chicken thighs</span><span class="dots"></span><span>7.98</span></div>
               <div class="row"><span>Greek yogurt</span><span class="dots"></span><span>5.29</span></div>
@@ -254,11 +254,13 @@
         </div>
       </section>
 
-      <!-- Statement -->
+      <!-- Statement: printed like the closing lines of a receipt -->
       <section class="statement">
         <div class="wrap">
-          <h2 class="headline">No meal logging, no calorie counting</h2>
-          <p>All it asks for is your receipt, about once a week. It never calls a food bad, and it won’t make you feel guilty about what got thrown out.</p>
+          <div class="closing">
+            <h2 class="headline">No meal logging, no calorie counting</h2>
+            <p>All it asks for is your receipt, about once a week. It never calls a food bad, and it won’t make you feel guilty about what got thrown out.</p>
+          </div>
         </div>
       </section>
 

@@ -1,28 +1,35 @@
-/* Groceipt website (beta). Colors, fonts and shapes follow brand/brand-standards.md. */
+/* Groceipt website (beta). "Register tape": the page is printed on the same paper as the receipt.
+   The rules for every color, font, corner and rule are in DESIGN.md. */
 
 :root {
-  /* Primary: bright Sprout green (fills, buttons, the logo) with Ink text on it. */
+  /* The paper and its print. */
+  --thermal: #f6f7f4; /* the page: the cool white of receipt paper */
+  --print: #26282a; /* headlines and body text */
+  --faded: #5e6366; /* secondary text, like print that has faded */
+  --roll: #dcdfd9; /* rules and hairlines, never text */
+  --white: #ffffff; /* receipts and cards */
+
+  /* Sprout: buttons, the CTA and the highlighter. Never words on a light background. */
   --sprout: #80e85d;
   --sprout-hover: #72dc4f;
   --sprout-tint: #e8f9e2;
-  /* Basil: the same green, deep enough for words and icons ("Fresh", links, labels). */
+  /* Basil: the same green, deep enough for words and icons ("Fresh", links, totals). */
   --basil: #1f7a3f;
-  --ink: #22201c;
-  --paper: #faf7f2;
-  --white: #ffffff;
+  /* Saffron: "Use soon", as in the app. */
   --saffron: #94650a;
   --saffron-deep: #7a5308;
   --saffron-tint: #f6e7c4;
-  --stone: #6b655c;
-  --stone-tint: #efebe4;
-  --crust: #e8e2d8;
-  --espresso: #1a1714;
-  --cream: #f3eee6;
-  --cream-muted: #b3ab9f;
 
-  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* One family for every word, wide for headlines like a receipt's double-width top line. */
+  --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --wide: 118%;
+  /* Only for what a receipt printer would print. */
   --mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* The word "Groceipt" in the logo. Loaded for those 8 letters only. */
+  --wordmark: 'Fraunces', Georgia, serif;
+
+  /* A receipt's row of dashes: dashed rules divide sections. */
+  --dash: repeating-linear-gradient(90deg, var(--roll) 0 10px, transparent 10px 17px);
 
   --width: 1200px;
   --tooth: 22px;
@@ -47,8 +54,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--thermal);
+  color: var(--print);
   font-family: var(--sans);
   font-size: 18px;
   line-height: 1.5;
@@ -67,7 +74,7 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--print);
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -101,23 +108,28 @@ p {
 
 /* ---------- Type ---------- */
 
+/* Headlines: Archivo, wide and heavy. */
 .display,
-.display-2 {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-optical-sizing: auto;
-  letter-spacing: -0.028em;
-  line-height: 0.98;
+.display-2,
+.headline {
+  font-stretch: var(--wide);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
   text-wrap: balance;
 }
 
 .display {
-  font-size: clamp(56px, 10vw, 136px);
+  font-size: clamp(52px, 8.4vw, 116px);
 }
 
 .display-2 {
-  font-size: clamp(40px, 6vw, 80px);
-  line-height: 1.02;
+  font-size: clamp(38px, 5.4vw, 72px);
+}
+
+.headline {
+  font-size: clamp(34px, 4.2vw, 58px);
+  line-height: 1.04;
 }
 
 .eyebrow {
@@ -130,14 +142,14 @@ p {
 .lead {
   font-size: 22px;
   line-height: 1.45;
-  color: var(--stone);
+  color: var(--faded);
   margin-top: 24px;
   max-width: 22em;
   text-wrap: pretty;
 }
 
 .muted {
-  color: var(--stone);
+  color: var(--faded);
 }
 
 /* ---------- The signature shape: a receipt's torn bottom edge ---------- */
@@ -154,10 +166,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(250, 247, 242, 0.88);
-  backdrop-filter: saturate(1.4) blur(14px);
-  -webkit-backdrop-filter: saturate(1.4) blur(14px);
-  border-bottom: 1px solid rgba(232, 226, 216, 0.8);
+  background: var(--dash) left bottom / 100% 2px no-repeat, var(--thermal);
 }
 
 .bar {
@@ -171,7 +180,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--serif);
+  font-family: var(--wordmark);
   font-weight: 600;
   font-size: 25px;
   letter-spacing: -0.025em;
@@ -205,7 +214,7 @@ p {
   padding: 0 20px;
   border-radius: 999px;
   background: var(--sprout);
-  color: var(--ink);
+  color: var(--print);
   font-weight: 600;
   font-size: 15px;
   white-space: nowrap;
@@ -225,7 +234,7 @@ p {
 /* Next to the main button: the same shape, quieter. */
 .btn-ghost {
   background: transparent;
-  border: 2px solid var(--crust);
+  border: 2px solid var(--roll);
 }
 
 .btn-ghost:hover {
@@ -234,12 +243,12 @@ p {
 
 /* On the green closing section. */
 .btn-dark {
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--print);
+  color: var(--thermal);
 }
 
 .btn-dark:hover {
-  background: #3a3731;
+  background: #3d4043;
 }
 
 /* ---------- Hero ---------- */
@@ -257,14 +266,13 @@ p {
 }
 
 .hero .display {
-  font-size: clamp(56px, 7.4vw, 108px);
+  font-size: clamp(52px, 6.6vw, 96px);
 }
 
 .hero-sub {
-  margin-top: 20px;
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(24px, 2.5vw, 32px);
+  margin-top: 22px;
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 28px);
   letter-spacing: -0.015em;
   color: var(--basil);
   text-wrap: balance;
@@ -274,7 +282,7 @@ p {
   max-width: 30em;
   margin-top: 24px;
   font-size: 19px;
-  color: var(--stone);
+  color: var(--faded);
   text-wrap: pretty;
 }
 
@@ -302,7 +310,7 @@ p {
 .actions-note {
   max-width: 30em;
   margin-top: 20px;
-  color: var(--stone);
+  color: var(--faded);
   font-size: 15px;
 }
 
@@ -310,17 +318,6 @@ p {
 .stage {
   position: relative;
   height: 720px;
-}
-
-.stage-disc {
-  position: absolute;
-  left: 50%;
-  top: 90px;
-  width: 640px;
-  height: 640px;
-  margin-left: -320px;
-  border-radius: 50%;
-  background: var(--sprout-tint);
 }
 
 .phone {
@@ -331,17 +328,24 @@ p {
   margin-left: -155px;
   padding: 10px;
   border-radius: 50px;
-  background: var(--ink);
-  box-shadow: 0 40px 80px rgba(34, 32, 28, 0.25);
+  background: var(--print);
+  box-shadow: 0 40px 80px rgba(38, 40, 42, 0.25);
   text-align: left;
 }
 
+/* The phone shows the app, so it uses the app's own colors (src/constants/theme.ts) and the phone's font. */
 .screen {
+  --print: #22201c;
+  --faded: #6b655c;
+  --roll: #e8e2d8;
+  --thermal: #faf7f2;
   position: relative;
   height: 640px;
   border-radius: 40px;
-  background: var(--paper);
+  background: var(--thermal);
+  color: var(--print);
   overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
   font-size: 13px;
   line-height: 1.35;
 }
@@ -354,7 +358,7 @@ p {
   height: 28px;
   margin-left: -48px;
   border-radius: 20px;
-  background: var(--ink);
+  background: var(--print);
 }
 
 .screen .statusbar {
@@ -400,12 +404,12 @@ p {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .screen .p-card {
   background: var(--white);
-  border: 1px solid var(--crust);
+  border: 1px solid var(--roll);
   border-radius: 12px;
 }
 
@@ -417,7 +421,7 @@ p {
 }
 
 .screen .food + .food {
-  border-top: 1px solid var(--crust);
+  border-top: 1px solid var(--roll);
 }
 
 .screen .name {
@@ -426,7 +430,7 @@ p {
 }
 
 .screen .left {
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .status {
@@ -461,10 +465,10 @@ p {
   justify-content: space-around;
   padding: 8px 0 24px;
   background: rgba(255, 255, 255, 0.96);
-  border-top: 1px solid var(--crust);
+  border-top: 1px solid var(--roll);
   font-size: 10px;
   font-weight: 600;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .screen .tab {
@@ -480,12 +484,12 @@ p {
 
 /* A paper receipt */
 .receipt-wrap {
-  filter: drop-shadow(0 0 0.6px rgba(34, 32, 28, 0.4)) drop-shadow(0 24px 40px rgba(34, 32, 28, 0.16));
+  filter: drop-shadow(0 0 0.6px rgba(38, 40, 42, 0.4)) drop-shadow(0 24px 40px rgba(38, 40, 42, 0.16));
 }
 
 .receipt {
   background: var(--white);
-  border-radius: 10px 10px 0 0;
+  border-radius: 2px 2px 0 0;
   padding: 26px 24px calc(var(--tooth) + 18px);
   font-family: var(--mono);
   font-size: 13.5px;
@@ -501,7 +505,7 @@ p {
 
 .receipt .meta {
   text-align: center;
-  color: var(--stone);
+  color: var(--faded);
   font-size: 11.5px;
   margin-bottom: 12px;
 }
@@ -515,18 +519,30 @@ p {
 
 .receipt .dots {
   flex: 1;
-  border-bottom: 2px dotted var(--crust);
+  border-bottom: 2px dotted var(--roll);
   transform: translateY(-4px);
 }
 
 .receipt .rule {
-  border-top: 2px dashed var(--crust);
+  border-top: 2px dashed var(--roll);
   margin: 10px 0;
 }
 
 .receipt .total {
   font-weight: 500;
   color: var(--basil);
+}
+
+/* A highlighter run over the line that matters. One per receipt, never on a headline. */
+.receipt .hl {
+  margin: 0 -6px;
+  padding: 0 6px;
+  border-radius: 2px;
+  background: var(--sprout);
+}
+
+.receipt .hl .dots {
+  border-color: rgba(38, 40, 42, 0.25);
 }
 
 .stage-receipt {
@@ -545,9 +561,10 @@ p {
   align-items: center;
   gap: 14px;
   padding: 18px 22px 18px 18px;
-  border-radius: 20px;
+  border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 0 0 1px rgba(34, 32, 28, 0.06), 0 24px 48px rgba(34, 32, 28, 0.16);
+  /* It sits on top of the phone, so like the receipt and the phone it casts a shadow. */
+  box-shadow: 0 0 0 1px rgba(38, 40, 42, 0.08), 0 20px 40px rgba(38, 40, 42, 0.16);
   text-align: left;
   font-size: 15px;
   line-height: 1.35;
@@ -564,7 +581,7 @@ p {
   place-items: center;
   width: 48px;
   height: 48px;
-  border-radius: 14px;
+  border-radius: 10px;
 }
 
 .kicker {
@@ -580,13 +597,13 @@ p {
   padding: 150px 0;
 }
 
-.headline {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-optical-sizing: auto;
-  font-size: clamp(38px, 4.6vw, 64px);
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+/* Card titles: normal width, so only section titles are wide. */
+.flow-text h3,
+.grow-stop h3,
+.idea-card h3 {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -644,9 +661,9 @@ p {
   align-items: center;
   gap: 18px;
   padding: 20px 24px;
-  border-radius: 20px;
+  border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 1px 2px rgba(34, 32, 28, 0.06), 0 12px 28px rgba(34, 32, 28, 0.08);
+  border: 1px solid var(--roll);
 }
 
 /* The branch from the rail to the card. */
@@ -679,17 +696,13 @@ p {
 }
 
 .flow-text h3 {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: 24px;
 }
 
 .flow-text p {
   margin-top: 4px;
   font-size: 17px;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 /* A small example from the receipt above. */
@@ -698,9 +711,9 @@ p {
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  border-radius: 14px;
-  background: var(--paper);
-  border: 1px solid var(--crust);
+  border-radius: 6px;
+  background: var(--thermal);
+  border: 1px solid var(--roll);
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
@@ -712,23 +725,23 @@ p {
 }
 
 .done {
-  color: var(--stone);
+  color: var(--faded);
   text-decoration: line-through;
 }
 
+/* Numbers in the app, not on a receipt: the body face, with digits that line up. */
 .amount {
-  font-family: var(--mono);
-  font-weight: 500;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: var(--basil);
 }
 
 .one-app {
   max-width: 30em;
   margin: 64px auto 0;
-  font-family: var(--serif);
   font-weight: 500;
-  font-size: clamp(22px, 2.2vw, 28px);
-  line-height: 1.35;
+  font-size: clamp(21px, 2vw, 26px);
+  line-height: 1.4;
   letter-spacing: -0.01em;
   text-align: center;
   text-wrap: balance;
@@ -786,17 +799,12 @@ p {
 }
 
 .grow-stop h3 {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+  font-size: 27px;
 }
 
 .grow-text {
   font-size: 17px;
-  color: var(--stone);
+  color: var(--faded);
   text-wrap: pretty;
 }
 
@@ -804,9 +812,9 @@ p {
 .mini {
   margin-top: 14px;
   padding: 6px 22px;
-  border-radius: 22px;
+  border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 1px 2px rgba(34, 32, 28, 0.06), 0 16px 36px rgba(34, 32, 28, 0.1);
+  border: 1px solid var(--roll);
   font-size: 15px;
   font-weight: 500;
 }
@@ -819,7 +827,7 @@ p {
 }
 
 .mini-row + .mini-row {
-  border-top: 1px solid var(--crust);
+  border-top: 1px solid var(--roll);
 }
 
 .mini-row.stack {
@@ -854,16 +862,12 @@ p {
 }
 
 .muted-stone {
-  color: var(--stone);
+  color: var(--faded);
   font-size: 14px;
 }
 
 .tint-sprout {
   background: var(--sprout-tint);
-}
-
-.tint-stone {
-  background: var(--stone-tint);
 }
 
 .tint-saffron {
@@ -889,7 +893,7 @@ p {
   background: currentColor;
 }
 
-/* Deep text colors on the tints, so the words pass contrast (4.70 and 5.59). */
+/* Deep text colors on the tints, so the words pass contrast (4.87 and 5.59). */
 .chip.fresh {
   color: var(--basil);
   background: var(--sprout-tint);
@@ -900,16 +904,12 @@ p {
   background: var(--saffron-tint);
 }
 
-.chip.past {
-  color: var(--stone);
-  background: var(--stone-tint);
-}
-
-/* Recommendations: tonight's recipe and the next list */
+/* Recommendations: tonight's recipe and the next list, on white between two rows of dashes */
 .ideas-section {
-  background: var(--white);
-  border-top: 1px solid var(--crust);
-  border-bottom: 1px solid var(--crust);
+  background:
+    var(--dash) left top / 100% 2px no-repeat,
+    var(--dash) left bottom / 100% 2px no-repeat,
+    var(--white);
 }
 
 .ideas {
@@ -924,14 +924,14 @@ p {
   flex-direction: column;
   gap: 22px;
   padding: 40px 44px 48px;
-  border-radius: 36px;
+  border-radius: 16px;
 }
 
 .idea-label {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 34px;
-  letter-spacing: -0.025em;
+  font-stretch: var(--wide);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.03em;
 }
 
 .idea-card {
@@ -940,17 +940,12 @@ p {
   flex-direction: column;
   gap: 8px;
   padding: 28px;
-  border-radius: 24px;
+  border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 1px 2px rgba(34, 32, 28, 0.06), 0 16px 36px rgba(34, 32, 28, 0.1);
 }
 
 .idea-card h3 {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: 26px;
 }
 
 .items {
@@ -964,7 +959,7 @@ p {
   align-items: center;
   gap: 12px;
   padding: 11px 0;
-  border-top: 1px solid var(--crust);
+  border-top: 1px solid var(--roll);
   font-weight: 500;
   font-size: 17px;
 }
@@ -990,11 +985,11 @@ p {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 2px solid var(--crust);
+  border: 2px solid var(--roll);
 }
 
 .items .need {
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .add {
@@ -1007,9 +1002,9 @@ p {
 .ask {
   align-self: flex-start;
   padding: 12px 16px;
-  border-radius: 18px 18px 18px 6px;
-  background: var(--paper);
-  border: 1px solid var(--crust);
+  border-radius: 12px 12px 12px 3px;
+  background: var(--thermal);
+  border: 1px solid var(--roll);
   font-weight: 500;
   font-size: 17px;
 }
@@ -1017,7 +1012,7 @@ p {
 .left-out {
   margin-top: auto;
   font-size: 15px;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 /* A picture of a button, not a real one. */
@@ -1040,18 +1035,30 @@ p {
   color: var(--basil);
 }
 
-/* Statement: the brand's dark color */
+/* Statement: printed like the closing lines of a receipt, centered between two rows of dashes. */
 .statement {
-  background: var(--espresso);
-  color: var(--cream);
-  padding: 150px 0;
+  padding: 0 0 150px;
 }
 
-.statement p {
+.closing {
+  padding: 88px 0;
+  background:
+    var(--dash) left top / 100% 2px no-repeat,
+    var(--dash) left bottom / 100% 2px no-repeat;
+  text-align: center;
+}
+
+.closing .headline {
+  max-width: 13em;
+  margin: 0 auto;
+  font-size: clamp(36px, 4.8vw, 66px);
+}
+
+.closing p {
   max-width: 30em;
-  margin-top: 28px;
-  font-size: 22px;
-  color: var(--cream-muted);
+  margin: 24px auto 0;
+  font-size: 21px;
+  color: var(--faded);
   text-wrap: pretty;
 }
 
@@ -1059,7 +1066,7 @@ p {
 .cta {
   --tooth: 26px;
   background: var(--sprout);
-  color: var(--ink);
+  color: var(--print);
   padding: 130px 0 calc(130px + var(--tooth));
 }
 
@@ -1107,8 +1114,8 @@ p {
   gap: 8px 24px;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid var(--crust);
-  color: var(--stone);
+  background: var(--dash) left top / 100% 2px no-repeat;
+  color: var(--faded);
 }
 
 /* ---------- Brand page ---------- */
@@ -1123,21 +1130,11 @@ p {
 
 .b-section {
   padding: 120px 0;
-  border-top: 1px solid var(--crust);
+  background: var(--dash) left top / 100% 2px no-repeat;
 }
 
 .b-head {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
   margin-bottom: 64px;
-}
-
-.b-num {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 15px;
-  color: var(--basil);
 }
 
 .essence {
@@ -1147,10 +1144,9 @@ p {
 }
 
 .essence p:last-child {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1.15;
+  font-weight: 700;
+  font-size: 27px;
+  line-height: 1.18;
   letter-spacing: -0.02em;
 }
 
@@ -1162,9 +1158,9 @@ p {
   display: grid;
   place-items: center;
   height: 380px;
-  border-radius: 36px;
+  border-radius: 16px;
   background: var(--white);
-  border: 1px solid var(--crust);
+  border: 1px solid var(--roll);
 }
 
 .logo-hero .lockup {
@@ -1189,19 +1185,19 @@ p {
   display: grid;
   place-items: center;
   height: 240px;
-  border-radius: 28px;
+  border-radius: 16px;
   background: var(--white);
-  border: 1px solid var(--crust);
+  border: 1px solid var(--roll);
   position: relative;
 }
 
 .logo-tile.dark {
-  background: var(--espresso);
-  border-color: var(--espresso);
+  background: var(--print);
+  border-color: var(--print);
 }
 
 .logo-tile.dark .lockup {
-  color: var(--cream);
+  color: var(--thermal);
 }
 
 .logo-tile figcaption {
@@ -1210,17 +1206,17 @@ p {
   bottom: 18px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .logo-tile.dark figcaption {
-  color: var(--cream-muted);
+  color: #a9aeb0;
 }
 
 .note {
   margin-top: 28px;
   font-size: 18px;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .swatches {
@@ -1244,20 +1240,19 @@ p {
   gap: 2px;
   height: 300px;
   padding: 24px;
-  border-radius: 28px;
+  border-radius: 16px;
   color: var(--white);
-  font-family: var(--mono);
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .swatches.support .swatch {
   height: 180px;
   padding: 20px;
-  border-radius: 22px;
+  border-radius: 10px;
 }
 
 .swatch strong {
-  font-family: var(--sans);
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -1268,8 +1263,8 @@ p {
 }
 
 .swatch.light {
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--crust);
+  color: var(--print);
+  box-shadow: inset 0 0 0 1px var(--roll);
 }
 
 .type-row {
@@ -1278,7 +1273,7 @@ p {
   gap: 32px;
   align-items: center;
   padding: 44px 0;
-  border-bottom: 1px solid var(--crust);
+  border-bottom: 1px solid var(--roll);
 }
 
 .type-row:first-child {
@@ -1291,15 +1286,15 @@ p {
 }
 
 .type-meta span {
-  color: var(--stone);
+  color: var(--faded);
   font-size: 15px;
 }
 
-.spec-serif {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(44px, 6.4vw, 92px);
-  letter-spacing: -0.035em;
+.spec-head {
+  font-stretch: var(--wide);
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 84px);
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
@@ -1320,15 +1315,15 @@ p {
 
 .spec-mono .dots {
   flex: 1;
-  border-bottom: 3px dotted var(--crust);
+  border-bottom: 3px dotted var(--roll);
   transform: translateY(-10px);
 }
 
 .traits {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(40px, 6vw, 80px);
-  letter-spacing: -0.035em;
+  font-stretch: var(--wide);
+  font-weight: 800;
+  font-size: clamp(36px, 5.4vw, 72px);
+  letter-spacing: -0.03em;
   line-height: 1.05;
 }
 
@@ -1344,7 +1339,7 @@ p {
 }
 
 .say-card {
-  border-radius: 28px;
+  border-radius: 16px;
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -1358,13 +1353,13 @@ p {
 
 .say-card.no {
   background: var(--white);
-  border: 1px solid var(--crust);
-  color: var(--stone);
+  border: 1px solid var(--roll);
+  color: var(--faded);
 }
 
 .say-card.no p:not(.eyebrow) {
   text-decoration: line-through;
-  text-decoration-color: rgba(107, 101, 92, 0.5);
+  text-decoration-color: rgba(94, 99, 102, 0.5);
 }
 
 .say-card .eyebrow {
@@ -1377,7 +1372,7 @@ p {
 }
 
 .say-card.no .eyebrow {
-  color: var(--stone);
+  color: var(--faded);
 }
 
 .rules {
@@ -1388,10 +1383,10 @@ p {
 }
 
 .rules p {
-  border-radius: 22px;
+  border-radius: 10px;
   padding: 24px 28px;
   background: var(--white);
-  border: 1px solid var(--crust);
+  border: 1px solid var(--roll);
   font-weight: 600;
   font-size: 18px;
 }
@@ -1438,29 +1433,25 @@ p {
   flex-direction: column;
   gap: 10px;
   padding: 28px 24px;
-  border-radius: 24px;
+  border-radius: 10px;
   background: var(--white);
-  border: 1px solid var(--crust);
+  border: 1px solid var(--roll);
   font-size: 18px;
   font-weight: 500;
 }
 
-.journey li::before,
-.themes li::before {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 14px;
+/* These are real steps in order, so they're numbered. */
+.journey li::before {
+  content: counter(step);
+  font-weight: 700;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
   color: var(--basil);
 }
 
-.journey li::before {
-  content: counter(step, decimal-leading-zero);
-}
-
 .journey .when {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 22px;
   letter-spacing: -0.02em;
 }
 
@@ -1471,20 +1462,21 @@ p {
 
 .big-quote,
 .b-section .tagline {
-  font-family: var(--serif);
-  font-weight: 600;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
 .big-quote {
   max-width: 20em;
-  font-size: clamp(30px, 4vw, 48px);
-  line-height: 1.12;
+  font-weight: 600;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.15;
 }
 
 .b-section .tagline {
-  font-size: clamp(32px, 4.4vw, 56px);
+  font-stretch: var(--wide);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 52px);
   line-height: 1.05;
 }
 
@@ -1496,31 +1488,24 @@ p {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  counter-reset: theme;
 }
 
 .themes li {
-  counter-increment: theme;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-top: 18px;
   border-top: 3px solid var(--sprout);
   font-size: 16px;
-  color: var(--stone);
-}
-
-.themes li::before {
-  content: counter(theme, decimal-leading-zero);
+  color: var(--faded);
 }
 
 .themes strong {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 22px;
+  font-weight: 700;
+  font-size: 21px;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: var(--print);
 }
 
 .tools {
@@ -1534,7 +1519,7 @@ p {
   grid-template-columns: 1fr auto;
   gap: 6px 16px;
   padding: 20px 0;
-  border-top: 1px solid var(--crust);
+  border-top: 1px solid var(--roll);
 }
 
 .tool-list strong {
@@ -1545,8 +1530,9 @@ p {
   align-self: start;
   padding: 4px 12px;
   border-radius: 999px;
-  background: var(--stone-tint);
-  color: var(--stone);
+  background: var(--thermal);
+  box-shadow: inset 0 0 0 1px var(--roll);
+  color: var(--faded);
   font-weight: 600;
   font-size: 13px;
 }
@@ -1559,7 +1545,7 @@ p {
 .reason {
   grid-column: 1 / -1;
   font-size: 17px;
-  color: var(--stone);
+  color: var(--faded);
 }
 
 /* ---------- Smaller screens ---------- */
@@ -1704,13 +1690,6 @@ p {
     display: none;
   }
 
-  .stage-disc {
-    width: 460px;
-    height: 460px;
-    margin-left: -230px;
-    top: 100px;
-  }
-
   .phone {
     width: 290px;
     margin-left: -145px;
@@ -1731,11 +1710,10 @@ p {
 
   .idea {
     padding: 28px 20px 32px;
-    border-radius: 28px;
   }
 
   .idea-label {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .idea-card {
@@ -1750,7 +1728,7 @@ p {
   }
 
   .flow-text h3 {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .flow-text p {
@@ -1764,7 +1742,7 @@ p {
   }
 
   .grow-stop h3 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .mini {
@@ -1776,16 +1754,16 @@ p {
     padding: 6px 12px;
   }
 
-  .statement,
-  .cta {
-    padding-top: 110px;
-  }
-
   .statement {
     padding-bottom: 110px;
   }
 
+  .closing {
+    padding: 64px 0;
+  }
+
   .cta {
+    padding-top: 110px;
     padding-bottom: calc(110px + var(--tooth));
   }
 
