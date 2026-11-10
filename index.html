@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Groceipt · Snap your receipt.</title>
+    <title>Groceipt – Snap your receipt</title>
     <meta name="description" content="Snap your grocery receipt. Groceipt fills in your Kitchen, recipes, shopping list and budget, and gets more personal with every trip. In beta on iPhone." />
     <meta name="theme-color" content="#F6F7F4" />
-    <meta property="og:title" content="Groceipt · Snap your receipt." />
-    <meta property="og:description" content="Eat better. Waste less. Spend less." />
+    <meta property="og:title" content="Groceipt – Snap your receipt" />
+    <meta property="og:description" content="Take a photo of your grocery receipt. Groceipt sorts your kitchen with what to use first on top, then turns it into dinner ideas and a shopping list." />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -100,72 +100,61 @@
         </div>
       </section>
 
-      <!-- How it works: one receipt, and everything it fills in -->
-      <section id="how" class="section">
+      <!-- How it works: everything the hero's receipt fills in, set like the lines of a receipt:
+           the name, what it does, and an example where the price would be. Then the total. -->
+      <section id="how" class="section how">
         <div class="wrap">
           <div class="stack-head">
             <h2 class="headline">Everything starts with one receipt</h2>
             <p class="lead">You snap it once and never type a thing. Groceipt reads every line and sends each food where it belongs, so your Kitchen, recipes, List, spending and Cart score all fill in at the same time.</p>
           </div>
 
-          <div class="flow">
-            <div class="flow-source receipt-wrap" aria-hidden="true">
-              <div class="receipt torn">
-                <div class="store">FRESH MARKET</div>
-                <div class="meta">10/24/26 · 6:42 PM</div>
-                <div class="row"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
-                <div class="row"><span>Strawberries</span><span class="dots"></span><span>4.99</span></div>
-                <div class="row"><span>Chicken thighs</span><span class="dots"></span><span>7.98</span></div>
-                <div class="row"><span>Greek yogurt</span><span class="dots"></span><span>5.29</span></div>
-                <div class="row"><span>Paper towels</span><span class="dots"></span><span>6.49</span></div>
-                <div class="rule"></div>
-                <div class="row total"><span>TOTAL</span><span class="dots"></span><span>28.24</span></div>
-              </div>
-            </div>
-
-            <div class="flow-dest">
-              <ul class="flow-list">
-                <li class="flow-item">
-                  <div class="flow-text"><h3>Kitchen</h3><p>Every food goes in with about how long it keeps, so you can see what to use first.</p></div>
-                  <div class="flow-eg" aria-hidden="true"><span class="name">Baby spinach</span><span class="chip soon">Use soon</span></div>
-                </li>
-                <li class="flow-item">
-                  <div class="flow-text"><h3>Cook</h3><p>Recipes built around what you have, starting with whatever won’t last.</p></div>
-                  <div class="flow-eg" aria-hidden="true"><span class="name">Spinach &amp; chicken skillet</span></div>
-                </li>
-                <li class="flow-item">
-                  <div class="flow-text"><h3>List</h3><p>Anything you bought comes off your List by itself.</p></div>
-                  <div class="flow-eg" aria-hidden="true"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="name done">Paper towels</span></div>
-                </li>
-                <li class="flow-item">
-                  <div class="flow-text"><h3>Money</h3><p>What you spent in each section, and when a price you usually pay changes.</p></div>
-                  <div class="flow-eg" aria-hidden="true"><span class="name">Produce</span><span class="amount">$8.48</span></div>
-                </li>
-                <li class="flow-item">
-                  <div class="flow-text"><h3>Cart score</h3><p>A simple read on how balanced your groceries are, with no calorie counting.</p></div>
-                  <div class="flow-eg" aria-hidden="true"><span class="amount">82</span><span class="chip fresh">Great</span></div>
-                </li>
-              </ul>
-              <p class="flow-total">That’s a pantry tracker, a recipe finder, a shopping list and a grocery budget in one app, all kept up to date by a receipt you were going to throw away anyway.</p>
-            </div>
-          </div>
+          <ul class="tally">
+            <li class="tally-row">
+              <h3>Kitchen</h3>
+              <p>Every food goes in with about how long it keeps, so you can see what to use first.</p>
+              <span class="tally-eg" aria-hidden="true">Baby spinach<span class="chip soon">Use soon</span></span>
+            </li>
+            <li class="tally-row">
+              <h3>Cook</h3>
+              <p>Recipes built around what you have, starting with whatever won’t last.</p>
+              <span class="tally-eg" aria-hidden="true">Spinach &amp; chicken skillet</span>
+            </li>
+            <li class="tally-row">
+              <h3>List</h3>
+              <p>Anything you bought comes off your List by itself.</p>
+              <span class="tally-eg" aria-hidden="true"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span></span>
+            </li>
+            <li class="tally-row">
+              <h3>Money</h3>
+              <p>What you spent in each section, and when a price you usually pay changes.</p>
+              <span class="tally-eg" aria-hidden="true">Produce<span class="amount">$8.48</span></span>
+            </li>
+            <li class="tally-row">
+              <h3>Cart score</h3>
+              <p>A simple read on how balanced your groceries are, with no calorie counting.</p>
+              <span class="tally-eg" aria-hidden="true"><span class="amount">82</span><span class="chip fresh">Great</span></span>
+            </li>
+          </ul>
+          <p class="tally-total">That’s a pantry tracker, a recipe finder, a shopping list and a grocery budget in one app, all kept up to date by a receipt you were going to throw away anyway.</p>
         </div>
       </section>
 
-      <!-- Recommendations: what to cook tonight, and what to buy next -->
-      <section id="ideas" class="section ideas-section">
-        <div class="wrap">
-          <div class="split-head">
-            <h2 class="headline">What to cook tonight, and what to buy next</h2>
-            <p class="lead">Recipes start from the food you already have, beginning with whatever needs using up. When it’s time to shop, tell it what you’re planning (say, tacos twice and easy breakfasts) and it writes the list, minus anything already in your kitchen. Both follow the diets and allergies you set, and only you can change them.</p>
-          </div>
-          <div class="ideas">
-            <div class="idea tint-saffron" role="img" aria-label="Example: tonight's recipe, spinach and chicken skillet, made from your Kitchen.">
-              <p class="idea-label">Tonight</p>
-              <div class="idea-card" aria-hidden="true">
-                <p class="kicker">Made from your Kitchen</p>
-                <h3>Spinach &amp; chicken skillet</h3>
-                <p class="muted">25 min · about $2.10 per serving</p>
+      <!-- Recommendations: what to cook tonight, and what to buy next.
+           Two colored halves, edge to edge, with each example printed straight on its color. -->
+      <section id="ideas" class="ideas-section">
+        <div class="wrap ideas-head">
+          <h2 class="headline">What to cook tonight, and what to buy next</h2>
+          <p class="lead">Both follow the diets and allergies you set, and only you can change them.</p>
+        </div>
+        <div class="ideas">
+          <div class="idea tint-saffron">
+            <div class="idea-in">
+              <h3 class="idea-label">Tonight</h3>
+              <p class="idea-text">Recipes start from the food you already have, beginning with whatever needs using up.</p>
+              <div class="idea-eg" role="img" aria-label="Example: a spinach and chicken skillet that uses the chicken thighs and baby spinach to use soon, plus Greek yogurt. Lemon is the one thing to buy.">
+                <p class="idea-title">Spinach &amp; chicken skillet</p>
+                <p class="idea-meta">25 min · about $2.10 a serving</p>
                 <ul class="items">
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Chicken thighs<span class="chip soon">Use soon</span></li>
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Baby spinach<span class="chip soon">Use soon</span></li>
@@ -175,10 +164,13 @@
                 <span class="btn">I made it</span>
               </div>
             </div>
-            <div class="idea tint-sprout" role="img" aria-label="Example: next week's list, built from tacos twice and easy breakfasts.">
-              <p class="idea-label">Next trip</p>
-              <div class="idea-card" aria-hidden="true">
-                <p class="ask">“Tacos twice and easy breakfasts”</p>
+          </div>
+          <div class="idea tint-sprout">
+            <div class="idea-in">
+              <h3 class="idea-label">Next trip</h3>
+              <p class="idea-text">Tell it what you’re planning and it writes the list, minus anything already in your kitchen.</p>
+              <div class="idea-eg" role="img" aria-label="Example: asked for tacos twice and easy breakfasts, it suggests tortillas, black beans, avocados, eggs and oats, and leaves out the chicken thighs you already have.">
+                <p class="idea-title">“Tacos twice and easy breakfasts”</p>
                 <ul class="items">
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Tortillas</li>
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Black beans</li>
@@ -194,7 +186,7 @@
         </div>
       </section>
 
-      <!-- Made for you: it gets more personal with every receipt -->
+      <!-- Made for you: it gets more personal with every receipt. The stops go down a line, each with what the app shows then. -->
       <section id="yours" class="section">
         <div class="wrap">
           <h2 class="headline grow-title">It gets to know your kitchen as you go</h2>
@@ -206,7 +198,7 @@
               <p class="grow-text">Your Kitchen fills itself in, and Cook already has ideas for the food you just bought, starting with what won’t last.</p>
               <div class="mini" aria-hidden="true">
                 <div class="mini-row"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Added 4 foods to your Kitchen.</div>
-                <div class="mini-row stack"><span class="kicker">Tonight’s idea</span><strong>Spinach &amp; chicken skillet</strong></div>
+                <div class="mini-row stack"><strong>Spinach &amp; chicken skillet</strong><span class="soon-note">Helps use up your baby spinach and chicken thighs</span></div>
               </div>
             </li>
             <li class="grow-stop">
@@ -227,10 +219,10 @@
               <p class="grow-text">With a few weeks of carts it can offer an easy idea for a healthier one, and your weekly recap compares each week with your own, never anyone else’s.</p>
               <div class="mini" aria-hidden="true">
                 <div class="mini-row stack">
-                  <span class="kicker">An idea for a healthier cart</span>
+                  <span class="muted-stone">An idea for a healthier cart</span>
                   <span class="split"><strong>Broccoli: for more vegetables</strong><span class="add">Add</span></span>
                 </div>
-                <div class="mini-row stack"><span class="kicker">Your week is ready</span><span>You used up 9 foods from your Kitchen.</span></div>
+                <div class="mini-row stack"><strong>Your week is ready</strong><span class="muted-stone">You used up 9 foods from your Kitchen.</span></div>
               </div>
             </li>
           </ol>

@@ -142,14 +142,9 @@ p {
 .lead {
   font-size: 22px;
   line-height: 1.45;
-  color: var(--faded);
   margin-top: 24px;
   max-width: 22em;
   text-wrap: pretty;
-}
-
-.muted {
-  color: var(--faded);
 }
 
 /* ---------- The signature shape: a receipt's torn bottom edge ---------- */
@@ -286,7 +281,6 @@ p {
   max-width: 40em;
   margin-top: 16px;
   font-size: 19px;
-  color: var(--faded);
   text-wrap: pretty;
 }
 
@@ -610,23 +604,21 @@ p {
   color: var(--basil);
 }
 
-.kicker {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--basil);
-}
-
 /* ---------- Sections ---------- */
 
 .section {
   padding: 150px 0;
 }
 
+/* How it works carries straight on from the hero and is a short list, so it sits closer. */
+.section.how {
+  padding: 112px 0 120px;
+}
+
 /* Card titles: normal width, so only section titles are wide. */
-.flow-text h3,
+.tally-row h3,
 .grow-stop h3,
-.idea-card h3 {
+.idea-title {
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -639,120 +631,51 @@ p {
   font-size: 20px;
 }
 
-/* Recommendations: the title beside its paragraph. */
-.split-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: end;
-  gap: 24px 72px;
-}
-
-.split-head .lead {
-  max-width: none;
-  margin-top: 0;
-  font-size: 20px;
-}
-
-/* How it works: the receipt on the left, a green line to a rail, a branch to each card. */
-.flow {
-  --line: 2px;
-  --gap: 14px;
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  align-items: center;
-  max-width: 1120px;
-  margin: 88px auto 0;
-}
-
-.flow-source {
-  position: relative;
-  margin-right: 56px;
-}
-
-.flow-source::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  width: 56px;
-  border-top: var(--line) solid var(--faded);
-}
-
-.flow-list {
+/* How it works: what the receipt fills in, set like a receipt's lines. Rows of dashes above and below,
+   a hairline between rows, and an example on the right where the price would be. No boxes. */
+.tally {
   list-style: none;
-  margin: 0;
-  padding: 0 0 0 40px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
+  margin: 72px 0 0;
+  padding: 0;
+  background:
+    var(--dash) left top / 100% 2px no-repeat,
+    var(--dash) left bottom / 100% 2px no-repeat;
 }
 
-.flow-item {
-  position: relative;
+.tally-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 18px;
-  padding: 20px 24px;
-  border-radius: 10px;
-  background: var(--white);
-  border: 1px solid var(--roll);
+  grid-template-columns: 200px minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 48px;
+  padding: 26px 0;
 }
 
-/* The branch from the rail to the card. */
-.flow-item::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  width: 40px;
-  border-top: var(--line) solid var(--faded);
+.tally-row + .tally-row {
+  border-top: 1px solid var(--roll);
 }
 
-/* The rail, one piece per card: from the first card's middle to the last one's. */
-.flow-item::after {
-  content: '';
-  position: absolute;
-  left: -40px;
-  top: calc(var(--gap) / -2);
-  bottom: calc(var(--gap) / -2);
-  border-left: var(--line) solid var(--faded);
-  transform: translateX(calc(var(--line) / -2));
+.tally-row h3 {
+  font-size: 26px;
 }
 
-.flow-item:first-child::after {
-  top: 50%;
-}
-
-.flow-item:last-child::after {
-  bottom: 50%;
-}
-
-.flow-text h3 {
-  font-size: 24px;
-}
-
-.flow-text p {
-  margin-top: 4px;
-  font-size: 17px;
+.tally-row p {
+  max-width: 32em;
+  font-size: 18px;
   color: var(--faded);
+  text-wrap: pretty;
 }
 
-/* A small example from the receipt above. */
-.flow-eg {
+.tally-eg {
+  justify-self: end;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  background: var(--thermal);
-  border: 1px solid var(--roll);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
 }
 
-.flow-eg .chip {
+.tally-eg .chip {
   padding: 4px 10px;
   font-size: 13px;
 }
@@ -762,74 +685,81 @@ p {
   text-decoration: line-through;
 }
 
-/* Numbers in the app, not on a receipt: the body face, with digits that line up. */
+/* Numbers in the app, not on a receipt: the body face, with digits that line up. In print, as in the app. */
 .amount {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: var(--basil);
 }
 
-/* Under the five cards, like the total under a receipt's lines. */
-.flow-total {
-  margin: 32px 0 0 40px;
-  padding-top: 24px;
-  background: var(--dash) left top / 100% 2px no-repeat;
+/* Under the rows, like the total under a receipt's lines. */
+.tally-total {
+  max-width: 46em;
+  padding-top: 26px;
   font-weight: 600;
   font-size: 20px;
   line-height: 1.45;
   text-wrap: pretty;
 }
 
-/* Made for you: the title alone, three stops whose dots fill up, then the paragraph as the ending. */
+/* Made for you: the title alone, then the stops down a line whose dots fill up, then the paragraph as the ending.
+   Each stop is a row: what changes on the left, what the app shows by then on the right. */
 .grow-title {
   max-width: 12em;
 }
 
 .grow-after {
   max-width: 36em;
-  margin-top: 80px;
+  margin-top: 96px;
   font-size: 20px;
-  color: var(--faded);
   text-wrap: pretty;
 }
 
 .grow {
+  --step: 72px;
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--step);
   margin: 88px 0 0;
   padding: 0;
 }
 
 .grow-stop {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 52px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 440px;
+  grid-template-rows: auto 1fr;
+  gap: 10px 72px;
+  padding-left: 60px;
 }
 
-/* The line: from this stop's dot to the next one's. */
+.grow-stop .mini {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
+  margin-top: 0;
+}
+
+/* The line: from this stop's dot down to the next one's. Dashed for the first stretch, then solid. */
 .grow-stop:not(:last-child)::before {
   content: '';
   position: absolute;
-  top: 12px;
-  left: 12px;
-  width: calc(100% + 28px);
-  border-top: 2px solid var(--faded);
+  top: 16px;
+  left: 13px;
+  height: calc(100% + var(--step));
+  border-left: 2px solid var(--faded);
 }
 
 .grow-stop:first-child::before {
-  border-top-style: dashed;
+  border-left-style: dashed;
 }
 
 .grow-dot {
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 0;
-  width: 27px;
-  height: 27px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 2px solid var(--print);
   background: var(--white);
@@ -844,11 +774,12 @@ p {
 }
 
 .grow-stop h3 {
-  font-size: 27px;
+  font-size: 30px;
 }
 
 .grow-text {
-  font-size: 17px;
+  max-width: 30em;
+  font-size: 19px;
   color: var(--faded);
   text-wrap: pretty;
 }
@@ -860,7 +791,7 @@ p {
   border-radius: 10px;
   background: var(--white);
   border: 1px solid var(--roll);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -879,6 +810,7 @@ p {
   flex-direction: column;
   align-items: stretch;
   gap: 4px;
+  text-wrap: pretty;
 }
 
 .mini-row strong {
@@ -909,6 +841,12 @@ p {
 
 .muted-stone {
   color: var(--faded);
+  font-size: 14px;
+}
+
+/* Under a recipe, as in the app's Cook: the Use soon foods it helps use up. */
+.soon-note {
+  color: var(--saffron-deep);
   font-size: 14px;
 }
 
@@ -950,27 +888,41 @@ p {
   background: var(--saffron-tint);
 }
 
-/* Recommendations: tonight's recipe and the next list, on white between two rows of dashes */
+/* Recommendations: the title, then two colored halves edge to edge. Each example is printed
+   straight on its color: no panel around it, and no card inside it. */
 .ideas-section {
-  background:
-    var(--dash) left top / 100% 2px no-repeat,
-    var(--dash) left bottom / 100% 2px no-repeat,
-    var(--white);
+  padding-top: 120px;
+  background: var(--dash) left top / 100% 2px no-repeat;
+}
+
+.ideas-head .lead {
+  font-size: 20px;
 }
 
 .ideas {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
   margin-top: 72px;
 }
 
+/* Each half lines its words up with the page's edge on the outside, and stays 56px from the middle. */
 .idea {
+  --rule: rgba(38, 40, 42, 0.14);
+  display: flex;
+  justify-content: flex-end;
+  padding: 72px 56px 88px 32px;
+}
+
+.idea + .idea {
+  justify-content: flex-start;
+  padding: 72px 32px 88px 56px;
+}
+
+.idea-in {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding: 40px 44px 48px;
-  border-radius: 16px;
+  width: 100%;
+  max-width: 512px;
 }
 
 .idea-label {
@@ -980,23 +932,36 @@ p {
   letter-spacing: -0.03em;
 }
 
-.idea-card {
+.idea-text {
+  margin-top: 12px;
+  font-size: 18px;
+  color: var(--faded);
+  text-wrap: pretty;
+}
+
+/* The example from the app, under a line of print. */
+.idea-eg {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 28px;
-  border-radius: 10px;
-  background: var(--white);
+  gap: 6px;
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
 }
 
-.idea-card h3 {
+.idea-title {
   font-size: 26px;
+}
+
+.idea-meta {
+  font-size: 16px;
+  color: var(--faded);
 }
 
 .items {
   list-style: none;
-  margin: 10px 0 8px;
+  margin: 12px 0 14px;
   padding: 0;
 }
 
@@ -1005,7 +970,7 @@ p {
   align-items: center;
   gap: 12px;
   padding: 11px 0;
-  border-top: 1px solid var(--roll);
+  border-top: 1px solid var(--rule);
   font-weight: 500;
   font-size: 17px;
 }
@@ -1014,6 +979,11 @@ p {
   margin-left: auto;
   padding: 4px 10px;
   font-size: 13px;
+}
+
+/* A Use soon chip would vanish on the Saffron half, so it's white there (6.84 contrast). */
+.tint-saffron .chip.soon {
+  background: var(--white);
 }
 
 .tick {
@@ -1031,7 +1001,7 @@ p {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 2px solid var(--roll);
+  border: 2px solid rgba(38, 40, 42, 0.3);
 }
 
 .items .need {
@@ -1045,26 +1015,21 @@ p {
   color: var(--basil);
 }
 
-.ask {
-  align-self: flex-start;
-  padding: 12px 16px;
-  border-radius: 12px 12px 12px 3px;
-  background: var(--thermal);
-  border: 1px solid var(--roll);
-  font-weight: 500;
-  font-size: 17px;
+/* Basil on Saffron tint is only 4.38, so "Add to list" is in print there. */
+.tint-saffron .add {
+  color: var(--print);
 }
 
 .left-out {
-  margin-top: auto;
+  margin-bottom: 14px;
   font-size: 15px;
   color: var(--faded);
 }
 
-/* A picture of a button, not a real one. */
-.idea-card .btn {
+/* A picture of a button, not a real one. At the bottom, so the two halves' buttons line up. */
+.idea-eg .btn {
   align-self: flex-start;
-  margin-top: 8px;
+  margin-top: auto;
   pointer-events: none;
 }
 
@@ -1091,7 +1056,6 @@ p {
   max-width: 30em;
   margin: 24px auto 0;
   font-size: 21px;
-  color: var(--faded);
   text-wrap: pretty;
 }
 
@@ -1112,6 +1076,10 @@ p {
   margin-top: 24px;
   font-size: 20px;
   text-wrap: pretty;
+}
+
+.cta .actions {
+  margin-top: 36px;
 }
 
 .cta-note {
@@ -1596,9 +1564,31 @@ p {
     padding: 110px 0;
   }
 
-  .ideas,
+  .section.how {
+    padding: 88px 0 96px;
+  }
+
+  .ideas-section {
+    padding-top: 96px;
+  }
+
+  /* Recommendations: one half under the other, each the full width of the screen. */
+  .ideas {
+    grid-template-columns: 1fr;
+    margin-top: 64px;
+  }
+
+  .idea,
+  .idea + .idea {
+    justify-content: flex-start;
+    padding: 56px 32px 64px;
+  }
+
+  .idea-in {
+    max-width: 560px;
+  }
+
   .hero-intro,
-  .split-head,
   .essence,
   .say,
   .rules,
@@ -1611,65 +1601,38 @@ p {
     grid-template-columns: 1fr 1fr;
   }
 
-  /* The receipt on top, a short line down, then the cards. */
-  .flow {
-    grid-template-columns: 1fr;
-    max-width: 620px;
-    margin-top: 64px;
+  /* How it works: the example goes under what it does. */
+  .tally {
+    margin-top: 56px;
   }
 
-  .flow-source {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto 48px;
+  .tally-row {
+    grid-template-columns: 150px minmax(0, 1fr);
+    row-gap: 12px;
   }
 
-  .flow-source::after {
-    top: 100%;
-    left: 50%;
-    width: 0;
-    height: 48px;
-    border-top: 0;
-    border-left: var(--line) solid var(--faded);
-    transform: translateX(-50%);
+  .tally-eg {
+    grid-column: 2;
+    justify-self: start;
   }
 
-  .flow-list {
-    padding: 0;
-  }
-
-  .flow-total {
-    margin-left: 0;
-  }
-
-  .flow-item::before,
-  .flow-item::after {
-    display: none;
-  }
-
-  /* Made for you: the stops one under the other, the line down the left. */
+  /* Made for you: the example goes under the words. */
   .grow {
-    grid-template-columns: 1fr;
-    gap: 56px;
+    --step: 56px;
     max-width: 560px;
     margin: 64px auto 0;
   }
 
   .grow-stop {
-    padding: 0 0 0 52px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    padding-left: 52px;
   }
 
-  .grow-stop:not(:last-child)::before {
-    top: 12px;
-    left: 12px;
-    width: 0;
-    height: calc(100% + 56px);
-    border-top: 0;
-    border-left: 2px solid var(--faded);
-  }
-
-  .grow-stop:first-child::before {
-    border-left-style: dashed;
+  .grow-stop .mini {
+    grid-column: auto;
+    grid-row: auto;
+    margin-top: 6px;
   }
 
   .type-row {
@@ -1828,41 +1791,77 @@ p {
     padding-top: 48px;
   }
 
-  .idea {
-    padding: 28px 20px 32px;
+  /* Dark intro paragraphs read heavy at laptop sizes on a phone. */
+  .lead,
+  .stack-head .lead,
+  .ideas-head .lead,
+  .closing p,
+  .cta-text {
+    font-size: 18px;
+  }
+
+  .ideas {
+    margin-top: 56px;
+  }
+
+  .idea,
+  .idea + .idea {
+    padding: 44px 20px 52px;
   }
 
   .idea-label {
     font-size: 26px;
   }
 
-  .idea-card {
-    padding: 22px;
+  .idea-title {
+    font-size: 23px;
   }
 
-  /* The example goes under the words. */
-  .flow-item {
-    grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 18px 20px;
+  /* How it works: one column, the name over what it does. */
+  .tally-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 6px;
+    padding: 22px 0;
   }
 
-  .flow-text h3 {
+  .tally-row h3 {
     font-size: 22px;
   }
 
-  .flow-text p {
-    font-size: 16px;
+  .tally-row p {
+    font-size: 17px;
   }
 
-  .flow-eg {
-    justify-self: start;
+  .tally-eg {
+    grid-column: auto;
     margin-top: 6px;
     white-space: normal;
   }
 
+  .tally-total {
+    font-size: 18px;
+  }
+
   .grow-stop h3 {
     font-size: 24px;
+  }
+
+  .grow-text {
+    font-size: 17px;
+  }
+
+  /* Centered on the smaller title. */
+  .grow-dot {
+    top: 0;
+  }
+
+  .grow-after {
+    margin-top: 64px;
+    font-size: 18px;
+  }
+
+  .grow-stop:not(:last-child)::before {
+    top: 13px;
   }
 
   .mini {
