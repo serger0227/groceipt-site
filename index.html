@@ -17,6 +17,12 @@
     <!-- Fraunces only for the 8 letters of the logo's wordmark. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&text=Groceipt&display=swap" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- The hero's animation runs only when the phone or computer allows motion. -->
+    <script>
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to the main content</a>
@@ -38,72 +44,58 @@
     </header>
 
     <main id="main">
-      <!-- Hero: the headline across the page, then the words, the receipt, and the Kitchen it fills in -->
+      <!-- Hero: the headline across the page, the words, then the receipt sorting itself into the Kitchen -->
       <section class="hero">
         <div class="wrap">
           <h1 class="display">Snap your receipt</h1>
-          <div class="hero-grid">
+          <div class="hero-intro">
             <div class="hero-copy">
               <p class="hero-sub">Eat better, waste less, spend less</p>
-              <p class="hero-lead">Take a photo of your grocery receipt and Groceipt does the boring part. It keeps track of what’s in your kitchen, tells you what to use first, and turns it all into dinner ideas and your next shopping list.</p>
+              <p class="hero-lead">Take a photo of your grocery receipt. Groceipt sorts your kitchen with what to use first on top, then turns it into dinner ideas and a shopping list.</p>
+            </div>
+            <div class="hero-act">
               <div class="actions">
                 <a class="btn btn-lg" href="https://groceipt.expo.app" target="_blank" rel="noopener">Try the demo</a>
                 <a class="text-link" href="#how">See how it works</a>
               </div>
-              <p class="actions-note">The demo opens a sample kitchen right in your browser, with nothing to download. The iPhone app is in beta.</p>
+              <p class="actions-note">The demo opens a sample kitchen in your browser, with nothing to download. The iPhone app is in beta.</p>
             </div>
+          </div>
 
-            <div class="stage" role="img" aria-label="A grocery receipt, and the Kitchen it fills in about 30 seconds later, with baby spinach and chicken thighs to use soon.">
-              <div class="stage-receipt" aria-hidden="true">
-                <div class="receipt-wrap">
-                  <div class="receipt torn">
-                    <div class="store">FRESH MARKET</div>
-                    <div class="meta">10/24/26 · 6:42 PM</div>
-                    <div class="row hl"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
-                    <div class="row"><span>Strawberries</span><span class="dots"></span><span>4.99</span></div>
-                    <div class="row"><span>Chicken thighs</span><span class="dots"></span><span>7.98</span></div>
-                    <div class="row"><span>Greek yogurt</span><span class="dots"></span><span>5.29</span></div>
-                    <div class="row"><span>Paper towels</span><span class="dots"></span><span>6.49</span></div>
-                    <div class="rule"></div>
-                    <div class="row total"><span>TOTAL</span><span class="dots"></span><span>28.24</span></div>
-                  </div>
-                </div>
-                <p class="stage-cap">Your receipt</p>
-              </div>
-              <div class="stage-phone" aria-hidden="true">
-                <div class="phone">
-                  <div class="screen">
-                    <div class="island"></div>
-                    <div class="statusbar"><span>9:41</span><span class="sys"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1" /><rect x="4.5" y="5" width="3" height="6" rx="1" /><rect x="9" y="2.5" width="3" height="8.5" rx="1" /><rect x="13.5" y="0" width="3" height="11" rx="1" /></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="currentColor" opacity="0.4" /><rect x="2" y="2" width="16" height="8" rx="1.8" fill="currentColor" /><path d="M23.5 4.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4" /></svg></span></div>
-                    <div class="content">
-                      <div class="title-row">
-                        <span class="title">Kitchen</span>
-                        <svg class="camera" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.8l1.4-2h4.6l1.4 2h1.8A2.5 2.5 0 0 1 20 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5z" /><circle cx="12" cy="13" r="3.5" /></svg>
-                      </div>
-                      <div class="banner">2 things should be used soon.</div>
-                      <div class="group-title">Produce</div>
-                      <div class="p-card">
-                        <div class="food"><span class="name">Baby spinach</span><span><span class="status soon">Use soon</span><span class="left"> · About 2 days left</span></span></div>
-                        <div class="food"><span class="name">Strawberries</span><span><span class="status fresh">Fresh</span><span class="left"> · About 4 days left</span></span></div>
-                      </div>
-                      <div class="group-title">Meat &amp; seafood</div>
-                      <div class="p-card">
-                        <div class="food"><span class="name">Chicken thighs</span><span><span class="status soon">Use soon</span><span class="left"> · Use today</span></span></div>
-                      </div>
-                      <div class="group-title">Dairy &amp; eggs</div>
-                      <div class="p-card">
-                        <div class="food"><span class="name">Greek yogurt</span><span><span class="status fresh">Fresh</span><span class="left"> · About 2 weeks left</span></span></div>
-                      </div>
-                    </div>
-                    <div class="tabbar">
-                      <span class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z" /></svg>Home</span>
-                      <span class="tab on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="3" width="12" height="18" rx="2" /><path d="M6 10h12M9 6v2M9 13v3" /></svg>Kitchen</span>
-                    </div>
-                  </div>
-                </div>
-                <p class="stage-cap">Your Kitchen, about 30 seconds later</p>
+          <!-- The only animation on the page: the receipt prints, then each line moves to its place in the Kitchen.
+               The lines are drawn by the script at the bottom. With reduced motion, the finished picture shows. -->
+          <div class="sort" role="img" aria-label="A receipt in checkout order. About 30 seconds later, the Kitchen it fills in, sorted with what to use first on top: baby spinach and chicken thighs to use soon, strawberries and Greek yogurt fresh, and paper towels off the List.">
+            <p class="sort-cap cap-receipt">Your receipt, in checkout order</p>
+            <div class="sort-receipt receipt-wrap">
+              <div class="receipt torn">
+                <div class="store">FRESH MARKET</div>
+                <div class="meta">Store #0412<br />10/24/26 &nbsp; 6:42 PM</div>
+                <div class="row" data-to="k-straw"><span>Strawberries</span><span class="dots"></span><span>4.99</span></div>
+                <div class="row" data-to="k-yogurt"><span>Greek yogurt</span><span class="dots"></span><span>5.29</span></div>
+                <div class="row" data-to="k-chicken"><span>Chicken thighs</span><span class="dots"></span><span>7.98</span></div>
+                <div class="row" data-to="k-towels"><span>Paper towels</span><span class="dots"></span><span>6.49</span></div>
+                <div class="row" data-to="k-spinach"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
+                <div class="rule"></div>
+                <div class="row total"><span>TOTAL</span><span class="dots"></span><span>28.24</span></div>
+                <div class="thanks">THANK YOU</div>
               </div>
             </div>
+            <div class="sort-time"></div>
+            <p class="sort-cap cap-kitchen">Your Kitchen, about 30 seconds later</p>
+            <div class="sort-kitchen">
+              <div class="kitchen">
+                <p class="k-banner">2 things should be used soon.</p>
+                <p class="k-sec">Produce</p>
+                <div class="k-row" id="k-spinach" style="--i: 4"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div>
+                <div class="k-row" id="k-straw" style="--i: 0"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div>
+                <p class="k-sec">Meat &amp; seafood</p>
+                <div class="k-row" id="k-chicken" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div>
+                <p class="k-sec">Dairy &amp; eggs</p>
+                <div class="k-row" id="k-yogurt" style="--i: 1"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div>
+              </div>
+              <div class="k-list" id="k-towels" style="--i: 3"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></div>
+            </div>
+            <svg class="sort-lines" aria-hidden="true"></svg>
           </div>
         </div>
       </section>
@@ -291,5 +283,62 @@
         </div>
       </div>
     </footer>
+    <!-- Draws the hero's lines from each receipt line to its place in the Kitchen,
+         and starts the animation when the hero is on screen. -->
+    <script>
+      (function () {
+        var sort = document.querySelector('.sort');
+        if (!sort) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var svg = sort.querySelector('.sort-lines');
+        var paper = sort.querySelector('.sort-receipt .receipt');
+        var kitchen = sort.querySelector('.kitchen');
+        var lines = [];
+        sort.querySelectorAll('[data-to]').forEach(function (row, i) {
+          var g = document.createElementNS(NS, 'g');
+          g.setAttribute('style', '--i: ' + i);
+          var path = document.createElementNS(NS, 'path');
+          path.setAttribute('pathLength', '1');
+          var from = document.createElementNS(NS, 'circle');
+          var to = document.createElementNS(NS, 'circle');
+          from.setAttribute('class', 'from');
+          to.setAttribute('class', 'to');
+          from.setAttribute('r', '3.5');
+          to.setAttribute('r', '3.5');
+          g.append(path, from, to);
+          svg.append(g);
+          lines.push({ row: row, target: document.getElementById(row.dataset.to), path: path, from: from, to: to });
+        });
+        function draw() {
+          if (!svg.getClientRects().length) return;
+          var box = sort.getBoundingClientRect();
+          var x1 = paper.getBoundingClientRect().right - box.left + 14;
+          var x2 = kitchen.getBoundingClientRect().left - box.left - 14;
+          var bend = (x2 - x1) / 2;
+          lines.forEach(function (l) {
+            var a = l.row.getBoundingClientRect();
+            var b = l.target.getBoundingClientRect();
+            var y1 = a.top + a.height / 2 - box.top;
+            var y2 = b.top + b.height / 2 - box.top;
+            l.path.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + bend) + ' ' + y1 + ' ' + (x2 - bend) + ' ' + y2 + ' ' + x2 + ' ' + y2);
+            l.from.setAttribute('cx', x1);
+            l.from.setAttribute('cy', y1);
+            l.to.setAttribute('cx', x2);
+            l.to.setAttribute('cy', y2);
+          });
+        }
+        draw();
+        window.addEventListener('resize', draw);
+        if (document.fonts) document.fonts.ready.then(draw);
+        if (document.documentElement.classList.contains('motion')) {
+          new IntersectionObserver(function (entries, watcher) {
+            if (entries[0].isIntersecting) {
+              sort.classList.add('play');
+              watcher.disconnect();
+            }
+          }, { threshold: 0.45 }).observe(sort);
+        }
+      })();
+    </script>
   </body>
 </html>
