@@ -1328,10 +1328,6 @@ p {
   line-height: 1.05;
 }
 
-.traits span {
-  color: var(--basil);
-}
-
 .say {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1481,8 +1477,9 @@ p {
   line-height: 1.05;
 }
 
+/* The three wins on their own line, in the same ink: the type carries it, not a color. */
 .b-section .tagline span {
-  color: var(--basil);
+  display: block;
 }
 
 .themes {
