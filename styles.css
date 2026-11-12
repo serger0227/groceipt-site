@@ -315,11 +315,21 @@ p {
   text-wrap: pretty;
 }
 
-/* The picture: the receipt in checkout order, a line from each food to its place in the Kitchen. */
+/* ---------- Photos ---------- */
+
+/* Real photos, where a drawing would only pretend to be real. Panel-sized, so panel corners. Flat, like the cards.
+   Every photo is cropped, color-treated and compressed the same way by scripts/website-photos.js. */
+.photo {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  background: var(--roll);
+}
+
+/* The picture: the photo of the groceries and their receipt, a line, then the Kitchen they fill in. */
 .sort {
-  position: relative;
   display: grid;
-  grid-template-columns: minmax(260px, 360px) minmax(96px, 1fr) minmax(320px, 400px);
+  grid-template-columns: minmax(0, 1fr) 96px minmax(320px, 400px);
   align-items: start;
   row-gap: 14px;
   margin-top: 48px;
@@ -331,20 +341,15 @@ p {
   font-weight: 500;
 }
 
-.cap-receipt {
+.cap-photo {
   grid-area: 1 / 1;
-}
-
-/* The line down between them, on phones only. */
-.sort-time {
-  display: none;
 }
 
 .cap-kitchen {
   grid-area: 1 / 3;
 }
 
-.sort-receipt {
+.sort-photo {
   grid-area: 2 / 1;
 }
 
@@ -352,38 +357,32 @@ p {
   grid-area: 2 / 3;
 }
 
-/* The hero's receipt is the biggest thing on the page after the title. */
-.sort-receipt .receipt {
-  padding: 30px 28px calc(var(--tooth) + 20px);
-  font-size: 15px;
+/* One ink line from the photo to the Kitchen, ending in a dot. */
+.sort-time {
+  grid-area: 2 / 2;
+  align-self: center;
+  position: relative;
+  height: 2px;
+  margin: 0 18px 0 14px;
 }
 
-.receipt .thanks {
-  margin-top: 10px;
-  text-align: center;
-  color: var(--faded);
-  font-size: 11.5px;
-  letter-spacing: 0.14em;
-}
-
-/* Drawn by the script at the bottom of index.html. */
-.sort-lines {
+.sort-time::before,
+.sort-time::after {
+  content: '';
   position: absolute;
+  background: var(--faded);
+}
+
+.sort-time::before {
   inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
 }
 
-.sort-lines path {
-  fill: none;
-  stroke: var(--faded);
-  stroke-width: 2;
-}
-
-.sort-lines circle {
-  fill: var(--faded);
+.sort-time::after {
+  right: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 /* The Kitchen as the app sorts it: by store section, the food to use first at the top. Flat, like a screen. */
@@ -459,24 +458,15 @@ p {
   font-size: 14px;
 }
 
-/* The page's only animation. The receipt prints, then each line moves to its place, in receipt order,
-   so the Kitchen fills in out of order: spinach, last on the receipt, lands first in line.
+/* The page's only animation. The line draws from the photo, the Kitchen appears, then each food lands
+   in its row in receipt order, and the banner comes last. The photo itself never moves.
    It runs once, when the hero is on screen. With reduced motion, html has no .motion class and nothing moves. */
-@keyframes print {
+@keyframes grow-across {
   from {
-    clip-path: inset(0 0 100% 0);
+    transform: scaleX(0);
   }
   to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
+    transform: none;
   }
 }
 
@@ -502,106 +492,43 @@ p {
 
 @media (prefers-reduced-motion: no-preference) {
   .motion .sort {
-    --start: 1.2s;
-    --step: 0.32s;
-  }
-
-  .motion .sort .receipt {
-    clip-path: inset(0 0 100% 0);
+    --start: 1s;
+    --step: 0.3s;
   }
 
   .motion .sort .kitchen,
   .motion .sort .k-row,
   .motion .sort .k-list,
   .motion .sort .k-banner,
-  .motion .sort-lines circle {
+  .motion .sort .sort-time::after {
     opacity: 0;
   }
 
-  .motion .sort-lines path {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
+  .motion .sort .sort-time::before {
+    transform-origin: left;
+    transform: scaleX(0);
   }
 
-  .motion .play .receipt {
-    animation: print 1.1s linear both;
+  .motion .play .sort-time::before {
+    animation: grow-across 0.45s ease-out 0.2s both;
+  }
+
+  .motion .play .sort-time::after {
+    animation: show 0.15s 0.6s both;
   }
 
   .motion .play .kitchen {
-    animation: show 0.5s ease-out 0.6s both;
-  }
-
-  .motion .play .sort-lines .from {
-    animation: show 0.15s calc(var(--start) + var(--i) * var(--step)) both;
-  }
-
-  .motion .play .sort-lines path {
-    animation: draw 0.5s ease-in-out calc(var(--start) + var(--i) * var(--step)) both;
-  }
-
-  .motion .play .sort-lines .to {
-    animation: show 0.15s calc(var(--start) + var(--i) * var(--step) + 0.45s) both;
+    animation: show 0.5s ease-out 0.5s both;
   }
 
   .motion .play .k-row,
   .motion .play .k-list {
-    animation: land 0.35s ease-out calc(var(--start) + var(--i) * var(--step) + 0.42s) both;
+    animation: land 0.35s ease-out calc(var(--start) + var(--i) * var(--step)) both;
   }
 
   .motion .play .k-banner {
-    animation: show 0.4s ease-out calc(var(--start) + 5 * var(--step) + 0.5s) both;
+    animation: show 0.4s ease-out calc(var(--start) + 5 * var(--step) + 0.1s) both;
   }
-}
-
-/* A paper receipt */
-.receipt-wrap {
-  filter: drop-shadow(0 0 0.6px rgba(38, 40, 42, 0.4)) drop-shadow(0 24px 40px rgba(38, 40, 42, 0.16));
-}
-
-.receipt {
-  background: var(--white);
-  border-radius: 2px 2px 0 0;
-  padding: 26px 24px calc(var(--tooth) + 18px);
-  font-family: var(--mono);
-  font-size: 13.5px;
-  line-height: 1.75;
-  text-align: left;
-}
-
-.receipt .store {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-}
-
-.receipt .meta {
-  text-align: center;
-  color: var(--faded);
-  font-size: 11.5px;
-  margin-bottom: 12px;
-}
-
-.receipt .row {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  white-space: nowrap;
-}
-
-.receipt .dots {
-  flex: 1;
-  border-bottom: 2px dotted var(--roll);
-  transform: translateY(-4px);
-}
-
-.receipt .rule {
-  border-top: 2px dashed var(--roll);
-  margin: 10px 0;
-}
-
-.receipt .total {
-  font-weight: 500;
-  color: var(--basil);
 }
 
 /* ---------- Sections ---------- */
@@ -631,11 +558,27 @@ p {
   font-size: 20px;
 }
 
-/* How it works: what the receipt fills in, set like a receipt's lines. Rows of dashes above and below,
-   a hairline between rows, and an example on the right where the price would be. No boxes. */
+/* How it works: the photo of the receipt on the left, and beside it what it fills in. */
+.how-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: start;
+  column-gap: 72px;
+  margin-top: 72px;
+}
+
+/* The receipt stays in view while you read its rows. */
+.how-photo {
+  position: sticky;
+  top: 100px;
+  max-width: 440px;
+}
+
+/* What the receipt fills in, set like a receipt's lines. Rows of dashes above and below,
+   a hairline between rows, the name on the left and the example under what it does. No boxes. */
 .tally {
   list-style: none;
-  margin: 72px 0 0;
+  margin: 0;
   padding: 0;
   background:
     var(--dash) left top / 100% 2px no-repeat,
@@ -644,9 +587,9 @@ p {
 
 .tally-row {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr) auto;
+  grid-template-columns: 150px minmax(0, 1fr);
   align-items: baseline;
-  column-gap: 48px;
+  gap: 12px 40px;
   padding: 26px 0;
 }
 
@@ -666,7 +609,7 @@ p {
 }
 
 .tally-eg {
-  justify-self: end;
+  grid-column: 2;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -925,6 +868,12 @@ p {
   max-width: 512px;
 }
 
+/* A real photo at the top of each half, the same shape in both so the halves stay level:
+   tonight's skillet, and the fridge the next list leaves out. */
+.idea-photo {
+  margin-bottom: 36px;
+}
+
 .idea-label {
   font-stretch: var(--wide);
   font-weight: 800;
@@ -1033,28 +982,35 @@ p {
   pointer-events: none;
 }
 
-/* Statement: printed like the closing lines of a receipt, centered between two rows of dashes. */
+/* Statement: the closing lines between two rows of dashes, like the end of a receipt,
+   with the kitchen in the evening beside them: the receipt on the fridge, nothing else to do. */
 .statement {
   padding: 0 0 150px;
 }
 
 .closing {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: 72px;
   padding: 88px 0;
   background:
     var(--dash) left top / 100% 2px no-repeat,
     var(--dash) left bottom / 100% 2px no-repeat;
-  text-align: center;
 }
 
+/* Two lines: "No meal logging," over "no calorie counting". On small phones the second half wraps on its own. */
 .closing .headline {
-  max-width: 13em;
-  margin: 0 auto;
-  font-size: clamp(36px, 4.8vw, 66px);
+  font-size: clamp(34px, 3.7vw, 52px);
+}
+
+.closing .headline span {
+  display: block;
 }
 
 .closing p {
-  max-width: 30em;
-  margin: 24px auto 0;
+  max-width: 26em;
+  margin-top: 24px;
   font-size: 21px;
   text-wrap: pretty;
 }
@@ -1598,19 +1554,26 @@ p {
     grid-template-columns: 1fr 1fr;
   }
 
-  /* How it works: the example goes under what it does. */
-  .tally {
+  /* The statement: the words over the photo. */
+  .closing {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .closing-photo {
+    max-width: 640px;
+  }
+
+  /* How it works: the receipt over its rows. */
+  .how-body {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
     margin-top: 56px;
   }
 
-  .tally-row {
-    grid-template-columns: 150px minmax(0, 1fr);
-    row-gap: 12px;
-  }
-
-  .tally-eg {
-    grid-column: 2;
-    justify-self: start;
+  .how-photo {
+    position: static;
+    max-width: 520px;
   }
 
   /* Made for you: the example goes under the words. */
@@ -1654,8 +1617,7 @@ p {
   }
 }
 
-/* Too narrow for the lines across: the receipt on top, one line down, then the Kitchen.
-   The Kitchen still fills in out of order, so the sorting still shows. */
+/* Too narrow side by side: the photo on top, the line goes down, then the Kitchen. */
 @media (max-width: 900px) {
   .sort {
     grid-template-columns: minmax(0, 1fr);
@@ -1664,43 +1626,32 @@ p {
     margin-top: 56px;
   }
 
-  .cap-receipt,
-  .sort-receipt,
+  .cap-photo,
+  .sort-photo,
   .sort-time,
   .cap-kitchen,
   .sort-kitchen {
     grid-area: auto;
   }
 
-  .sort-lines {
-    display: none;
-  }
-
-  /* Smaller, so the receipt and the Kitchen fit on about one phone screen. */
-  .sort-receipt {
+  .sort-photo {
     width: 100%;
-    max-width: 290px;
+    max-width: 640px;
     margin-top: 12px;
   }
 
-  .sort-receipt .receipt {
-    padding: 22px 22px calc(var(--tooth) + 14px);
-    font-size: 13px;
-  }
-
   .sort-time {
-    display: block;
-    position: relative;
+    align-self: auto;
     width: 2px;
     height: 36px;
-    margin: 14px 0 16px;
+    margin: 16px 0 18px;
   }
 
-  .sort-time::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--faded);
+  .sort-time::after {
+    right: auto;
+    top: auto;
+    left: -3px;
+    bottom: -4px;
   }
 
   .sort-kitchen {
@@ -1749,7 +1700,7 @@ p {
   }
 
   .motion .play .sort-time::before {
-    animation: grow-down 0.4s ease-out 1s both;
+    animation-name: grow-down;
   }
 
   /* On phones the foods drop down into place instead of sliding across. */

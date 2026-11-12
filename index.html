@@ -8,12 +8,15 @@
     <meta name="theme-color" content="#F6F7F4" />
     <meta property="og:title" content="Groceipt – Snap your receipt" />
     <meta property="og:description" content="Take a photo of your grocery receipt. Groceipt sorts your kitchen with what to use first on top, then turns it into dinner ideas and a shopping list." />
+    <meta property="og:image" content="https://serger0227.github.io/groceipt-site/assets/photos/web/preview.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Just-bought groceries and their receipt on a kitchen counter." />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=DM+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" />
     <!-- Fraunces only for the 8 letters of the logo's wordmark. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&text=Groceipt&display=swap" />
     <link rel="stylesheet" href="styles.css" />
@@ -61,46 +64,47 @@
             </div>
           </div>
 
-          <!-- The only animation on the page: the receipt prints, then each line moves to its place in the Kitchen.
-               The lines are drawn by the script at the bottom. With reduced motion, the finished picture shows. -->
-          <div class="sort" role="img" aria-label="A receipt in checkout order. About 30 seconds later, the Kitchen it fills in, sorted with what to use first on top: baby spinach and chicken thighs to use soon, strawberries and Greek yogurt fresh, and paper towels off the List.">
-            <p class="sort-cap cap-receipt">Your receipt, in checkout order</p>
-            <div class="sort-receipt receipt-wrap">
-              <div class="receipt torn">
-                <div class="store">FRESH MARKET</div>
-                <div class="meta">Store #0412<br />10/24/26 &nbsp; 6:42 PM</div>
-                <div class="row" data-to="k-straw"><span>Strawberries</span><span class="dots"></span><span>4.99</span></div>
-                <div class="row" data-to="k-yogurt"><span>Greek yogurt</span><span class="dots"></span><span>5.29</span></div>
-                <div class="row" data-to="k-chicken"><span>Chicken thighs</span><span class="dots"></span><span>7.98</span></div>
-                <div class="row" data-to="k-towels"><span>Paper towels</span><span class="dots"></span><span>6.49</span></div>
-                <div class="row" data-to="k-spinach"><span>Baby spinach</span><span class="dots"></span><span>3.49</span></div>
-                <div class="rule"></div>
-                <div class="row total"><span>TOTAL</span><span class="dots"></span><span>28.24</span></div>
-                <div class="thanks">THANK YOU</div>
-              </div>
-            </div>
-            <div class="sort-time"></div>
+          <!-- The picture: a real photo of the groceries and their receipt, a line, then the Kitchen they fill in.
+               The Kitchen is drawn, because it shows the app itself. The page's only animation: the line draws
+               and the foods land in their rows, in receipt order. With reduced motion, the finished picture shows. -->
+          <div class="sort">
+            <p class="sort-cap cap-photo">You snap the receipt at home</p>
+            <picture class="sort-photo">
+              <source
+                type="image/webp"
+                srcset="assets/photos/web/hero-720.webp 720w, assets/photos/web/hero-1176.webp 1176w"
+                sizes="(max-width: 900px) min(640px, calc(100vw - 40px)), min(640px, calc(100vw - 560px))" />
+              <img
+                class="photo"
+                src="assets/photos/web/hero-1176.jpg"
+                srcset="assets/photos/web/hero-720.jpg 720w, assets/photos/web/hero-1176.jpg 1176w"
+                sizes="(max-width: 900px) min(640px, calc(100vw - 40px)), min(640px, calc(100vw - 560px))"
+                width="1176"
+                height="784"
+                fetchpriority="high"
+                alt="Just-bought groceries on a kitchen counter: strawberries, baby spinach, Greek yogurt, chicken thighs and paper towels, next to their receipt." />
+            </picture>
+            <div class="sort-time" aria-hidden="true"></div>
             <p class="sort-cap cap-kitchen">Your Kitchen, about 30 seconds later</p>
-            <div class="sort-kitchen">
+            <div class="sort-kitchen" role="img" aria-label="The Kitchen the receipt fills in, sorted with what to use first on top: baby spinach and chicken thighs to use soon, strawberries and Greek yogurt fresh, and paper towels crossed off your List.">
               <div class="kitchen">
                 <p class="k-banner">2 things should be used soon.</p>
                 <p class="k-sec">Produce</p>
-                <div class="k-row" id="k-spinach" style="--i: 4"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div>
-                <div class="k-row" id="k-straw" style="--i: 0"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div>
+                <div class="k-row" style="--i: 0"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div>
+                <div class="k-row" style="--i: 1"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div>
                 <p class="k-sec">Meat &amp; seafood</p>
-                <div class="k-row" id="k-chicken" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div>
+                <div class="k-row" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div>
                 <p class="k-sec">Dairy &amp; eggs</p>
-                <div class="k-row" id="k-yogurt" style="--i: 1"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div>
+                <div class="k-row" style="--i: 3"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div>
               </div>
-              <div class="k-list" id="k-towels" style="--i: 3"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></div>
+              <div class="k-list" style="--i: 4"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></div>
             </div>
-            <svg class="sort-lines" aria-hidden="true"></svg>
           </div>
         </div>
       </section>
 
-      <!-- How it works: everything the hero's receipt fills in, set like the lines of a receipt:
-           the name, what it does, and an example where the price would be. Then the total. -->
+      <!-- How it works: the receipt itself, and beside it everything it fills in, set like the lines of a receipt:
+           the name, what it does, and an example under it. Then the total. -->
       <section id="how" class="section how">
         <div class="wrap">
           <div class="stack-head">
@@ -108,34 +112,55 @@
             <p class="lead">You snap it once and never type a thing. Groceipt reads every line and sends each food where it belongs, so your Kitchen, recipes, List, spending and Cart score all fill in at the same time.</p>
           </div>
 
-          <ul class="tally">
-            <li class="tally-row">
-              <h3>Kitchen</h3>
-              <p>Every food goes in with about how long it keeps, so you can see what to use first.</p>
-              <span class="tally-eg" aria-hidden="true">Baby spinach<span class="chip soon">Use soon</span></span>
-            </li>
-            <li class="tally-row">
-              <h3>Cook</h3>
-              <p>Recipes built around what you have, starting with whatever won’t last.</p>
-              <span class="tally-eg" aria-hidden="true">Spinach &amp; chicken skillet</span>
-            </li>
-            <li class="tally-row">
-              <h3>List</h3>
-              <p>Anything you bought comes off your List by itself.</p>
-              <span class="tally-eg" aria-hidden="true"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span></span>
-            </li>
-            <li class="tally-row">
-              <h3>Money</h3>
-              <p>What you spent in each section, and when a price you usually pay changes.</p>
-              <span class="tally-eg" aria-hidden="true">Produce<span class="amount">$8.48</span></span>
-            </li>
-            <li class="tally-row">
-              <h3>Cart score</h3>
-              <p>A simple read on how balanced your groceries are, with no calorie counting.</p>
-              <span class="tally-eg" aria-hidden="true"><span class="amount">82</span><span class="chip fresh">Great</span></span>
-            </li>
-          </ul>
-          <p class="tally-total">That’s a pantry tracker, a recipe finder, a shopping list and a grocery budget in one app, all kept up to date by a receipt you were going to throw away anyway.</p>
+          <div class="how-body">
+            <picture class="how-photo">
+              <source
+                type="image/webp"
+                srcset="assets/photos/web/receipt-480.webp 480w, assets/photos/web/receipt-882.webp 882w"
+                sizes="(max-width: 960px) min(520px, calc(100vw - 40px)), min(440px, calc((100vw - 136px) * 0.4))" />
+              <img
+                class="photo"
+                src="assets/photos/web/receipt-882.jpg"
+                srcset="assets/photos/web/receipt-480.jpg 480w, assets/photos/web/receipt-882.jpg 882w"
+                sizes="(max-width: 960px) min(520px, calc(100vw - 40px)), min(440px, calc((100vw - 136px) * 0.4))"
+                width="882"
+                height="1102"
+                loading="lazy"
+                decoding="async"
+                alt="The receipt, from Corner Grocer on October 24: baby spinach 3.49, strawberries 4.99, chicken thighs 7.98, Greek yogurt 5.29 and paper towels 6.49. Total 28.24." />
+            </picture>
+
+            <div class="how-rows">
+              <ul class="tally">
+                <li class="tally-row">
+                  <h3>Kitchen</h3>
+                  <p>Every food goes in with about how long it keeps, so you can see what to use first.</p>
+                  <span class="tally-eg" aria-hidden="true">Baby spinach<span class="chip soon">Use soon</span></span>
+                </li>
+                <li class="tally-row">
+                  <h3>Cook</h3>
+                  <p>Recipes built around what you have, starting with whatever won’t last.</p>
+                  <span class="tally-eg" aria-hidden="true">Spinach &amp; chicken skillet</span>
+                </li>
+                <li class="tally-row">
+                  <h3>List</h3>
+                  <p>Anything you bought comes off your List by itself.</p>
+                  <span class="tally-eg" aria-hidden="true"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span></span>
+                </li>
+                <li class="tally-row">
+                  <h3>Money</h3>
+                  <p>What you spent in each section, and when a price you usually pay changes.</p>
+                  <span class="tally-eg" aria-hidden="true">Produce<span class="amount">$8.48</span></span>
+                </li>
+                <li class="tally-row">
+                  <h3>Cart score</h3>
+                  <p>A simple read on how balanced your groceries are, with no calorie counting.</p>
+                  <span class="tally-eg" aria-hidden="true"><span class="amount">82</span><span class="chip fresh">Great</span></span>
+                </li>
+              </ul>
+              <p class="tally-total">That’s a pantry tracker, a recipe finder, a shopping list and a grocery budget in one app, all kept up to date by a receipt you were going to throw away anyway.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -149,6 +174,22 @@
         <div class="ideas">
           <div class="idea tint-saffron">
             <div class="idea-in">
+              <picture class="idea-photo">
+                <source
+                  type="image/webp"
+                  srcset="assets/photos/web/skillet-560.webp 560w, assets/photos/web/skillet-1122.webp 1122w"
+                  sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))" />
+                <img
+                  class="photo"
+                  src="assets/photos/web/skillet-1122.jpg"
+                  srcset="assets/photos/web/skillet-560.jpg 560w, assets/photos/web/skillet-1122.jpg 1122w"
+                  sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))"
+                  width="1122"
+                  height="748"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Chicken and wilted spinach cooking in a skillet on the stove, with a wooden spoon." />
+              </picture>
               <h3 class="idea-label">Tonight</h3>
               <p class="idea-text">Recipes start from the food you already have, beginning with whatever needs using up.</p>
               <div class="idea-eg" role="img" aria-label="Example: a spinach and chicken skillet that uses the chicken thighs and baby spinach to use soon, plus Greek yogurt. Lemon is the one thing to buy.">
@@ -166,18 +207,34 @@
           </div>
           <div class="idea tint-sprout">
             <div class="idea-in">
+              <picture class="idea-photo">
+                <source
+                  type="image/webp"
+                  srcset="assets/photos/web/fridge-560.webp 560w, assets/photos/web/fridge-1086.webp 1086w"
+                  sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))" />
+                <img
+                  class="photo"
+                  src="assets/photos/web/fridge-1086.jpg"
+                  srcset="assets/photos/web/fridge-560.jpg 560w, assets/photos/web/fridge-1086.jpg 1086w"
+                  sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))"
+                  width="1086"
+                  height="724"
+                  loading="lazy"
+                  decoding="async"
+                  alt="An open fridge with milk, Greek yogurt, strawberries, spinach and eggs on its shelves." />
+              </picture>
               <h3 class="idea-label">Next trip</h3>
               <p class="idea-text">Tell it what you’re planning and it writes the list, minus anything already in your kitchen.</p>
-              <div class="idea-eg" role="img" aria-label="Example: asked for tacos twice and easy breakfasts, it suggests tortillas, black beans, avocados, eggs and oats, and leaves out the chicken thighs you already have.">
+              <div class="idea-eg" role="img" aria-label="Example: asked for tacos twice and easy breakfasts, it suggests tortillas, black beans, avocados, bananas and bread, and leaves out the chicken thighs and eggs you already have.">
                 <p class="idea-title">“Tacos twice and easy breakfasts”</p>
                 <ul class="items">
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Tortillas</li>
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Black beans</li>
                   <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Avocados</li>
-                  <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Eggs</li>
-                  <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Oats</li>
+                  <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Bananas</li>
+                  <li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>Bread</li>
                 </ul>
-                <p class="left-out">Left out: chicken thighs. You already have them.</p>
+                <p class="left-out">Left out: chicken thighs and eggs. You already have them.</p>
                 <span class="btn">Add 5 to my list</span>
               </div>
             </div>
@@ -230,12 +287,31 @@
         </div>
       </section>
 
-      <!-- Statement: printed like the closing lines of a receipt -->
+      <!-- Statement: the closing lines, between two rows of dashes, beside the kitchen in the evening
+           with the week's receipt on the fridge. -->
       <section class="statement">
         <div class="wrap">
           <div class="closing">
-            <h2 class="headline">No meal logging, no calorie counting</h2>
-            <p>All it asks for is your receipt, about once a week. It never calls a food bad, and it won’t make you feel guilty about what got thrown out.</p>
+            <div class="closing-words">
+              <h2 class="headline"><span>No meal logging,</span> <span>no calorie counting</span></h2>
+              <p>All it asks for is your receipt, about once a week. It never calls a food bad, and it won’t make you feel guilty about what got thrown out.</p>
+            </div>
+            <picture class="closing-photo">
+              <source
+                type="image/webp"
+                srcset="assets/photos/web/evening-720.webp 720w, assets/photos/web/evening-1411.webp 1411w"
+                sizes="(max-width: 960px) min(640px, calc(100vw - 40px)), min(470px, calc((100vw - 136px) * 5 / 12))" />
+              <img
+                class="photo"
+                src="assets/photos/web/evening-1411.jpg"
+                srcset="assets/photos/web/evening-720.jpg 720w, assets/photos/web/evening-1411.jpg 1411w"
+                sizes="(max-width: 960px) min(640px, calc(100vw - 40px)), min(470px, calc((100vw - 136px) * 5 / 12))"
+                width="1411"
+                height="941"
+                loading="lazy"
+                decoding="async"
+                alt="A quiet kitchen in the evening, with the week’s receipt held to the fridge by a magnet." />
+            </picture>
           </div>
         </div>
       </section>
@@ -274,61 +350,17 @@
         </div>
       </div>
     </footer>
-    <!-- Draws the hero's lines from each receipt line to its place in the Kitchen,
-         and starts the animation when the hero is on screen. -->
+    <!-- Starts the hero's animation once, when the picture is on screen. -->
     <script>
       (function () {
         var sort = document.querySelector('.sort');
-        if (!sort) return;
-        var NS = 'http://www.w3.org/2000/svg';
-        var svg = sort.querySelector('.sort-lines');
-        var paper = sort.querySelector('.sort-receipt .receipt');
-        var kitchen = sort.querySelector('.kitchen');
-        var lines = [];
-        sort.querySelectorAll('[data-to]').forEach(function (row, i) {
-          var g = document.createElementNS(NS, 'g');
-          g.setAttribute('style', '--i: ' + i);
-          var path = document.createElementNS(NS, 'path');
-          path.setAttribute('pathLength', '1');
-          var from = document.createElementNS(NS, 'circle');
-          var to = document.createElementNS(NS, 'circle');
-          from.setAttribute('class', 'from');
-          to.setAttribute('class', 'to');
-          from.setAttribute('r', '3.5');
-          to.setAttribute('r', '3.5');
-          g.append(path, from, to);
-          svg.append(g);
-          lines.push({ row: row, target: document.getElementById(row.dataset.to), path: path, from: from, to: to });
-        });
-        function draw() {
-          if (!svg.getClientRects().length) return;
-          var box = sort.getBoundingClientRect();
-          var x1 = paper.getBoundingClientRect().right - box.left + 14;
-          var x2 = kitchen.getBoundingClientRect().left - box.left - 14;
-          var bend = (x2 - x1) / 2;
-          lines.forEach(function (l) {
-            var a = l.row.getBoundingClientRect();
-            var b = l.target.getBoundingClientRect();
-            var y1 = a.top + a.height / 2 - box.top;
-            var y2 = b.top + b.height / 2 - box.top;
-            l.path.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + bend) + ' ' + y1 + ' ' + (x2 - bend) + ' ' + y2 + ' ' + x2 + ' ' + y2);
-            l.from.setAttribute('cx', x1);
-            l.from.setAttribute('cy', y1);
-            l.to.setAttribute('cx', x2);
-            l.to.setAttribute('cy', y2);
-          });
-        }
-        draw();
-        window.addEventListener('resize', draw);
-        if (document.fonts) document.fonts.ready.then(draw);
-        if (document.documentElement.classList.contains('motion')) {
-          new IntersectionObserver(function (entries, watcher) {
-            if (entries[0].isIntersecting) {
-              sort.classList.add('play');
-              watcher.disconnect();
-            }
-          }, { threshold: 0.45 }).observe(sort);
-        }
+        if (!sort || !document.documentElement.classList.contains('motion')) return;
+        new IntersectionObserver(function (entries, watcher) {
+          if (entries[0].isIntersecting) {
+            sort.classList.add('play');
+            watcher.disconnect();
+          }
+        }, { threshold: 0.45 }).observe(sort);
       })();
     </script>
   </body>
