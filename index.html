@@ -11,7 +11,7 @@
     <meta property="og:image" content="https://serger0227.github.io/groceipt-site/assets/photos/web/preview.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Just-bought groceries and their receipt on a kitchen counter." />
+    <meta property="og:image:alt" content="A paper bag of just-bought groceries and its receipt on a kitchen counter." />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,12 +20,13 @@
     <!-- Fraunces only for the 8 letters of the logo's wordmark. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&text=Groceipt&display=swap" />
     <link rel="stylesheet" href="styles.css" />
-    <!-- The hero's animation runs only when the phone or computer allows motion. -->
+    <!-- Motion runs only when the phone or computer allows it. site.js does the rest. -->
     <script>
       if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
         document.documentElement.classList.add('motion');
       }
     </script>
+    <script src="site.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to the main content</a>
@@ -46,120 +47,163 @@
     </header>
 
     <main id="main">
-      <!-- Hero: the headline across the page, the words, then the receipt sorting itself into the Kitchen -->
-      <section class="hero">
-        <div class="wrap">
-          <h1 class="display">Snap your receipt</h1>
-          <div class="hero-intro">
-            <div class="hero-copy">
-              <p class="hero-sub">Eat better, waste less, spend less</p>
-              <p class="hero-lead">Take a photo of your grocery receipt. Groceipt sorts your kitchen with what to use first on top, then turns it into dinner ideas and a shopping list.</p>
-            </div>
-            <div class="hero-act">
-              <div class="actions">
-                <a class="btn btn-lg" href="https://groceipt.expo.app" target="_blank" rel="noopener">Try the demo</a>
-                <a class="text-link" href="#how">See how it works</a>
-              </div>
-              <p class="actions-note">The demo opens a sample kitchen in your browser, with nothing to download. The iPhone app is in beta.</p>
-            </div>
+      <!-- Hero: the photo fills the first screen and the sample-receipt picker is the first thing to do.
+           Three layers, back to front: the photo, the title, then the cut-out (the same photo, see-through
+           everywhere but the bag), so the groceries stand in front of the words. The photo and the cut-out are
+           placed by the same rules, so they always line up. As you scroll, both move a little slower than the
+           page and the title slower still, so the groceries rise over it (site.js). -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-scene">
+          <picture class="hero-plate" data-speed="0.16">
+            <source type="image/webp" srcset="assets/photos/web/counter-full-960.webp 960w, assets/photos/web/counter-full-1600.webp 1600w, assets/photos/web/counter-full-2400.webp 2400w" sizes="(max-width: 640px) 245vw, 100vw" />
+            <img
+              src="assets/photos/web/counter-full-1600.jpg"
+              srcset="assets/photos/web/counter-full-960.jpg 960w, assets/photos/web/counter-full-1600.jpg 1600w, assets/photos/web/counter-full-2400.jpg 2400w"
+              sizes="(max-width: 640px) 245vw, 100vw"
+              width="2400"
+              height="1350"
+              fetchpriority="high"
+              alt="A paper grocery bag on a kitchen counter, with strawberries, spinach, greens and paper towels inside and its receipt in front." />
+          </picture>
+        </div>
+        <div class="wrap hero-words" data-speed="0.34">
+          <p class="hero-sub">Eat better, waste less, spend less</p>
+          <h1 id="hero-title" class="hero-title"><span>Snap your</span> <span>receipt</span></h1>
+        </div>
+        <div class="hero-front" aria-hidden="true">
+          <picture class="hero-plate" data-speed="0.16">
+            <source type="image/webp" srcset="assets/photos/web/counter-cut-960.webp 960w, assets/photos/web/counter-cut-1600.webp 1600w, assets/photos/web/counter-cut-2400.webp 2400w" sizes="(max-width: 640px) 245vw, 100vw" />
+            <img src="assets/photos/web/counter-cut-1600.png" sizes="(max-width: 640px) 245vw, 100vw" width="2400" height="1350" fetchpriority="high" alt="" />
+          </picture>
+        </div>
+        <form class="wrap dock-wrap" id="try-form" action="#try">
+          <div class="dock">
+            <fieldset class="dock-picks">
+              <legend class="dock-label">Try it with a sample receipt</legend>
+              <label class="dock-pick"><input type="radio" name="receipt" value="weekly" checked /><span class="pick-name">Weekly shop</span><span class="pick-meta"><span class="pick-count">5 items · </span>$28.24</span></label>
+              <label class="dock-pick"><input type="radio" name="receipt" value="tacos" /><span class="pick-name">Taco night</span><span class="pick-meta"><span class="pick-count">5 items · </span>$16.76</span></label>
+              <label class="dock-pick"><input type="radio" name="receipt" value="breakfast" /><span class="pick-name">Breakfast run</span><span class="pick-meta"><span class="pick-count">5 items · </span>$17.08</span></label>
+            </fieldset>
+            <button class="btn btn-lg dock-go" type="submit">Snap it</button>
           </div>
+        </form>
+      </section>
 
-          <!-- The picture: a real photo of the groceries and their receipt, a line, then the Kitchen they fill in.
-               The Kitchen is drawn, because it shows the app itself. The page's only animation: the line draws
-               and the foods land in their rows, in receipt order. With reduced motion, the finished picture shows. -->
-          <div class="sort">
-            <p class="sort-cap cap-photo">You snap the receipt at home</p>
-            <picture class="sort-photo">
-              <source
-                type="image/webp"
-                srcset="assets/photos/web/hero-720.webp 720w, assets/photos/web/hero-1176.webp 1176w"
-                sizes="(max-width: 900px) min(640px, calc(100vw - 40px)), min(640px, calc(100vw - 560px))" />
-              <img
-                class="photo"
-                src="assets/photos/web/hero-1176.jpg"
-                srcset="assets/photos/web/hero-720.jpg 720w, assets/photos/web/hero-1176.jpg 1176w"
-                sizes="(max-width: 900px) min(640px, calc(100vw - 40px)), min(640px, calc(100vw - 560px))"
-                width="1176"
-                height="784"
-                fetchpriority="high"
-                alt="Just-bought groceries on a kitchen counter: strawberries, baby spinach, Greek yogurt, chicken thighs and paper towels, next to their receipt." />
-            </picture>
-            <div class="sort-time" aria-hidden="true"></div>
-            <p class="sort-cap cap-kitchen">Your Kitchen, about 30 seconds later</p>
-            <div class="sort-kitchen" role="img" aria-label="The Kitchen the receipt fills in, sorted with what to use first on top: baby spinach and chicken thighs to use soon, strawberries and Greek yogurt fresh, and paper towels crossed off your List.">
-              <div class="kitchen">
-                <p class="k-banner">2 things should be used soon.</p>
-                <p class="k-sec">Produce</p>
-                <div class="k-row" style="--i: 0"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div>
-                <div class="k-row" style="--i: 1"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div>
-                <p class="k-sec">Meat &amp; seafood</p>
-                <div class="k-row" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div>
-                <p class="k-sec">Dairy &amp; eggs</p>
-                <div class="k-row" style="--i: 3"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div>
-              </div>
-              <div class="k-list" style="--i: 4"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></div>
-            </div>
+      <!-- Try it: what the picked receipt turns into, drawn the way the app shows it, because it shows the app.
+           site.js fills it in for the receipt picked above and plays it once on screen: the lines are read,
+           the foods land in the Kitchen in receipt order, then the suggestions come in.
+           Without JavaScript the weekly shop shows, finished. -->
+      <section id="try" class="try" aria-labelledby="try-title">
+        <div class="wrap">
+          <div class="try-head">
+            <h2 id="try-title" class="headline reveal">Here’s what one receipt does</h2>
+            <p class="lead reveal">Groceipt reads every line, sorts your Kitchen with what to use first on top, then plans what’s next.</p>
+          </div>
+          <div class="try-switch" role="group" aria-label="Sample receipts">
+            <button type="button" class="switch" data-receipt="weekly" aria-pressed="true">Weekly shop</button>
+            <button type="button" class="switch" data-receipt="tacos" aria-pressed="false">Taco night</button>
+            <button type="button" class="switch" data-receipt="breakfast" aria-pressed="false">Breakfast run</button>
+          </div>
+          <p class="sr-only" id="try-status" aria-live="polite"></p>
+          <div class="try-flow" id="try-flow"><div class="try-step"><p class="try-cap"><span class="try-num">1</span>You snap it</p><div class="panel check" role="img" aria-label="The receipt as Groceipt reads it: Corner Grocer, 10/24/26 6:42 PM. Baby spinach 3.49, Strawberries 4.99, Chicken thighs 7.98, Greek yogurt 5.29, Paper towels 6.49. Total 28.24."><p class="p-title">Check your receipt</p><p class="p-sub">Corner Grocer · 10/24/26 6:42 PM</p><ul class="lines"><li style="--i: 0"><span>Baby spinach</span><span class="amount">3.49</span></li><li style="--i: 1"><span>Strawberries</span><span class="amount">4.99</span></li><li style="--i: 2"><span>Chicken thighs</span><span class="amount">7.98</span></li><li style="--i: 3"><span>Greek yogurt</span><span class="amount">5.29</span></li><li style="--i: 4"><span>Paper towels</span><span class="amount">6.49</span></li></ul><p class="p-total"><span>Total</span><span class="amount">28.24</span></p><span class="btn p-btn">Add to kitchen</span><span class="scanline"></span></div></div><div class="try-link" aria-hidden="true"></div><div class="try-step"><p class="try-cap"><span class="try-num">2</span>Your Kitchen, about 30 seconds later</p><div class="panel kitchen" role="img" aria-label="The Kitchen it fills in, by store section: Baby spinach, about 2 days left; Strawberries, about 4 days left; Chicken thighs, use today; Greek yogurt, about 2 weeks left. Use soon: Baby spinach and Chicken thighs."><p class="k-banner">2 things should be used soon.</p><p class="k-sec">Produce</p><div class="k-row" style="--i: 0"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div><div class="k-row" style="--i: 1"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div><p class="k-sec">Meat &amp; seafood</p><div class="k-row" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div><p class="k-sec">Dairy &amp; eggs</p><div class="k-row" style="--i: 3"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div></div></div><div class="try-link" aria-hidden="true"></div><div class="try-step"><p class="try-cap"><span class="try-num">3</span>What it suggests</p><div class="panel next" role="img" aria-label="What it suggests next: Spinach &amp; chicken skillet, 25 min, about $2.10 a serving. Paper towels came off your List."><p class="k-sec">Cook</p><p class="n-title">Spinach &amp; chicken skillet</p><p class="n-meta">25 min · about $2.10 a serving</p><p class="soon-note">Helps use up your baby spinach and chicken thighs</p><p class="k-sec n-sec">List</p><p class="n-row"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></p></div></div></div>
+          <div class="try-more">
+            <a class="btn btn-lg" href="https://groceipt.expo.app" target="_blank" rel="noopener">Try the full demo</a>
+            <p class="actions-note">It opens a sample kitchen in your browser, with nothing to download. The iPhone app is in beta.</p>
           </div>
         </div>
       </section>
 
-      <!-- How it works: the receipt itself, and beside it everything it fills in, set like the lines of a receipt:
-           the name, what it does, and an example under it. Then the total. -->
-      <section id="how" class="section how">
-        <div class="wrap">
-          <div class="stack-head">
-            <h2 class="headline">Everything starts with one receipt</h2>
-            <p class="lead">You snap it once and never type a thing. Groceipt reads every line and sends each food where it belongs, so your Kitchen, recipes, List, spending and Cart score all fill in at the same time.</p>
-          </div>
-
-          <div class="how-body">
-            <picture class="how-photo">
-              <source
-                type="image/webp"
-                srcset="assets/photos/web/receipt-480.webp 480w, assets/photos/web/receipt-882.webp 882w"
-                sizes="(max-width: 960px) min(520px, calc(100vw - 40px)), min(440px, calc((100vw - 136px) * 0.4))" />
-              <img
-                class="photo"
-                src="assets/photos/web/receipt-882.jpg"
-                srcset="assets/photos/web/receipt-480.jpg 480w, assets/photos/web/receipt-882.jpg 882w"
-                sizes="(max-width: 960px) min(520px, calc(100vw - 40px)), min(440px, calc((100vw - 136px) * 0.4))"
-                width="882"
-                height="1102"
-                loading="lazy"
-                decoding="async"
-                alt="The receipt, from Corner Grocer on October 24: baby spinach 3.49, strawberries 4.99, chicken thighs 7.98, Greek yogurt 5.29 and paper towels 6.49. Total 28.24." />
-            </picture>
-
-            <div class="how-rows">
-              <ul class="tally">
-                <li class="tally-row">
-                  <h3>Kitchen</h3>
-                  <p>Every food goes in with about how long it keeps, so you can see what to use first.</p>
-                  <span class="tally-eg" aria-hidden="true">Baby spinach<span class="chip soon">Use soon</span></span>
-                </li>
-                <li class="tally-row">
-                  <h3>Cook</h3>
-                  <p>Recipes built around what you have, starting with whatever won’t last.</p>
-                  <span class="tally-eg" aria-hidden="true">Spinach &amp; chicken skillet</span>
-                </li>
-                <li class="tally-row">
-                  <h3>List</h3>
-                  <p>Anything you bought comes off your List by itself.</p>
-                  <span class="tally-eg" aria-hidden="true"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span></span>
-                </li>
-                <li class="tally-row">
-                  <h3>Money</h3>
-                  <p>What you spent in each section, and when a price you usually pay changes.</p>
-                  <span class="tally-eg" aria-hidden="true">Produce<span class="amount">$8.48</span></span>
-                </li>
-                <li class="tally-row">
-                  <h3>Cart score</h3>
-                  <p>A simple read on how balanced your groceries are, with no calorie counting.</p>
-                  <span class="tally-eg" aria-hidden="true"><span class="amount">82</span><span class="chip fresh">Great</span></span>
-                </li>
-              </ul>
-              <p class="tally-total">That’s a pantry tracker, a recipe finder, a shopping list and a grocery budget in one app, all kept up to date by a receipt you were going to throw away anyway.</p>
+      <!-- How it works: one receipt's week. When the device allows motion, the section stays on screen while
+           you scroll and each scene fades in over the last, with its line. On computers the first four scenes
+           are short clips that play forward and backward with the scroll; elsewhere, and until a clip has
+           loaded, its still shows and slowly pushes in (site.js). Without motion it's five photos, each with
+           its line, one after another. Phones get tall crops of the photos. -->
+      <section id="how" class="story" aria-labelledby="how-title">
+        <div class="story-track">
+          <div class="story-stage">
+            <div class="wrap story-head">
+              <h2 id="how-title" class="headline">Everything starts with one receipt</h2>
             </div>
+            <ol class="s-steps">
+              <li class="s-step on">
+                <div class="s-shot">
+                  <picture>
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" type="image/webp" srcset="assets/photos/web/checkout-tall-640.webp 640w, assets/photos/web/checkout-tall-1134.webp 1134w" sizes="100vw" />
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" srcset="assets/photos/web/checkout-tall-640.jpg 640w, assets/photos/web/checkout-tall-1134.jpg 1134w" sizes="100vw" />
+                    <source type="image/webp" srcset="assets/photos/web/checkout-full-960.webp 960w, assets/photos/web/checkout-full-1920.webp 1920w" sizes="100vw" />
+                    <img src="assets/photos/web/checkout-full-1920.jpg" srcset="assets/photos/web/checkout-full-960.jpg 960w, assets/photos/web/checkout-full-1920.jpg 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="A receipt curling out of the printer at a grocery store checkout, with the store’s lights blurred behind it." />
+                  </picture>
+                  <video data-clip="checkout" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+                </div>
+                <div class="s-text">
+                  <p class="s-when">Sat 6:42 PM</p>
+                  <p class="s-line">It starts with the receipt you’d usually throw away.</p>
+                </div>
+              </li>
+              <li class="s-step">
+                <div class="s-shot">
+                  <picture>
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" type="image/webp" srcset="assets/photos/web/counter-tall-640.webp 640w, assets/photos/web/counter-tall-1134.webp 1134w" sizes="100vw" />
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" srcset="assets/photos/web/counter-tall-640.jpg 640w, assets/photos/web/counter-tall-1134.jpg 1134w" sizes="100vw" />
+                    <source type="image/webp" srcset="assets/photos/web/counter-full-960.webp 960w, assets/photos/web/counter-full-1600.webp 1600w, assets/photos/web/counter-full-2400.webp 2400w" sizes="100vw" />
+                    <img src="assets/photos/web/counter-full-2400.jpg" srcset="assets/photos/web/counter-full-960.jpg 960w, assets/photos/web/counter-full-1600.jpg 1600w, assets/photos/web/counter-full-2400.jpg 2400w" sizes="100vw" width="2400" height="1350" loading="lazy" decoding="async" alt="The grocery bag on the kitchen counter at home, with its receipt in front." />
+                  </picture>
+                  <video data-clip="counter" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+                </div>
+                <div class="s-text">
+                  <p class="s-when">Sat 7:05 PM</p>
+                  <p class="s-line">Snap it once. Groceipt reads every line, so you never type a thing.</p>
+                </div>
+              </li>
+              <li class="s-step">
+                <div class="s-shot">
+                  <picture>
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" type="image/webp" srcset="assets/photos/web/fridge-tall-640.webp 640w, assets/photos/web/fridge-tall-1134.webp 1134w" sizes="100vw" />
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" srcset="assets/photos/web/fridge-tall-640.jpg 640w, assets/photos/web/fridge-tall-1134.jpg 1134w" sizes="100vw" />
+                    <source type="image/webp" srcset="assets/photos/web/fridge-full-960.webp 960w, assets/photos/web/fridge-full-1920.webp 1920w" sizes="100vw" />
+                    <img src="assets/photos/web/fridge-full-1920.jpg" srcset="assets/photos/web/fridge-full-960.jpg 960w, assets/photos/web/fridge-full-1920.jpg 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="The open fridge, with milk, Greek yogurt, strawberries, spinach, chicken and eggs on its shelves." />
+                  </picture>
+                  <video data-clip="fridge" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+                </div>
+                <div class="s-text">
+                  <p class="s-when">Sat 7:06 PM</p>
+                  <p class="s-line">Every food goes in with about how long it keeps. What to use first is on top.</p>
+                  <p class="s-card" aria-hidden="true"><strong>Baby spinach</strong><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></p>
+                </div>
+              </li>
+              <li class="s-step">
+                <div class="s-shot">
+                  <picture>
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" type="image/webp" srcset="assets/photos/web/skillet-tall-640.webp 640w, assets/photos/web/skillet-tall-1134.webp 1134w" sizes="100vw" />
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" srcset="assets/photos/web/skillet-tall-640.jpg 640w, assets/photos/web/skillet-tall-1134.jpg 1134w" sizes="100vw" />
+                    <source type="image/webp" srcset="assets/photos/web/skillet-full-960.webp 960w, assets/photos/web/skillet-full-1920.webp 1920w" sizes="100vw" />
+                    <img src="assets/photos/web/skillet-full-1920.jpg" srcset="assets/photos/web/skillet-full-960.jpg 960w, assets/photos/web/skillet-full-1920.jpg 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="Chicken and wilting spinach cooking in a cast-iron skillet, with a wooden spoon." />
+                  </picture>
+                  <video data-clip="skillet" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+                </div>
+                <div class="s-text">
+                  <p class="s-when">Sat 7:30 PM</p>
+                  <p class="s-line">Dinner starts from whatever needs using up, within your diets and allergies.</p>
+                  <p class="s-card" aria-hidden="true"><strong>Spinach &amp; chicken skillet</strong><span class="k-left">25 min · about $2.10 a serving</span></p>
+                </div>
+              </li>
+              <li class="s-step">
+                <div class="s-shot" style="--at: 78% 50%">
+                  <picture>
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" type="image/webp" srcset="assets/photos/web/evening-tall-529.webp 529w" sizes="100vw" />
+                    <source media="(max-width: 640px) and (prefers-reduced-motion: no-preference)" srcset="assets/photos/web/evening-tall-529.jpg 529w" sizes="100vw" />
+                    <source type="image/webp" srcset="assets/photos/web/evening-full-960.webp 960w, assets/photos/web/evening-full-1672.webp 1672w" sizes="100vw" />
+                    <img src="assets/photos/web/evening-full-1672.jpg" srcset="assets/photos/web/evening-full-960.jpg 960w, assets/photos/web/evening-full-1672.jpg 1672w" sizes="100vw" width="1672" height="941" loading="lazy" decoding="async" alt="The kitchen on Sunday evening, with the week’s receipt held to the fridge by a magnet." />
+                  </picture>
+                </div>
+                <div class="s-text">
+                  <p class="s-when">Sun 8:00 PM</p>
+                  <p class="s-line">Your week in a few calm lines: what you spent, what you used up, how balanced your cart was.</p>
+                  <p class="s-card stack" aria-hidden="true"><strong>Your week is ready</strong><span class="k-left">You used up 9 foods from your Kitchen.</span><span class="s-score"><span class="amount">Cart score 82</span><span class="chip fresh">Great</span></span><span class="s-fine">Not medical advice.</span></p>
+                </div>
+              </li>
+            </ol>
+            <div class="s-progress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span></div>
           </div>
         </div>
       </section>
@@ -168,27 +212,27 @@
            Two colored halves, edge to edge, with each example printed straight on its color. -->
       <section id="ideas" class="ideas-section">
         <div class="wrap ideas-head">
-          <h2 class="headline">What to cook tonight, and what to buy next</h2>
-          <p class="lead">Both follow the diets and allergies you set, and only you can change them.</p>
+          <h2 class="headline reveal">What to cook tonight, and what to buy next</h2>
+          <p class="lead reveal">Both follow the diets and allergies you set, and only you can change them.</p>
         </div>
         <div class="ideas">
           <div class="idea tint-saffron">
-            <div class="idea-in">
-              <picture class="idea-photo">
+            <div class="idea-in reveal">
+              <picture class="idea-photo drift">
                 <source
                   type="image/webp"
-                  srcset="assets/photos/web/skillet-560.webp 560w, assets/photos/web/skillet-1122.webp 1122w"
+                  srcset="assets/photos/web/skillet-560.webp 560w, assets/photos/web/skillet-1120.webp 1122w"
                   sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))" />
                 <img
                   class="photo"
-                  src="assets/photos/web/skillet-1122.jpg"
-                  srcset="assets/photos/web/skillet-560.jpg 560w, assets/photos/web/skillet-1122.jpg 1122w"
+                  src="assets/photos/web/skillet-1120.jpg"
+                  srcset="assets/photos/web/skillet-560.jpg 560w, assets/photos/web/skillet-1120.jpg 1122w"
                   sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))"
-                  width="1122"
-                  height="748"
+                  width="1120"
+                  height="747"
                   loading="lazy"
                   decoding="async"
-                  alt="Chicken and wilted spinach cooking in a skillet on the stove, with a wooden spoon." />
+                  alt="Chicken and wilting spinach cooking in a cast-iron skillet on the stove, with a wooden spoon." />
               </picture>
               <h3 class="idea-label">Tonight</h3>
               <p class="idea-text">Recipes start from the food you already have, beginning with whatever needs using up.</p>
@@ -206,22 +250,22 @@
             </div>
           </div>
           <div class="idea tint-sprout">
-            <div class="idea-in">
-              <picture class="idea-photo">
+            <div class="idea-in reveal">
+              <picture class="idea-photo drift">
                 <source
                   type="image/webp"
-                  srcset="assets/photos/web/fridge-560.webp 560w, assets/photos/web/fridge-1086.webp 1086w"
+                  srcset="assets/photos/web/fridge-560.webp 560w, assets/photos/web/fridge-1120.webp 1086w"
                   sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))" />
                 <img
                   class="photo"
-                  src="assets/photos/web/fridge-1086.jpg"
-                  srcset="assets/photos/web/fridge-560.jpg 560w, assets/photos/web/fridge-1086.jpg 1086w"
+                  src="assets/photos/web/fridge-1120.jpg"
+                  srcset="assets/photos/web/fridge-560.jpg 560w, assets/photos/web/fridge-1120.jpg 1086w"
                   sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 960px) min(560px, calc(100vw - 64px)), min(512px, calc(50vw - 88px))"
-                  width="1086"
-                  height="724"
+                  width="1120"
+                  height="747"
                   loading="lazy"
                   decoding="async"
-                  alt="An open fridge with milk, Greek yogurt, strawberries, spinach and eggs on its shelves." />
+                  alt="An open fridge with milk, Greek yogurt, strawberries, spinach, chicken and eggs on its shelves." />
               </picture>
               <h3 class="idea-label">Next trip</h3>
               <p class="idea-text">Tell it what you’re planning and it writes the list, minus anything already in your kitchen.</p>
@@ -245,10 +289,10 @@
       <!-- Made for you: it gets more personal with every receipt. The stops go down a line, each with what the app shows then. -->
       <section id="yours" class="section">
         <div class="wrap">
-          <h2 class="headline grow-title">It gets to know your kitchen as you go</h2>
+          <h2 class="headline grow-title reveal">It gets to know your kitchen as you go</h2>
 
           <ol class="grow">
-            <li class="grow-stop">
+            <li class="grow-stop reveal">
               <span class="grow-dot" aria-hidden="true"></span>
               <h3>Your first receipt</h3>
               <p class="grow-text">Your Kitchen fills itself in, and Cook already has ideas for the food you just bought, starting with what won’t last.</p>
@@ -257,7 +301,7 @@
                 <div class="mini-row stack"><strong>Spinach &amp; chicken skillet</strong><span class="soon-note">Helps use up your baby spinach and chicken thighs</span></div>
               </div>
             </li>
-            <li class="grow-stop">
+            <li class="grow-stop reveal">
               <span class="grow-dot" aria-hidden="true"></span>
               <h3>A few trips in</h3>
               <p class="grow-text">It picks up your rhythm. If you buy milk every week, your List suggests it right around when you’d buy it again, and Money notices when a usual price changes.</p>
@@ -269,7 +313,7 @@
                 <div class="mini-row stack"><span class="split"><strong>Whole milk</strong><span class="amount">$3.49 → $3.89</span></span><span class="muted-stone">Fresh Market, since Oct 4</span></div>
               </div>
             </li>
-            <li class="grow-stop">
+            <li class="grow-stop reveal">
               <span class="grow-dot" aria-hidden="true"></span>
               <h3>A month in</h3>
               <p class="grow-text">With a few weeks of carts it can offer an easy idea for a healthier one, and your weekly recap compares each week with your own, never anyone else’s.</p>
@@ -283,7 +327,7 @@
             </li>
           </ol>
 
-          <p class="grow-after">There’s nothing to set up. Every receipt teaches Groceipt a bit more about what you buy, how often you buy it and what you pay, so its suggestions fit you better the longer you use it. Only the people in your household can see any of it.</p>
+          <p class="grow-after reveal">There’s nothing to set up. Every receipt teaches Groceipt a bit more about what you buy, how often you buy it and what you pay, so its suggestions fit you better the longer you use it. Only the people in your household can see any of it.</p>
         </div>
       </section>
 
@@ -292,11 +336,11 @@
       <section class="statement">
         <div class="wrap">
           <div class="closing">
-            <div class="closing-words">
+            <div class="closing-words reveal">
               <h2 class="headline"><span>No meal logging,</span> <span>no calorie counting</span></h2>
               <p>All it asks for is your receipt, about once a week. It never calls a food bad, and it won’t make you feel guilty about what got thrown out.</p>
             </div>
-            <picture class="closing-photo">
+            <picture class="closing-photo drift">
               <source
                 type="image/webp"
                 srcset="assets/photos/web/evening-720.webp 720w, assets/photos/web/evening-1411.webp 1411w"
@@ -319,7 +363,7 @@
       <!-- Join the beta: a big green receipt, torn at the bottom -->
       <section id="beta" class="cta torn" aria-labelledby="beta-title">
         <div class="wrap">
-          <h2 id="beta-title" class="headline">See it with a kitchen that’s already full</h2>
+          <h2 id="beta-title" class="headline reveal">See it with a kitchen that’s already full</h2>
           <p class="cta-text">The demo gives you your own sample household with a few weeks of groceries already scanned, so you can try everything, even scanning a real receipt. There’s nothing to install and no sign-up.</p>
           <div class="actions">
             <a class="btn btn-lg btn-dark" href="https://groceipt.expo.app" target="_blank" rel="noopener">Try the demo</a>
@@ -350,18 +394,5 @@
         </div>
       </div>
     </footer>
-    <!-- Starts the hero's animation once, when the picture is on screen. -->
-    <script>
-      (function () {
-        var sort = document.querySelector('.sort');
-        if (!sort || !document.documentElement.classList.contains('motion')) return;
-        new IntersectionObserver(function (entries, watcher) {
-          if (entries[0].isIntersecting) {
-            sort.classList.add('play');
-            watcher.disconnect();
-          }
-        }, { threshold: 0.45 }).observe(sort);
-      })();
-    </script>
   </body>
 </html>

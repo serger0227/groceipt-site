@@ -164,6 +164,24 @@ p {
   background: var(--dash) left bottom / 100% 2px no-repeat, var(--thermal);
 }
 
+/* Over the top of the hero the header is see-through, so the photo reaches the top of the screen (site.js). */
+.live .site-header.over {
+  background: transparent;
+}
+
+/* Words only for screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .bar {
   display: flex;
   align-items: center;
@@ -208,12 +226,15 @@ p {
   justify-content: center;
   height: 42px;
   padding: 0 20px;
+  border: 0;
   border-radius: 12px;
   background: var(--sprout);
   color: var(--print);
+  font-family: inherit;
   font-weight: 700;
   font-size: 15px;
   white-space: nowrap;
+  cursor: pointer;
   transition: background 0.15s;
 }
 
@@ -251,41 +272,194 @@ p {
 
 /* ---------- Hero ---------- */
 
+/* The photo fills the first screen, under the see-through header, and the sample-receipt picker sits at
+   the bottom, as the first thing to do. Back to front: the photo, the title, the cut-out of the bag (the
+   same photo, see-through everywhere but the bag), then the picker. So the groceries stand in front of
+   the bottom of "receipt".
+   Both pictures are placed by the same numbers, so they always line up: the top of the paper towels (11.52%
+   of the way down the picture, measured as a share of its width) meets the title's second line at --yc,
+   and the picture is as wide as the screen, or wider if that's what it takes to reach the bottom. */
 .hero {
-  padding: 56px 0 40px;
+  --pad: 116px;
+  --sub: clamp(18px, 1.8vw, 24px);
+  --f: clamp(56px, 12.4vw, 192px);
+  --hh: clamp(700px, 100svh, 1040px);
+  --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.3);
+  --pw: max(100vw, calc((var(--hh) - var(--yc)) / 0.4473));
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  min-height: var(--hh);
+  margin-top: -68px;
+  padding: var(--pad) 0 36px;
+  overflow: hidden;
+  background: var(--thermal);
 }
 
-/* One line across the page, like the bold top line of a receipt. */
-.hero .display {
-  font-size: clamp(52px, 8vw, 104px);
+/* On upright screens the bag comes out bigger next to the title, so it sits a little lower. */
+@media (orientation: portrait) {
+  .hero {
+    --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.47);
+  }
 }
 
-/* The words on the left, the button on the right, over the picture. */
-.hero-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 32px 64px;
-  margin-top: 28px;
+.hero-scene,
+.hero-front {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-scene {
+  z-index: -1;
+}
+
+.hero-front {
+  z-index: 1;
+}
+
+.hero-plate {
+  position: absolute;
+  left: calc(50% - var(--pw) / 2);
+  top: calc(var(--yc) - var(--pw) * 0.1152);
+  width: var(--pw);
+}
+
+/* The top of the photo fades into the paper, where the header and the title's first line sit,
+   and so does its bottom, where a tall phone screen goes past it. */
+.hero-plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 90%, transparent 100%);
+}
+
+.hero-words {
+  position: relative;
+  text-align: center;
 }
 
 .hero-sub {
   font-weight: 600;
-  font-size: clamp(22px, 2.2vw, 28px);
-  letter-spacing: -0.015em;
+  font-size: var(--sub);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   color: var(--basil);
-  text-wrap: balance;
 }
 
-.hero-lead {
-  max-width: 40em;
-  margin-top: 16px;
-  font-size: 19px;
-  text-wrap: pretty;
+/* The title: two lines, as big as the screen allows, like a receipt's bold top line blown up. */
+.hero-title {
+  margin-top: 10px;
+  font-stretch: var(--wide);
+  font-weight: 800;
+  font-size: var(--f);
+  line-height: 0.88;
+  letter-spacing: -0.05em;
 }
 
-.hero-act {
-  max-width: 360px;
+.hero-title span {
+  display: block;
+}
+
+/* The picker: like a search bar, the one thing to do on the first screen. White and flat, like the app's cards. */
+.dock-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.dock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 16px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 16px 16px 22px;
+  border-radius: 20px;
+  background: var(--white);
+}
+
+.dock-picks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Floated, so it's an ordinary part of the grid and sits over the three choices. */
+.dock-label {
+  float: left;
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
+  padding: 0;
+  color: var(--faded);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dock-pick {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px 16px 12px;
+  border: 1.5px solid var(--roll);
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.dock-pick:hover {
+  border-color: var(--faded);
+}
+
+/* The real radio button covers its card, so the whole card can be tapped. */
+.dock-pick input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dock-pick:has(input:checked) {
+  border-color: var(--print);
+  background: var(--sprout-tint);
+}
+
+.dock-pick:has(input:focus-visible) {
+  outline: 3px solid var(--print);
+  outline-offset: 3px;
+}
+
+.pick-name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.pick-meta {
+  color: var(--faded);
+  font-size: 14px;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.dock-go {
+  height: 64px;
+  padding: 0 36px;
 }
 
 .actions {
@@ -326,66 +500,7 @@ p {
   background: var(--roll);
 }
 
-/* The picture: the photo of the groceries and their receipt, a line, then the Kitchen they fill in. */
-.sort {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 96px minmax(320px, 400px);
-  align-items: start;
-  row-gap: 14px;
-  margin-top: 48px;
-}
-
-.sort-cap {
-  color: var(--faded);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.cap-photo {
-  grid-area: 1 / 1;
-}
-
-.cap-kitchen {
-  grid-area: 1 / 3;
-}
-
-.sort-photo {
-  grid-area: 2 / 1;
-}
-
-.sort-kitchen {
-  grid-area: 2 / 3;
-}
-
-/* One ink line from the photo to the Kitchen, ending in a dot. */
-.sort-time {
-  grid-area: 2 / 2;
-  align-self: center;
-  position: relative;
-  height: 2px;
-  margin: 0 18px 0 14px;
-}
-
-.sort-time::before,
-.sort-time::after {
-  content: '';
-  position: absolute;
-  background: var(--faded);
-}
-
-.sort-time::before {
-  inset: 0;
-}
-
-.sort-time::after {
-  right: -4px;
-  top: -3px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-/* The Kitchen as the app sorts it: by store section, the food to use first at the top. Flat, like a screen. */
+/* The Kitchen as the app sorts it: by store section, the food to use first at the top of each. Flat, like a screen. */
 .kitchen {
   padding: 18px 24px 6px;
   border-radius: 16px;
@@ -408,13 +523,13 @@ p {
   color: var(--faded);
 }
 
-/* One line each: the food, about how long it has left, its status. */
+/* Two lines each: the food over about how long it has left, its status beside them. */
 .k-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 14px;
-  padding: 8px 0;
+  padding: 7px 0;
 }
 
 .k-row + .k-row {
@@ -423,47 +538,45 @@ p {
 
 .k-name {
   font-weight: 600;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.3;
 }
 
 .k-left {
+  grid-area: 2 / 1;
+  color: var(--faded);
   font-size: 14px;
   line-height: 1.3;
-  color: var(--faded);
 }
 
 .k-row .chip {
+  grid-area: 1 / 2 / 3 / 3;
   padding: 5px 12px;
   font-size: 14px;
 }
 
-/* Paper towels aren't food: they come off the List instead. */
-.k-list {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 12px 18px;
-  border-radius: 10px;
-  background: var(--white);
-  border: 1px solid var(--roll);
-  font-weight: 600;
-  font-size: 16px;
-}
-
 .k-off {
-  margin-left: auto;
   color: var(--basil);
   font-size: 14px;
 }
 
-/* The page's only animation. The line draws from the photo, the Kitchen appears, then each food lands
-   in its row in receipt order, and the banner comes last. The photo itself never moves.
-   It runs once, when the hero is on screen. With reduced motion, html has no .motion class and nothing moves. */
+/* ---------- Motion ---------- */
+
+/* All of it runs only when the device allows motion: html gets "motion" from the script in the head (CSS only:
+   the hero coming in), and "live" from site.js (the rest). Otherwise nothing moves and everything shows.
+   Every move is slow and eases out, and only transform and opacity change, so it stays smooth. */
 @keyframes grow-across {
   from {
     transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes grow-down {
+  from {
+    transform: scaleY(0);
   }
   to {
     transform: none;
@@ -490,44 +603,165 @@ p {
   }
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.22em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.07);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .motion .sort {
-    --start: 1s;
-    --step: 0.3s;
+  /* The hero, once, as the page opens: the photo settles, the title rises line by line, then the picker. */
+  .motion .hero-plate img {
+    animation: settle 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .motion .sort .kitchen,
-  .motion .sort .k-row,
-  .motion .sort .k-list,
-  .motion .sort .k-banner,
-  .motion .sort .sort-time::after {
+  .motion .hero-title span {
+    animation: rise-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+
+  .motion .hero-title span + span {
+    animation-delay: 0.2s;
+  }
+
+  .motion .hero-sub {
+    animation: fade-up 0.7s ease-out 0.35s both;
+  }
+
+  .motion .dock {
+    animation: fade-up 0.7s ease-out 0.5s both;
+  }
+
+  /* Try it, once it's on screen: the receipt is read line by line, a line draws to the Kitchen,
+     the foods land in their rows in receipt order, then the suggestions come in. About 4.5 seconds. */
+  .live .try-flow:not(.play) .lines li,
+  .live .try-flow:not(.play) .p-total,
+  .live .try-flow:not(.play) .p-btn,
+  .live .try-flow:not(.play) .try-link,
+  .live .try-flow:not(.play) .kitchen,
+  .live .try-flow:not(.play) .next {
     opacity: 0;
   }
 
-  .motion .sort .sort-time::before {
+  .live .try-link::before {
     transform-origin: left;
-    transform: scaleX(0);
   }
 
-  .motion .play .sort-time::before {
-    animation: grow-across 0.45s ease-out 0.2s both;
+  .live .play .scanline {
+    animation: scan 1.2s ease-in-out 0.2s both;
   }
 
-  .motion .play .sort-time::after {
-    animation: show 0.15s 0.6s both;
+  .live .play .lines li {
+    animation: land 0.3s ease-out calc(0.3s + var(--i) * 0.2s) both;
   }
 
-  .motion .play .kitchen {
-    animation: show 0.5s ease-out 0.5s both;
+  .live .play .p-total,
+  .live .play .p-btn {
+    animation: show 0.3s ease-out 1.4s both;
   }
 
-  .motion .play .k-row,
-  .motion .play .k-list {
-    animation: land 0.35s ease-out calc(var(--start) + var(--i) * var(--step)) both;
+  .live .play .try-link:nth-child(2) {
+    animation: show 0.01s 1.7s both;
   }
 
-  .motion .play .k-banner {
-    animation: show 0.4s ease-out calc(var(--start) + 5 * var(--step) + 0.1s) both;
+  .live .play .try-link:nth-child(2)::before {
+    animation: grow-across 0.4s ease-out 1.7s both;
+  }
+
+  .live .play .try-link:nth-child(2)::after {
+    animation: show 0.15s 2.05s both;
+  }
+
+  .live .play .kitchen {
+    animation: show 0.4s ease-out 2s both;
+  }
+
+  .live .play .kitchen .k-row {
+    animation: land 0.35s ease-out calc(2.3s + var(--i) * 0.24s) both;
+  }
+
+  .live .play .kitchen .k-banner {
+    animation: show 0.4s ease-out 3.4s both;
+  }
+
+  .live .play .try-link:nth-child(4) {
+    animation: show 0.01s 3.7s both;
+  }
+
+  .live .play .try-link:nth-child(4)::before {
+    animation: grow-across 0.4s ease-out 3.7s both;
+  }
+
+  .live .play .try-link:nth-child(4)::after {
+    animation: show 0.15s 4.05s both;
+  }
+
+  .live .play .next {
+    animation: fade-up 0.5s ease-out 4s both;
+  }
+
+  /* Titles and blocks rise into place the first time they reach the screen. */
+  .live .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .live .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Photos in frames move a little inside them as you scroll, so they feel deeper than the page. */
+  .live .drift {
+    display: block;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .live .drift img {
+    transform: translate3d(0, var(--drift, 0px), 0) scale(1.1);
+    will-change: transform;
   }
 }
 
@@ -537,90 +771,13 @@ p {
   padding: 150px 0;
 }
 
-/* How it works carries straight on from the hero and is a short list, so it sits closer. */
-.section.how {
-  padding: 112px 0 120px;
-}
-
 /* Card titles: normal width, so only section titles are wide. */
-.tally-row h3,
 .grow-stop h3,
 .idea-title {
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
   text-wrap: balance;
-}
-
-/* How it works: the title over its paragraph. */
-.stack-head .lead {
-  max-width: 34em;
-  font-size: 20px;
-}
-
-/* How it works: the photo of the receipt on the left, and beside it what it fills in. */
-.how-body {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-  align-items: start;
-  column-gap: 72px;
-  margin-top: 72px;
-}
-
-/* The receipt stays in view while you read its rows. */
-.how-photo {
-  position: sticky;
-  top: 100px;
-  max-width: 440px;
-}
-
-/* What the receipt fills in, set like a receipt's lines. Rows of dashes above and below,
-   a hairline between rows, the name on the left and the example under what it does. No boxes. */
-.tally {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background:
-    var(--dash) left top / 100% 2px no-repeat,
-    var(--dash) left bottom / 100% 2px no-repeat;
-}
-
-.tally-row {
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  align-items: baseline;
-  gap: 12px 40px;
-  padding: 26px 0;
-}
-
-.tally-row + .tally-row {
-  border-top: 1px solid var(--roll);
-}
-
-.tally-row h3 {
-  font-size: 26px;
-}
-
-.tally-row p {
-  max-width: 32em;
-  font-size: 18px;
-  color: var(--faded);
-  text-wrap: pretty;
-}
-
-.tally-eg {
-  grid-column: 2;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.tally-eg .chip {
-  padding: 4px 10px;
-  font-size: 13px;
 }
 
 .done {
@@ -634,14 +791,506 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
-/* Under the rows, like the total under a receipt's lines. */
-.tally-total {
-  max-width: 46em;
-  padding-top: 26px;
-  font-weight: 600;
+/* ---------- Try it: what one receipt does ---------- */
+
+.try {
+  padding: 120px 0 130px;
+}
+
+.try-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 72px;
+}
+
+.try-head .lead {
+  margin-top: 0;
   font-size: 20px;
-  line-height: 1.45;
-  text-wrap: pretty;
+}
+
+/* The same three receipts as chips, to switch without scrolling back up. Only when the script runs. */
+.try-switch {
+  display: none;
+}
+
+.js .try-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.switch {
+  height: 40px;
+  padding: 0 18px;
+  border: 1.5px solid var(--roll);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--print);
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.switch:hover {
+  border-color: var(--faded);
+}
+
+.switch[aria-pressed='true'] {
+  border-color: var(--print);
+  background: var(--print);
+  color: var(--thermal);
+}
+
+/* The three panels, left to right, joined by ink lines that end in a dot. */
+.try-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.1fr) 48px minmax(0, 1fr);
+  align-items: start;
+  margin-top: 28px;
+}
+
+.try-step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.try-cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--faded);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.try-num {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--print);
+  border-radius: 50%;
+  color: var(--print);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.try-link {
+  position: relative;
+  height: 2px;
+  margin: 200px 10px 0 6px;
+}
+
+.try-link::before,
+.try-link::after {
+  content: '';
+  position: absolute;
+  background: var(--faded);
+}
+
+.try-link::before {
+  inset: 0;
+}
+
+.try-link::after {
+  right: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* A drawn screen of the app: flat and white, like the app's cards. */
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 22px;
+  border: 1px solid var(--roll);
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.p-title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.p-sub {
+  margin-top: 2px;
+  color: var(--faded);
+  font-size: 14px;
+}
+
+.lines {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--roll);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.p-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0 16px;
+  background: var(--dash) left top / 100% 2px no-repeat;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.p-btn {
+  width: 100%;
+  pointer-events: none;
+}
+
+/* The line that reads the receipt, top to bottom, once, while it plays. */
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--sprout);
+  opacity: 0;
+}
+
+.panel.kitchen {
+  padding: 18px 22px 10px;
+}
+
+.kitchen > .k-sec:first-child,
+.next > .k-sec:first-child {
+  margin-top: 0;
+}
+
+.n-title {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.n-meta {
+  margin-top: 4px;
+  color: var(--faded);
+  font-size: 15px;
+}
+
+.next .soon-note {
+  margin-top: 6px;
+}
+
+.n-sec {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--roll);
+}
+
+.n-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 2px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.n-row .k-off {
+  margin-left: auto;
+}
+
+.n-price {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 8px;
+  font-size: 16px;
+}
+
+.n-price strong {
+  font-weight: 600;
+}
+
+.try-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  margin-top: 56px;
+}
+
+.try-more .actions-note {
+  max-width: 30em;
+  margin-top: 0;
+}
+
+/* ---------- How it works: one receipt's week ---------- */
+
+/* Without motion: five photos, each with its line, one after another, on dark like a film. */
+.story {
+  padding: 120px 0 130px;
+  background: var(--print);
+  color: var(--thermal);
+}
+
+.story-head .headline {
+  max-width: 12em;
+}
+
+.s-steps {
+  list-style: none;
+  display: grid;
+  gap: 56px;
+  max-width: var(--width);
+  margin: 64px auto 0;
+  padding: 0 32px;
+}
+
+.s-step {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: 56px;
+}
+
+.s-shot {
+  display: block;
+}
+
+.s-shot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: var(--at, 50% 50%);
+  border-radius: 16px;
+  background: #3d4043;
+}
+
+/* The time, like the time printed on a receipt. Sprout is allowed for words here, on dark. */
+.s-when {
+  color: var(--sprout);
+  font-weight: 700;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.s-line {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* What the app shows by then: a small white card, like the app's. */
+.s-card {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: 22px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--print);
+  font-size: 16px;
+}
+
+.s-card strong {
+  font-weight: 600;
+}
+
+.s-card.stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.s-card .chip {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.s-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.s-fine {
+  color: var(--faded);
+  font-size: 13px;
+}
+
+.s-progress {
+  display: none;
+}
+
+/* With motion: the section stays on screen for about five screens of scrolling. Each scene fills it and
+   fades in over the one before (a clip on computers, otherwise a photo that slowly pushes in), and each
+   step's line comes in over a shade (site.js). */
+.live .story {
+  padding: 0;
+}
+
+.live .story-track {
+  height: 500svh;
+}
+
+.live .story-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.live .story-head {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.live .s-steps {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.live .s-shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.live .s-step:first-child .s-shot {
+  opacity: 1;
+}
+
+.live .s-shot img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  transform: scale(var(--zoom, 1.03));
+  will-change: transform;
+}
+
+/* On computers, the clips: each one lies over its still, and shows once it has loaded (site.js adds
+   "clips" to the page, and "ready" to each clip). The clip's own camera move replaces the push-in. */
+.s-shot video {
+  display: none;
+}
+
+.clips .s-shot video {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--at, 50% 50%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.clips .s-shot video.ready {
+  opacity: 1;
+}
+
+/* The shade: darkest at the bottom, where the words are, and a little at the top, under the title. */
+.live .story-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(38, 40, 42, 0.5) 0%, rgba(38, 40, 42, 0) 60%),
+    linear-gradient(
+      to top,
+      rgba(38, 40, 42, 0.9) 0%,
+      rgba(38, 40, 42, 0.4) 42%,
+      rgba(38, 40, 42, 0.12) 64%,
+      rgba(38, 40, 42, 0.6) 100%
+    );
+}
+
+.live .s-text {
+  position: absolute;
+  z-index: 2;
+  left: max(32px, calc((100vw - var(--width)) / 2 + 32px));
+  bottom: 112px;
+  max-width: 600px;
+  margin-right: 32px;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.live .s-step.on .s-text {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only after the first frame (site.js adds "ready"), so nothing fades on load.
+   The line coming in waits for the last one to go, so two never overlap. */
+.ready .s-text {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.ready .s-step.on .s-text {
+  transition:
+    opacity 0.5s ease 0.22s,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.22s;
+}
+
+.live .s-progress {
+  position: absolute;
+  z-index: 2;
+  left: max(32px, calc((100vw - var(--width)) / 2 + 32px));
+  bottom: 64px;
+  display: flex;
+  gap: 8px;
+}
+
+.live .s-progress span {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(246, 247, 244, 0.3);
+  transition: background-color 0.3s;
+}
+
+.live .s-progress span.on {
+  background: var(--sprout);
 }
 
 /* Made for you: the title alone, then the stops down a line whose dots fill up, then the paragraph as the ending.
@@ -1517,10 +2166,6 @@ p {
     padding: 110px 0;
   }
 
-  .section.how {
-    padding: 88px 0 96px;
-  }
-
   .ideas-section {
     padding-top: 96px;
   }
@@ -1541,7 +2186,6 @@ p {
     max-width: 560px;
   }
 
-  .hero-intro,
   .essence,
   .say,
   .rules,
@@ -1564,16 +2208,33 @@ p {
     max-width: 640px;
   }
 
-  /* How it works: the receipt over its rows. */
-  .how-body {
+  /* Try it: the panels one under the other, joined by short lines down. */
+  .try-head {
     grid-template-columns: minmax(0, 1fr);
-    row-gap: 48px;
-    margin-top: 56px;
   }
 
-  .how-photo {
-    position: static;
+  .try-flow {
+    grid-template-columns: minmax(0, 1fr);
     max-width: 520px;
+  }
+
+  .try-link {
+    width: 2px;
+    height: 32px;
+    margin: 14px auto 16px;
+  }
+
+  .try-link::after {
+    right: auto;
+    top: auto;
+    left: -3px;
+    bottom: -4px;
+  }
+
+  /* How it works without motion: each photo over its line. */
+  .s-step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
 
   /* Made for you: the example goes under the words. */
@@ -1617,116 +2278,14 @@ p {
   }
 }
 
-/* Too narrow side by side: the photo on top, the line goes down, then the Kitchen. */
-@media (max-width: 900px) {
-  .sort {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    row-gap: 0;
-    margin-top: 56px;
-  }
-
-  .cap-photo,
-  .sort-photo,
-  .sort-time,
-  .cap-kitchen,
-  .sort-kitchen {
-    grid-area: auto;
-  }
-
-  .sort-photo {
-    width: 100%;
-    max-width: 640px;
-    margin-top: 12px;
-  }
-
-  .sort-time {
-    align-self: auto;
-    width: 2px;
-    height: 36px;
-    margin: 16px 0 18px;
-  }
-
-  .sort-time::after {
-    right: auto;
-    top: auto;
-    left: -3px;
-    bottom: -4px;
-  }
-
-  .sort-kitchen {
-    width: 100%;
-    max-width: 480px;
-    margin-top: 12px;
-  }
-
-  .kitchen {
-    padding: 14px 18px 4px;
-  }
-
-  .k-sec {
-    margin-top: 10px;
-  }
-
-  /* Two lines each: the food over how long it has left, the status beside them. */
-  .k-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-    padding: 6px 0;
-  }
-
-  .k-left {
-    grid-area: 2 / 1;
-  }
-
-  .k-row .chip {
-    grid-area: 1 / 2 / 3 / 3;
-  }
-
-  .k-name {
-    font-size: 16px;
-  }
-
-  .k-list {
-    margin-top: 10px;
-    padding: 10px 18px;
-  }
-
-}
-
-@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .motion .sort .sort-time::before {
+@media (max-width: 960px) and (prefers-reduced-motion: no-preference) {
+  .live .try-link::before {
     transform-origin: top;
-    transform: scaleY(0);
   }
 
-  .motion .play .sort-time::before {
+  .live .play .try-link:nth-child(2)::before,
+  .live .play .try-link:nth-child(4)::before {
     animation-name: grow-down;
-  }
-
-  /* On phones the foods drop down into place instead of sliding across. */
-  .motion .play .k-row,
-  .motion .play .k-list {
-    animation-name: drop;
-  }
-}
-
-@keyframes drop {
-  from {
-    opacity: 0;
-    transform: translateY(-14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes grow-down {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: none;
   }
 }
 
@@ -1735,13 +2294,88 @@ p {
     padding: 0 20px;
   }
 
+  /* On a phone the bag is most of the screen's width and stands whole above the picker. */
   .hero {
-    padding-top: 48px;
+    --pad: 100px;
+    --f: clamp(48px, 15.4vw, 120px);
+    --hh: max(640px, 100svh);
+    --pw: 245vw;
+    gap: 32px;
+    padding-bottom: 20px;
+  }
+
+  /* The picker: the three receipts side by side, then the button across the bottom. */
+  .dock {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .dock-picks {
+    gap: 6px;
+  }
+
+  .dock-pick {
+    padding: 9px 10px 10px;
+  }
+
+  .pick-name {
+    font-size: 15px;
+    text-wrap: balance;
+  }
+
+  .pick-count {
+    display: none;
+  }
+
+  .dock-go {
+    width: 100%;
+    height: 52px;
+  }
+
+  .try {
+    padding: 88px 0 96px;
+  }
+
+  .js .try-switch {
+    margin-top: 36px;
+  }
+
+  .story {
+    padding: 88px 0 96px;
+  }
+
+  .s-steps {
+    gap: 48px;
+    margin-top: 48px;
+    padding: 0 20px;
+  }
+
+  .live .story-head {
+    top: 88px;
+  }
+
+  /* Phones get the tall crops, already centered on what matters. */
+  .live .s-shot img {
+    object-position: 50% 50%;
+  }
+
+  .live .s-text {
+    left: 20px;
+    right: 20px;
+    bottom: 92px;
+    margin-right: 0;
+  }
+
+  .live .s-progress {
+    left: 20px;
+    bottom: 56px;
   }
 
   /* Dark intro paragraphs read heavy at laptop sizes on a phone. */
   .lead,
-  .stack-head .lead,
+  .try-head .lead,
   .ideas-head .lead,
   .closing p,
   .cta-text {
@@ -1763,31 +2397,6 @@ p {
 
   .idea-title {
     font-size: 23px;
-  }
-
-  /* How it works: one column, the name over what it does. */
-  .tally-row {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 6px;
-    padding: 22px 0;
-  }
-
-  .tally-row h3 {
-    font-size: 22px;
-  }
-
-  .tally-row p {
-    font-size: 17px;
-  }
-
-  .tally-eg {
-    grid-column: auto;
-    margin-top: 6px;
-    white-space: normal;
-  }
-
-  .tally-total {
-    font-size: 18px;
   }
 
   .grow-stop h3 {
