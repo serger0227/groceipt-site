@@ -272,25 +272,31 @@ p {
 
 /* ---------- Hero ---------- */
 
-/* The photo fills the first screen, under the see-through header, and one plain line on what Groceipt does
-   sits on the paper under it. Back to front: the photo, the title, then the cut-out of the bag (the same
-   photo, see-through everywhere but the bag), so the groceries stand in front of the bottom of "receipt".
+/* The first screen, under the see-through header: the title, the photo of the bag, and one plain line on
+   what Groceipt does on the paper under it, all three in view as the page opens. Back to front: the photo,
+   the title, then the cut-out of the bag (the same photo, see-through everywhere but the bag), so the
+   groceries stand in front of the bottom of "to waste".
    Both pictures are placed by the same numbers, so they always line up: the top of the paper towels (11.52%
-   of the way down the picture, measured as a share of its width) meets the title's second line at --yc,
-   and the picture is as wide as the screen, or wider if that's what it takes to fill it (--hh).
-   --pb is the picture's bottom, where the line starts. */
+   of the way down the picture, measured as a share of its width) meets the title's second line at --yc.
+   The picture is as big as fits between there and the line's room at the bottom of the screen (--lh), so
+   on most computers it's narrower than the screen and its sides fade into the paper. --pb is its bottom. */
 .hero {
-  --pad: 116px;
+  --pad: 104px;
   --sub: clamp(18px, 1.8vw, 24px);
-  --f: clamp(48px, 9.8vw, 160px);
-  --hh: clamp(700px, 100svh, 1040px);
+  --f: clamp(44px, min(9.3vw, 15svh), 150px);
+  --lf: clamp(20px, min(2vw, 3.2svh), 28px);
+  --lines: 2;
+  --hh: clamp(600px, 100svh, 1040px);
+  --lh: calc(var(--lf) * 1.35 * var(--lines) + 56px);
   --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.3);
-  --pw: max(100vw, calc((var(--hh) - var(--yc)) / 0.4473));
+  --pmin: 560px;
+  --pmax: 400vw;
+  --pw: clamp(var(--pmin), calc((var(--hh) - var(--lh) - var(--yc)) / 0.4473), var(--pmax));
   --pb: calc(var(--yc) + var(--pw) * 0.4473);
   position: relative;
   isolation: isolate;
   margin-top: -68px;
-  padding: calc(var(--pb) + 4px) 0 112px;
+  padding: calc(var(--pb) + 8px) 0 112px;
   overflow: hidden;
   background: var(--thermal);
 }
@@ -331,14 +337,17 @@ p {
   width: var(--pw);
 }
 
-/* The top of the photo fades into the paper, where the header and the title's first line sit. */
+/* The top of the photo fades into the paper, where the header and the title's first line sit, and so do
+   its sides, where it's narrower than the screen. */
 .hero-plate img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%), linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%), linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .hero-words {
@@ -371,7 +380,7 @@ p {
   display: block;
 }
 
-/* The line: in front of the photo's faded bottom as the photo drifts down behind it. */
+/* The line: on the paper under the photo, in front of it as the photo drifts down into its fade. */
 .hero-lead {
   position: relative;
   z-index: 2;
@@ -380,9 +389,9 @@ p {
 
 /* Big and dark, since it says what Groceipt does: the first sentence bold, the rest in the body weight. */
 .hero-lead .lead {
-  max-width: 25em;
+  max-width: 32em;
   margin: 0 auto;
-  font-size: clamp(22px, 2.3vw, 32px);
+  font-size: var(--lf);
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.015em;
@@ -467,7 +476,7 @@ p {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* The hero, once, as the page opens: the photo settles, and the title rises line by line, then the tagline. */
+  /* The hero, once, as the page opens: the photo settles, the title rises line by line, then the tagline and the line. */
   .motion .hero-plate img {
     animation: settle 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
@@ -482,6 +491,10 @@ p {
 
   .motion .hero-sub {
     animation: fade-up 0.7s ease-out 0.35s both;
+  }
+
+  .motion .hero-lead .lead {
+    animation: fade-up 0.7s ease-out 0.5s both;
   }
 
   /* Titles and blocks rise into place the first time they reach the screen. */
@@ -1753,11 +1766,14 @@ p {
     padding: 0 20px;
   }
 
-  /* On a phone the bag is most of the screen's width, with the line under it on the first screen. */
+  /* On a phone the bag is most of the screen's width (less on short phones), with the line under it. */
   .hero {
     --pad: 100px;
-    --f: clamp(40px, 12.8vw, 100px);
-    --pw: 245vw;
+    --f: clamp(36px, 12.2vw, 96px);
+    --lf: 21px;
+    --lines: 4;
+    --pmin: 150vw;
+    --pmax: 245vw;
     padding-bottom: 80px;
   }
 
