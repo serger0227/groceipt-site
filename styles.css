@@ -282,7 +282,7 @@ p {
 .hero {
   --pad: 116px;
   --sub: clamp(18px, 1.8vw, 24px);
-  --f: clamp(56px, 12.4vw, 192px);
+  --f: clamp(48px, 9.8vw, 160px);
   --hh: clamp(700px, 100svh, 1040px);
   --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.3);
   --pw: max(100vw, calc((var(--hh) - var(--yc)) / 0.4473));
@@ -378,12 +378,19 @@ p {
   text-align: center;
 }
 
+/* Big and dark, since it says what Groceipt does: the first sentence bold, the rest in the body weight. */
 .hero-lead .lead {
-  max-width: 27em;
+  max-width: 25em;
   margin: 0 auto;
-  font-size: clamp(20px, 1.8vw, 25px);
+  font-size: clamp(22px, 2.3vw, 32px);
   font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
   text-wrap: balance;
+}
+
+.hero-lead strong {
+  font-weight: 800;
 }
 
 .actions {
@@ -1749,7 +1756,7 @@ p {
   /* On a phone the bag is most of the screen's width, with the line under it on the first screen. */
   .hero {
     --pad: 100px;
-    --f: clamp(48px, 15.4vw, 120px);
+    --f: clamp(40px, 12.8vw, 100px);
     --pw: 245vw;
     padding-bottom: 80px;
   }
