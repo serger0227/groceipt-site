@@ -47,11 +47,12 @@
     </header>
 
     <main id="main">
-      <!-- Hero: the photo fills the first screen and the sample-receipt picker is the first thing to do.
+      <!-- Hero: the title, the photo of the bag filling the screen, then one plain line on what Groceipt does.
            Three layers, back to front: the photo, the title, then the cut-out (the same photo, see-through
            everywhere but the bag), so the groceries stand in front of the words. The photo and the cut-out are
            placed by the same rules, so they always line up. As you scroll, both move a little slower than the
-           page and the title slower still, so the groceries rise over it (site.js). -->
+           page and the title slower still, so the groceries rise over it (site.js). The line sits on the paper
+           under the photo. -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-scene">
           <picture class="hero-plate" data-speed="0.16">
@@ -76,40 +77,8 @@
             <img src="assets/photos/web/counter-cut-1600.png" sizes="(max-width: 640px) 245vw, 100vw" width="2400" height="1350" fetchpriority="high" alt="" />
           </picture>
         </div>
-        <form class="wrap dock-wrap" id="try-form" action="#try">
-          <div class="dock">
-            <fieldset class="dock-picks">
-              <legend class="dock-label">Try it with a sample receipt</legend>
-              <label class="dock-pick"><input type="radio" name="receipt" value="weekly" checked /><span class="pick-name">Weekly shop</span><span class="pick-meta"><span class="pick-count">5 items · </span>$28.24</span></label>
-              <label class="dock-pick"><input type="radio" name="receipt" value="tacos" /><span class="pick-name">Taco night</span><span class="pick-meta"><span class="pick-count">5 items · </span>$16.76</span></label>
-              <label class="dock-pick"><input type="radio" name="receipt" value="breakfast" /><span class="pick-name">Breakfast run</span><span class="pick-meta"><span class="pick-count">5 items · </span>$17.08</span></label>
-            </fieldset>
-            <button class="btn btn-lg dock-go" type="submit">Snap it</button>
-          </div>
-        </form>
-      </section>
-
-      <!-- Try it: what the picked receipt turns into, drawn the way the app shows it, because it shows the app.
-           site.js fills it in for the receipt picked above and plays it once on screen: the lines are read,
-           the foods land in the Kitchen in receipt order, then the suggestions come in.
-           Without JavaScript the weekly shop shows, finished. -->
-      <section id="try" class="try" aria-labelledby="try-title">
-        <div class="wrap">
-          <div class="try-head">
-            <h2 id="try-title" class="headline reveal">Here’s what one receipt does</h2>
-            <p class="lead reveal">Groceipt reads every line, sorts your Kitchen with what to use first on top, then plans what’s next.</p>
-          </div>
-          <div class="try-switch" role="group" aria-label="Sample receipts">
-            <button type="button" class="switch" data-receipt="weekly" aria-pressed="true">Weekly shop</button>
-            <button type="button" class="switch" data-receipt="tacos" aria-pressed="false">Taco night</button>
-            <button type="button" class="switch" data-receipt="breakfast" aria-pressed="false">Breakfast run</button>
-          </div>
-          <p class="sr-only" id="try-status" aria-live="polite"></p>
-          <div class="try-flow" id="try-flow"><div class="try-step"><p class="try-cap"><span class="try-num">1</span>You snap it</p><div class="panel check" role="img" aria-label="The receipt as Groceipt reads it: Corner Grocer, 10/24/26 6:42 PM. Baby spinach 3.49, Strawberries 4.99, Chicken thighs 7.98, Greek yogurt 5.29, Paper towels 6.49. Total 28.24."><p class="p-title">Check your receipt</p><p class="p-sub">Corner Grocer · 10/24/26 6:42 PM</p><ul class="lines"><li style="--i: 0"><span>Baby spinach</span><span class="amount">3.49</span></li><li style="--i: 1"><span>Strawberries</span><span class="amount">4.99</span></li><li style="--i: 2"><span>Chicken thighs</span><span class="amount">7.98</span></li><li style="--i: 3"><span>Greek yogurt</span><span class="amount">5.29</span></li><li style="--i: 4"><span>Paper towels</span><span class="amount">6.49</span></li></ul><p class="p-total"><span>Total</span><span class="amount">28.24</span></p><span class="btn p-btn">Add to kitchen</span><span class="scanline"></span></div></div><div class="try-link" aria-hidden="true"></div><div class="try-step"><p class="try-cap"><span class="try-num">2</span>Your Kitchen, about 30 seconds later</p><div class="panel kitchen" role="img" aria-label="The Kitchen it fills in, by store section: Baby spinach, about 2 days left; Strawberries, about 4 days left; Chicken thighs, use today; Greek yogurt, about 2 weeks left. Use soon: Baby spinach and Chicken thighs."><p class="k-banner">2 things should be used soon.</p><p class="k-sec">Produce</p><div class="k-row" style="--i: 0"><span class="k-name">Baby spinach</span><span class="k-left">About 2 days left</span><span class="chip soon">Use soon</span></div><div class="k-row" style="--i: 1"><span class="k-name">Strawberries</span><span class="k-left">About 4 days left</span><span class="chip fresh">Fresh</span></div><p class="k-sec">Meat &amp; seafood</p><div class="k-row" style="--i: 2"><span class="k-name">Chicken thighs</span><span class="k-left">Use today</span><span class="chip soon">Use soon</span></div><p class="k-sec">Dairy &amp; eggs</p><div class="k-row" style="--i: 3"><span class="k-name">Greek yogurt</span><span class="k-left">About 2 weeks left</span><span class="chip fresh">Fresh</span></div></div></div><div class="try-link" aria-hidden="true"></div><div class="try-step"><p class="try-cap"><span class="try-num">3</span>What it suggests</p><div class="panel next" role="img" aria-label="What it suggests next: Spinach &amp; chicken skillet, 25 min, about $2.10 a serving. Paper towels came off your List."><p class="k-sec">Cook</p><p class="n-title">Spinach &amp; chicken skillet</p><p class="n-meta">25 min · about $2.10 a serving</p><p class="soon-note">Helps use up your baby spinach and chicken thighs</p><p class="k-sec n-sec">List</p><p class="n-row"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span><span class="done">Paper towels</span><span class="k-off">Off your List</span></p></div></div></div>
-          <div class="try-more">
-            <a class="btn btn-lg" href="https://groceipt.expo.app" target="_blank" rel="noopener">Try the full demo</a>
-            <p class="actions-note">It opens a sample kitchen in your browser, with nothing to download. The iPhone app is in beta.</p>
-          </div>
+        <div class="wrap hero-lead">
+          <p class="lead reveal">Take a photo of your grocery receipt. Groceipt keeps track of your food, shows what to use first, and plans dinner and your next list.</p>
         </div>
       </section>
 
