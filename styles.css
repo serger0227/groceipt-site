@@ -274,10 +274,11 @@ p {
 
 /* The first screen, under the see-through header: the title, the photo of the bag, and one plain line on
    what Groceipt does on the paper under it, all three in view as the page opens. Back to front: the photo,
-   the title, then the cut-out of the bag (the same photo, see-through everywhere but the bag), so the
-   groceries stand in front of the bottom of "to waste".
+   the title, then the cut-out of the bag (the same photo, see-through everywhere but the bag), so as you
+   scroll the groceries rise in front of the title.
    Both pictures are placed by the same numbers, so they always line up: the top of the paper towels (11.52%
-   of the way down the picture, measured as a share of its width) meets the title's second line at --yc.
+   of the way down the picture, measured as a share of its width), the tallest thing in the bag, sits at
+   --yc, just under the bottom of "to waste" (1.65 times the title's size below its top), so no word is hidden.
    The picture is as big as fits between there and the line's room at the bottom of the screen (--lh), so
    on most computers it's narrower than the screen and its sides fade into the paper. --pb is its bottom. */
 .hero {
@@ -288,7 +289,7 @@ p {
   --lines: 2;
   --hh: clamp(600px, 100svh, 1040px);
   --lh: calc(var(--lf) * 1.35 * var(--lines) + 56px);
-  --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.3);
+  --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.7 + 10px);
   --pmin: 560px;
   --pmax: 400vw;
   --pw: clamp(var(--pmin), calc((var(--hh) - var(--lh) - var(--yc)) / 0.4473), var(--pmax));
@@ -299,13 +300,6 @@ p {
   padding: calc(var(--pb) + 8px) 0 112px;
   overflow: hidden;
   background: var(--thermal);
-}
-
-/* On upright screens the bag comes out bigger next to the title, so it sits a little lower. */
-@media (orientation: portrait) {
-  .hero {
-    --yc: calc(var(--pad) + var(--sub) * 1.25 + 10px + var(--f) * 1.47);
-  }
 }
 
 /* Both end where the photo does, and fade into the paper there. The fade stays put while the photo

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" />
     <!-- Fraunces only for the 8 letters of the logo's wordmark. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&text=Groceipt&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=70a41b4e60" />
+    <link rel="stylesheet" href="styles.css?v=0b4ba35938" />
     <!-- Motion runs only when the phone or computer allows it. site.js does the rest. -->
     <script>
       if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
@@ -49,10 +49,10 @@
     <main id="main">
       <!-- Hero: the title, the photo of the bag, then one plain line on what Groceipt does, all on the first screen.
            Three layers, back to front: the photo, the title, then the cut-out (the same photo, see-through
-           everywhere but the bag), so the groceries stand in front of the words. The photo and the cut-out are
-           placed by the same rules, so they always line up. As you scroll, both move a little slower than the
-           page and the title slower still, so the groceries rise over it (site.js). The line sits on the paper
-           under the photo. -->
+           everywhere but the bag). The groceries start just under the title, so every word shows. The photo
+           and the cut-out are placed by the same rules, so they always line up. As you scroll, both move a
+           little slower than the page and the title slower still, so the groceries rise in front of it
+           (site.js). The line sits on the paper under the photo. -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-scene">
           <picture class="hero-plate" data-speed="0.16">
